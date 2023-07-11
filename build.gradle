@@ -1,9 +1,9 @@
 buildscript {
     repositories {
+        mavenLocal()
         mavenCentral()
         jcenter()
         maven { url "https://plugins.gradle.org/m2/" }
-        mavenLocal()
     }
     dependencies {
         classpath 'org.github.ngbinh.scalastyle:gradle-scalastyle-plugin_2.11:1.0.1'
@@ -20,13 +20,13 @@ plugins {
 
 allprojects {
     repositories {
+        mavenLocal()
         mavenCentral()
         jcenter()
-        mavenLocal()
     }
 }
 
-apply from: 'gradle/version-properties.gradle'
+//apply from: 'gradle/version-properties.gradle'
 
 def allProjs = allprojects - project(':templates').subprojects
 def subProjs = subprojects - project(':templates').subprojects
@@ -159,7 +159,7 @@ configure(allProjs) {
         baseName = "$rootProject.name"
     }
     if (System.getenv("CI") != 'true') {
-        jar.dependsOn(createVersionProperties)
+        //jar.dependsOn(createVersionProperties)
     }
 
     scalaStyle {
@@ -227,7 +227,7 @@ configure(allProjs) {
         exclude 'META-INF/**'
         baseName = jar.baseName
     }
-    shadowJar.dependsOn(createVersionProperties)
+    //shadowJar.dependsOn(createVersionProperties)
 
     /* findbugs {
         toolVersion = '3.0.1'

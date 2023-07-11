@@ -183,6 +183,20 @@ Visit our [docs site](https://docs.transmogrif.ai) for full documentation, getti
 
 See [scaladoc](https://scaladoc.transmogrif.ai) for the programming API.
 
+Install native dependencies in OS:
+ * For unit-tests (not needed for production usage) -- install libgomp1 (OpenMP library for TransmmogrifAI).
+
+```shell
+sudo apt update
+sudo apt install libgomp1
+```
+
+Compile and push to a local maven repository
+```shell
+./gradlew compileTestScala installDist
+./gradlew publishToMavenLocal
+```
+
 ## Authors
 
  - Kevin Moore	[@jauntbox](https://github.com/jauntbox)

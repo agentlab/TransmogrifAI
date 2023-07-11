@@ -390,7 +390,20 @@ class OpXGBoostClassificationModel
       val prediction = model.predict(features.value)
       Prediction(prediction = prediction, rawPrediction = rawPrediction, probability = probability)
     }.getOrElse{
-      val data = processMissingValues(Iterator(features.value.asXGB), missing)
+      val missing2: Float = 0.0f
+      /* val data2 = processMissingValues(Iterator(features.value.asXGB), missing2)
+      println("=============processMissingValues")
+      data2.foreach{e =>
+        println("values=" + e.values.mkString("Array(", ", ", ")")
+          + " weight=" + e.weight
+          + " baseMargin=" + e.baseMargin
+          + " indices=" + e.indices.mkString("Array(", ", ", ")")
+          + " group=" + e.group
+          + " label=" + e.label
+        )
+      } */
+      val data = processMissingValues(Iterator(features.value.asXGB), missing2)
+      // val data = processMissingValues(Iterator(features.value.asXGB), missing)
       val dm = new DMatrix(dataIter = data)
       val rawPred = booster.predict(dm, outPutMargin = true, treeLimit = treeLim)(0).map(_.toDouble)
       val rawPrediction = if (numClasses == 2) Array(-rawPred(0), rawPred(0)) else rawPred

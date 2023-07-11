@@ -1,11 +1,13 @@
 buildscript {
     repositories {
+        mavenLocal()
         mavenCentral()
         maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
-        classpath 'org.github.ngbinh.scalastyle:gradle-scalastyle-plugin_2.12:1.0.1'
+        classpath 'org.github.ngbinh.scalastyle:gradle-scalastyle-plugin_2.11:1.0.1'
         classpath 'com.commercehub.gradle.plugin:gradle-avro-plugin:0.16.0'
+        classpath 'com.adtran:scala-multiversion-plugin:1.+'
     }
 }
 plugins {
@@ -13,6 +15,7 @@ plugins {
     id 'org.scoverage' version '2.5.0'
 }
 repositories {
+    mavenLocal()
     jcenter()
     mavenCentral()
 }
@@ -23,6 +26,7 @@ apply plugin: 'scala'
 apply plugin: 'com.github.johnrengelman.shadow'
 apply plugin: 'scalaStyle'
 apply plugin: 'com.commercehub.gradle.plugin.avro'
+apply plugin: 'com.adtran.scala-multiversion-plugin'
 
 apply from: 'gradle/tests.gradle'
 apply from: 'gradle/spark.gradle'
@@ -35,9 +39,9 @@ mainClassName = "please.set.main.class.in.build.gradle"
 
 ext {
     junitVersion = '4.12'
-    sparkVersion = '3.1.1'
+    sparkVersion = '3.1.3'
     scalatestVersion = '3.0.0'
-    transmogrifaiVersion ='0.8.0'
+    transmogrifaiVersion ='0.8.0-SNAPSHOT'
     collectionsVersion = '3.2.2'
     scoveragePluginVersion = '1.3.1'
 }
@@ -54,9 +58,9 @@ dependencies {
     zinc 'com.typesafe.zinc:zinc:0.3.15'
     scoverage "org.scoverage:scalac-scoverage-plugin_%%:$scoveragePluginVersion"
     scoverage "org.scoverage:scalac-scoverage-runtime_%%:$scoveragePluginVersion"
-    scalaLibrary "org.scala-lang:scala-library:%scala-version%"
-    scalaCompiler "org.scala-lang:scala-compiler:%scala-version%"
-    compile "org.scala-lang:scala-library:%scala-version%"
+    scalaLibrary "org.scala-lang:scala-library:$scalaVersion"
+    scalaCompiler "org.scala-lang:scala-compiler:$scalaVersion"
+    compile "org.scala-lang:scala-library:$scalaVersion"
 
     // Spark
     compileOnly "org.apache.spark:spark-core_%%:$sparkVersion"
@@ -83,8 +87,8 @@ configurations.all {
     resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
     resolutionStrategy {
         force "commons-collections:commons-collections:$collectionsVersion",
-                "org.scala-lang:scala-library:%scala-version%",
-                "org.scala-lang:scala-reflect:%scala-version%"
+                "org.scala-lang:scala-library:$scalaVersion",
+                "org.scala-lang:scala-reflect:$scalaVersion"
     }
 }
 configurations.zinc {
@@ -100,7 +104,7 @@ tasks.withType(ScalaCompile) {
         jvmArgs = ['-XX:MaxMetaspaceSize=256m']
     }
 }
-compileScala { scalaCompileOptions.additionalParameters = ["-optimize"] }
+compileScala { scalaCompileOptions.additionalParameters = ["-opt:l:inline", "-opt-inline-from:**"] }
 compileTestScala { scalaCompileOptions.additionalParameters = ["-Yrangepos"] }
 [compileJava, compileTestJava]*.options.collect { options -> options.encoding = 'UTF-8' }
 

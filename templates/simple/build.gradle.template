@@ -75,8 +75,8 @@ dependencies {
     // Avro
     compileOnly("org.apache.avro:avro:$avroVersion") { exclude group: 'org.mortbay.jetty', module: 'servlet-api' }
     testCompile("org.apache.avro:avro:$avroVersion") { exclude group: 'org.mortbay.jetty', module: 'servlet-api' }
-    compileOnly("org.apache.avro:avro-mapred:$avroVersion:$hadoopVersion") { exclude group: 'org.mortbay.jetty', module: 'servlet-api' }
-    testCompile("org.apache.avro:avro-mapred:$avroVersion:$hadoopVersion") { exclude group: 'org.mortbay.jetty', module: 'servlet-api' }
+    compileOnly("org.apache.avro:avro-mapred:$avroVersion") { exclude group: 'org.mortbay.jetty', module: 'servlet-api' }
+    testCompile("org.apache.avro:avro-mapred:$avroVersion") { exclude group: 'org.mortbay.jetty', module: 'servlet-api' }
 
     // Spark Avro
     compile "org.apache.spark:spark-avro_%%:$sparkVersion"

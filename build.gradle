@@ -311,7 +311,7 @@ configure(subProjs) {
                 artifact sourcesJar { classifier 'sources' }
                 artifact scaladocJar { classifier 'javadoc' }
                 afterEvaluate {
-                    artifactId = "${jar.baseName}_$scalaVersion"
+                    artifactId = "${jar.baseName}"
                 }
                 pom {
                     name = 'TransmogrifAI'

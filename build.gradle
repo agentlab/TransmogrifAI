@@ -1,5 +1,6 @@
 buildscript {
     repositories {
+        mavenLocal()
         mavenCentral()
         jcenter()
         maven { url "https://plugins.gradle.org/m2/" }
@@ -20,6 +21,7 @@ plugins {
 
 allprojects {
     repositories {
+        mavenLocal()
         mavenCentral()
         jcenter()
     }
@@ -361,6 +363,7 @@ configure(subProjs) {
             //         password bintrayPassword
             //     }
             // }
+            mavenLocal()
         }
     }
 

@@ -188,7 +188,7 @@ private[gen] object FileGenerator {
       val MacroStart = "\\s*//\\s+BEGIN\\s+(\\w+).*".r
       val MacroEnd = "\\s*//\\s+END\\s+(\\w+).*".r
       val lines = in split "\n"
-      val chunks = (List[Chunk](Lines()) /: lines) {
+      val chunks = lines.foldLeft(List[Chunk](Lines())) {
         case ((ls: Lines)::t, MacroStart(name)) => Fragment(name)::ls::t
         case ((ls: Lines)::t, MacroEnd(name)) =>
           throw new IllegalArgumentException(s"Bad template $in: // END $name before //BEGIN")

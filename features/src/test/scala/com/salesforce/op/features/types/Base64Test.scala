@@ -37,10 +37,10 @@ import org.apache.commons.io.IOUtils
 import org.junit.runner.RunWith
 import org.scalatest.PropSpec
 import org.scalatest.junit.JUnitRunner
-import org.scalatest.prop.PropertyChecks
+import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 
 @RunWith(classOf[JUnitRunner])
-class Base64Test extends PropSpec with PropertyChecks with TestCommon {
+class Base64Test extends PropSpec with ScalaCheckPropertyChecks with TestCommon {
 
   property("handle empty") {
     forAll(None) {

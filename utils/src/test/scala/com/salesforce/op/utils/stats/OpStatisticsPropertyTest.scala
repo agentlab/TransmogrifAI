@@ -36,10 +36,10 @@ import org.junit.runner.RunWith
 import org.scalacheck.Gen
 import org.scalatest.PropSpec
 import org.scalatest.junit.JUnitRunner
-import org.scalatest.prop.PropertyChecks
+import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 
 @RunWith(classOf[JUnitRunner])
-class OpStatisticsPropertyTest extends PropSpec with TestCommon with PropertyChecks {
+class OpStatisticsPropertyTest extends PropSpec with TestCommon with ScalaCheckPropertyChecks {
 
   val genInt = Gen.posNum[Int]
   private def genArray(n: Int) = Gen.containerOfN[Array, Int](n, genInt)

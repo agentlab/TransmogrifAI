@@ -34,10 +34,10 @@ import com.salesforce.op.test.TestCommon
 import org.junit.runner.RunWith
 import org.scalatest.PropSpec
 import org.scalatest.junit.JUnitRunner
-import org.scalatest.prop.PropertyChecks
+import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 
 @RunWith(classOf[JUnitRunner])
-class URLTest extends PropSpec with PropertyChecks with TestCommon {
+class URLTest extends PropSpec with ScalaCheckPropertyChecks with TestCommon {
 
   val badOnes = Table("bad ones",
     None,

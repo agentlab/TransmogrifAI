@@ -34,7 +34,8 @@ import com.salesforce.op.test.TestCommon
 import org.junit.runner.RunWith
 import org.scalactic.source
 import org.scalatest.junit.JUnitRunner
-import org.scalatest.prop.{PropertyChecks, TableFor1}
+import org.scalatest.prop.TableFor1
+import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import org.scalatest.{Assertion, Matchers, PropSpec}
 
 import scala.concurrent.duration._
@@ -43,7 +44,7 @@ import scala.util.{Failure, Success, Try}
 
 @RunWith(classOf[JUnitRunner])
 class FeatureTypeFactoryTest
-  extends PropSpec with PropertyChecks with TestCommon with ConcurrentCheck with FeatureTypeAsserts {
+  extends PropSpec with ScalaCheckPropertyChecks with TestCommon with ConcurrentCheck with FeatureTypeAsserts {
 
   val featureTypeFactories: TableFor1[FeatureTypeFactory[_ <: FeatureType]] = Table("ft",
     // Vector

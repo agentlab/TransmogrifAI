@@ -39,7 +39,7 @@ import org.apache.spark.ml.linalg.DenseVector
 import org.junit.runner.RunWith
 import org.scalacheck.Gen
 import org.scalatest.junit.JUnitRunner
-import org.scalatest.prop.PropertyChecks
+import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import org.scalatest.{Assertion, PropSpec}
 
 import scala.reflect.runtime.universe.TypeTag
@@ -47,7 +47,7 @@ import scala.util.Try
 
 
 @RunWith(classOf[JUnitRunner])
-class FeatureTypeValueTest extends PropSpec with PropertyChecks with TestCommon {
+class FeatureTypeValueTest extends PropSpec with ScalaCheckPropertyChecks with TestCommon {
 
   // Value generation
   private final val binaryGen = Gen.oneOf(false, true)

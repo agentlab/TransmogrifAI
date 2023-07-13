@@ -31,7 +31,8 @@
 package com.salesforce.op.features.types
 
 import org.scalatest.Matchers
-import org.scalatest.prop.{PropertyChecks, TableFor1}
+import org.scalatest.prop.TableFor1
+import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration._
@@ -39,7 +40,7 @@ import scala.concurrent.{Await, Future}
 
 
 trait ConcurrentCheck {
-  self: PropertyChecks with Matchers =>
+  self: ScalaCheckPropertyChecks with Matchers =>
 
   def forAllConcurrentCheck[T](
     numThreads: Int = 10,

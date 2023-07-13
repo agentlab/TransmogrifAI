@@ -41,13 +41,13 @@ import org.scalacheck.Gen
 import org.scalactic.TolerantNumerics
 import org.scalatest.PropSpec
 import org.scalatest.junit.JUnitRunner
-import org.scalatest.prop.PropertyChecks
+import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 
 import scala.concurrent.duration._
 
 
 @RunWith(classOf[JUnitRunner])
-class RichVectorTest extends PropSpec with PropertyChecks with TestSparkContext with ConcurrentCheck {
+class RichVectorTest extends PropSpec with ScalaCheckPropertyChecks with TestSparkContext with ConcurrentCheck {
 
   import VectorGenerators._
   import com.salesforce.op.utils.spark.RichVector._

@@ -38,10 +38,10 @@ import org.apache.spark.ml.linalg.{DenseMatrix, Vectors}
 import org.junit.runner.RunWith
 import org.scalatest.PropSpec
 import org.scalatest.junit.JUnitRunner
-import org.scalatest.prop.PropertyChecks
+import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 
 @RunWith(classOf[JUnitRunner])
-class MLeapModelConverterTest extends PropSpec with PropertyChecks with TestCommon {
+class MLeapModelConverterTest extends PropSpec with ScalaCheckPropertyChecks with TestCommon {
 
   val mleapModels = Table("mleapModels", // TODO wrap these in mleap transformers
     BinarizerModel(0.0, ScalarShape()),

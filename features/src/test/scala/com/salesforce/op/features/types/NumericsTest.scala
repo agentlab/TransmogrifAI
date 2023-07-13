@@ -214,12 +214,12 @@ class NumericsTest extends FlatSpec with TestCommon {
   }
 
   Spec(classOf[java.lang.Float]) should "convert to feature types" in {
-    new java.lang.Float(0.1f).toReal shouldBe Real(0.10000000149011612)
-    new java.lang.Float(0.1f).toReal.toRealNN(0.0) shouldBe RealNN(0.10000000149011612)
+    java.lang.Float.valueOf(0.1f).toReal shouldBe Real(0.10000000149011612)
+    java.lang.Float.valueOf(0.1f).toReal.toRealNN(0.0) shouldBe RealNN(0.10000000149011612)
     (null: java.lang.Float).toReal.toRealNN(-1.0) shouldBe RealNN(-1.0)
-    new java.lang.Float(0.1f).toCurrency shouldBe Currency(0.10000000149011612)
-    new java.lang.Float(0.1f).toPercent shouldBe Percent(0.10000000149011612)
-    new java.lang.Float(5.1f).toDouble.toBinary shouldBe Binary(true)
-    new java.lang.Float(0f).toDouble.toBinary shouldBe Binary(false)
+    java.lang.Float.valueOf(0.1f).toCurrency shouldBe Currency(0.10000000149011612)
+    java.lang.Float.valueOf(0.1f).toPercent shouldBe Percent(0.10000000149011612)
+    java.lang.Float.valueOf(5.1f).toDouble.toBinary shouldBe Binary(true)
+    java.lang.Float.valueOf(0f).toDouble.toBinary shouldBe Binary(false)
   }
 }

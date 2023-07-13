@@ -53,7 +53,7 @@ import org.junit.runner.RunWith
 import org.scalacheck.Gen
 import org.scalatest.FlatSpec
 import org.scalatest.junit.JUnitRunner
-import org.scalatest.prop.Checkers
+import org.scalatestplus.scalacheck.Checkers
 
 import scala.concurrent.TimeoutException
 import scala.concurrent.duration.Duration

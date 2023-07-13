@@ -81,8 +81,7 @@ case class SanityCheckerSummary
   categoricalStats: Array[CategoricalGroupStats]
 ) extends MetadataLike {
 
-  private[op] def this
-  (
+  private[op] def this(
     stats: Array[ColumnStatistics],
     catStats: Array[CategoricalGroupStats],
     dropped: Seq[String],
@@ -91,7 +90,7 @@ case class SanityCheckerSummary
     correlationType: CorrelationType,
     sample: Double,
     keepFeatureFeature: CorrelationLevel
-  ) {
+  ) = {
     this(
       correlations = new Correlations(
         stats.filter(s => s.corrLabel.isDefined).map { s =>

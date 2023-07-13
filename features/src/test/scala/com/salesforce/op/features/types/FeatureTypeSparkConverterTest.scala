@@ -37,7 +37,8 @@ import org.scalacheck.Gen
 import org.scalacheck.Arbitrary._
 import org.scalatest.PropSpec
 import org.scalatest.junit.JUnitRunner
-import org.scalatest.prop.{PropertyChecks, TableFor1}
+import org.scalatest.prop.TableFor1
+import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 
 
 import scala.collection.mutable.{WrappedArray => MWrappedArray}
@@ -46,7 +47,7 @@ import scala.concurrent.duration._
 
 @RunWith(classOf[JUnitRunner])
 class FeatureTypeSparkConverterTest
-  extends PropSpec with PropertyChecks with TestCommon with ConcurrentCheck with FeatureTypeAsserts {
+  extends PropSpec with ScalaCheckPropertyChecks with TestCommon with ConcurrentCheck with FeatureTypeAsserts {
 
   val featureTypeConverters: TableFor1[FeatureTypeSparkConverter[_ <: FeatureType]] = Table("ftc",
     FeatureTypeSparkConverter.featureTypeSparkConverters.values.toSeq: _*

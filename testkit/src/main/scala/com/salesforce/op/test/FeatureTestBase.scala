@@ -35,7 +35,7 @@ import com.salesforce.op.features.types._
 import com.salesforce.op.utils.spark.RichDataset.RichDataset
 import org.apache.spark.ml.{Estimator, Transformer}
 import org.apache.spark.sql.Dataset
-import org.scalatest.prop.PropertyChecks
+import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import org.scalatest.{Assertion, Suite}
 
 import scala.reflect.ClassTag
@@ -44,7 +44,7 @@ import scala.reflect.runtime.universe.TypeTag
 /**
  * Common functionality for testing Feature operations (transformers / estimators)
  */
-trait FeatureTestBase extends TestSparkContext with PropertyChecks {
+trait FeatureTestBase extends TestSparkContext with ScalaCheckPropertyChecks {
   self: Suite =>
 
   /**

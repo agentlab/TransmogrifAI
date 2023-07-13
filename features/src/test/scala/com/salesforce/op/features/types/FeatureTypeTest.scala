@@ -35,14 +35,14 @@ import org.apache.spark.ml.linalg.Vectors
 import org.junit.runner.RunWith
 import org.scalatest.PropSpec
 import org.scalatest.junit.JUnitRunner
-import org.scalatest.prop.PropertyChecks
+import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import org.apache.spark.ml.linalg.Vector
 
 import scala.collection.TraversableOnce
 import scala.util.Try
 
 @RunWith(classOf[JUnitRunner])
-class FeatureTypeTest extends PropSpec with PropertyChecks with TestCommon {
+class FeatureTypeTest extends PropSpec with ScalaCheckPropertyChecks with TestCommon {
   val emptyVals: Seq[FeatureType] = Seq(
     // Vector
     OPVector.empty,

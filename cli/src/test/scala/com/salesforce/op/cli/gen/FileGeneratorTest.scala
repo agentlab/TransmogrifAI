@@ -34,11 +34,11 @@ import com.salesforce.op.test.TestCommon
 import org.junit.runner.RunWith
 import org.scalatest.PropSpec
 import org.scalatest.junit.JUnitRunner
-import org.scalatest.prop.PropertyChecks
+import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 
 
 @RunWith(classOf[JUnitRunner])
-class FileGeneratorTest extends PropSpec with TestCommon with PropertyChecks {
+class FileGeneratorTest extends PropSpec with TestCommon with ScalaCheckPropertyChecks {
 
   private val sourceLeft = "/* COMM */   \t \n  word"
   private val sourceRight = "word   \t \n    /* COMM */"

@@ -1,26 +1,26 @@
 dependencies {
-    compile project(':utils')
-    testCompile project(':testkit')
+    implementation project(':utils')
+    testImplementation project(':testkit')
 
     // Scala graph
-    compile "org.scala-graph:graph-core_%%:$scalaGraphVersion"
+    implementation "org.scala-graph:graph-core_%%:$scalaGraphVersion"
 
 
     // Sourcecode macros
-    compile "com.lihaoyi:sourcecode_%%:$sourceCodeVersion"
+    api "com.lihaoyi:sourcecode_%%:$sourceCodeVersion"
 
     // Needed for Url validation
-    compile "commons-validator:commons-validator:$commonsValidatorVersion"
+    implementation "commons-validator:commons-validator:$commonsValidatorVersion"
 
     // Needed for Base64 contents streaming
-    compile "commons-io:commons-io:$commonsIOVersion"
+    implementation "commons-io:commons-io:$commonsIOVersion"
 
     // Json4s extensions (needed for Joda time)
-    compile "org.json4s:json4s-ext_%%:$json4sVersion"
+    implementation "org.json4s:json4s-ext_%%:$json4sVersion"
 
     // MLeap serialization & runtime for Spark models
-    compile "ml.combust.mleap:mleap-spark_%%:$mleapVersion"
-    compile "ml.combust.mleap:mleap-runtime_%%:$mleapVersion"
-    compile "ml.combust.mleap:mleap-xgboost-spark_%%:$mleapVersion"
-    compile "ml.combust.mleap:mleap-xgboost-runtime_%%:$mleapVersion"
+    api "ml.combust.mleap:mleap-spark_%%:$mleapVersion"
+    api "ml.combust.mleap:mleap-runtime_%%:$mleapVersion"
+    api "ml.combust.mleap:mleap-xgboost-spark_%%:$mleapVersion"
+    api "ml.combust.mleap:mleap-xgboost-runtime_%%:$mleapVersion"
 }

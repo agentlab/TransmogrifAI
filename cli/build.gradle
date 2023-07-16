@@ -1,24 +1,25 @@
 dependencies {
     // scopt
-    compile "com.github.scopt:scopt_%%:$scoptVersion"
+    implementation "com.github.scopt:scopt_%%:$scoptVersion"
 
     // scalafmt
-    compile "com.geirsson:scalafmt-core_%%:$scalafmtVersion"
+    implementation "com.geirsson:scalafmt-core_%%:$scalafmtVersion"
 
     // Reflections
-    compile "org.reflections:reflections:$reflectionsVersion"
+    implementation "org.reflections:reflections:$reflectionsVersion"
 
-    compile "commons-io:commons-io:$commonsIOVersion"
+    implementation "commons-io:commons-io:$commonsIOVersion"
 
-    compile "org.apache.spark:spark-sql_%%:$sparkVersion"
+    implementation "org.apache.spark:spark-sql_%%:$sparkVersion"
 
-    testCompile project(':utils')
+    implementation project(":utils")
 
-    compile project(':features')
-    compile project(":core")
+    implementation project(':features')
+    implementation project(":core")
+    implementation project(":readers")
 
     // avro
-    compile("org.apache.avro:avro:$avroVersion") { exclude group: 'org.mortbay.jetty', module: 'servlet-api' }
+    implementation("org.apache.avro:avro:$avroVersion") { exclude group: 'org.mortbay.jetty', module: 'servlet-api' }
 }
 
 ext {

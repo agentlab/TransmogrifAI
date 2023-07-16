@@ -1,4 +1,5 @@
 dependencies {
-    compile project(':features')
-    testCompile project(':testkit')
+    implementation project(':utils')
+    implementation project(':features')
+    testImplementation project(':testkit')
 }

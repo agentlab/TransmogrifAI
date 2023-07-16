@@ -37,7 +37,7 @@ ext.subProjs = subProjs
 
 configure(allProjs) {
     apply plugin: 'application'
-    apply plugin: 'java'
+    apply plugin: 'java-library'
     apply plugin: 'scala'
     // apply plugin: 'findbugs'
     apply plugin: 'org.scoverage'
@@ -106,26 +106,26 @@ configure(allProjs) {
         scoverage "org.scoverage:scalac-scoverage-runtime_%%:$scoveragePluginVersion"
         scalaLibrary "org.scala-lang:scala-library:$scalaVersion"
         scalaCompiler "org.scala-lang:scala-compiler:$scalaVersion"
-        compile "org.scala-lang:scala-library:$scalaVersion"
+        implementation "org.scala-lang:scala-library:$scalaVersion"
 
         // Spark
         compileOnly "org.apache.spark:spark-core_%%:$sparkVersion"
-        testCompile "org.apache.spark:spark-core_%%:$sparkVersion"
+        testImplementation "org.apache.spark:spark-core_%%:$sparkVersion"
         compileOnly "org.apache.spark:spark-mllib_%%:$sparkVersion"
-        testCompile "org.apache.spark:spark-mllib_%%:$sparkVersion"
+        testImplementation "org.apache.spark:spark-mllib_%%:$sparkVersion"
         compileOnly "org.apache.spark:spark-sql_%%:$sparkVersion"
-        testCompile "org.apache.spark:spark-sql_%%:$sparkVersion"
+        testImplementation "org.apache.spark:spark-sql_%%:$sparkVersion"
 
         // Test
         compileOnly "org.scalatest:scalatest_%%:$scalaTestVersion"
-        testCompile "org.scalatest:scalatest_%%:$scalaTestVersion"
+        testImplementation "org.scalatest:scalatest_%%:$scalaTestVersion"
         compileOnly "org.scalacheck:scalacheck_%%:$scalaCheckVersion"
-        testCompile "org.scoverage:scalac-scoverage-plugin_%%:$scoveragePluginVersion"
-        testCompile "org.scoverage:scalac-scoverage-runtime_%%:$scoveragePluginVersion"
-        testCompile "org.scalacheck:scalacheck_%%:$scalaCheckVersion"
-        testCompile ("com.holdenkarau:spark-testing-base_%%:$sparkTestingBaseVersion") { transitive = false }
-        testCompile "junit:junit:$junitVersion"
-        testRuntime "org.pegdown:pegdown:$pegdownVersion"
+        testImplementation "org.scoverage:scalac-scoverage-plugin_%%:$scoveragePluginVersion"
+        testImplementation "org.scoverage:scalac-scoverage-runtime_%%:$scoveragePluginVersion"
+        testImplementation "org.scalacheck:scalacheck_%%:$scalaCheckVersion"
+        testImplementation ("com.holdenkarau:spark-testing-base_%%:$sparkTestingBaseVersion") { transitive = false }
+        testImplementation "junit:junit:$junitVersion"
+        testRuntimeOnly "org.pegdown:pegdown:$pegdownVersion"
     }
 
     configurations.all {
@@ -270,9 +270,9 @@ configure(allProjs) {
 }
 
 wrapper {
-    gradleVersion = '5.2'
+    gradleVersion = '7.5.1'
     distributionType = Wrapper.DistributionType.BIN
-    distributionSha256Sum = 'ff322863250159595e93b5a4d17a6f0d21c59a1a0497c1e1cf1d53826485503f'
+    distributionSha256Sum = 'f6b8596b10cce501591e92f229816aa4046424f3b24d771751b06779d58c8ec4'
 }
 
 task aggregateScoverage(type: org.scoverage.ScoverageAggregate) {

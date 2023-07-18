@@ -316,3 +316,20 @@ object OpParams {
   def toYamlString(params: OpParams): String = JsonUtils.toYamlString(params)
 
 }
+
+/**
+ * [[ReaderParams]] factory
+ */
+object ReaderParams {
+  def apply(
+    path: Option[String],
+    partitions: Option[Int],
+    customParams: Map[String, Any] = Map.empty
+  ): ReaderParams = new ReaderParams(path = path, partitions = partitions, customParams = customParams)
+
+
+  def apply(
+    path: Option[String],
+    partitions: Option[Int]
+  ): ReaderParams = new ReaderParams(path = path, partitions = partitions, customParams = Map.empty)
+}

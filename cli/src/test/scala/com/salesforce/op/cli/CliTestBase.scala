@@ -104,23 +104,21 @@ class CliTestBase extends FlatSpec with TestCommon with Assertions with BeforeAn
     }
   }
 
-  before { new Sut().delete(new File(ProjectName)) }
+  before { new Sut().delete(new File(projectFolder)) }
 
-  after { new Sut().delete(new File(ProjectName)) }
+  after { new Sut().delete(new File(projectFolder)) }
 
   val expectedSourceFiles: List[String] = "Features.scala" :: s"$ProjectName.scala"::Nil
 
-  val projectDir: String = ProjectName.toLowerCase
-
   def checkAvroFile(source: File): Unit = {
-    val avroFile = Paths.get(projectDir, "src", "main", "avro", source.getName).toFile
+    val avroFile = Paths.get(projectFolder, "src", "main", "avro", source.getName).toFile
     avroFile should exist
     Source.fromFile(avroFile).getLines.mkString("\n") shouldBe
       Source.fromFile(source).getLines.mkString("\n")
   }
 
   def checkScalaFiles(shouldNotContain: String): Unit = {
-    val srcDir = Paths.get(projectDir, "src", "main", "scala", "com", "salesforce", "app").toFile
+    val srcDir = Paths.get(projectFolder, "src", "main", "scala", "com", "salesforce", "app").toFile
     srcDir should exist
 
     for {

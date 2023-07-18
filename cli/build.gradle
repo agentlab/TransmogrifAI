@@ -8,6 +8,8 @@ dependencies {
     // Reflections
     compile "org.reflections:reflections:$reflectionsVersion"
 
+    compile "commons-io:commons-io:$commonsIOVersion"
+
     compile "org.apache.spark:spark-sql_%%:$sparkVersion"
 
     testCompile project(':utils')

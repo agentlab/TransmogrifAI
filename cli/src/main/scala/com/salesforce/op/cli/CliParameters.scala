@@ -36,6 +36,7 @@ import java.nio.file.{Files, Path, Paths}
 import com.salesforce.op.cli.gen.{Ops, ProblemSchema}
 
 import scala.util.{Failure, Success, Try}
+import org.apache.commons.io.FileUtils
 
 /**
  * Represents a builder for the command to generate a project.
@@ -62,8 +63,7 @@ case class CliParameters
 ) {
 
   private def delete(f: File): Unit = {
-    Option(f.listFiles).foreach(_ foreach delete)
-    f.delete()
+      FileUtils.deleteDirectory(f)
 
     if (f.exists()) {
       throw new IllegalStateException(s"Directory '${f.getAbsolutePath}' still exists")

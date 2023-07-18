@@ -30,9 +30,10 @@
 
 package com.salesforce.op.cli.gen
 
-import java.io.{File, FileInputStream, FileWriter, InputStream}
-import java.nio.file.Files
+import java.io.{File, FileInputStream, InputStream}
+import java.nio.charset.Charset
 import java.nio.file.attribute.{PosixFilePermission, PosixFilePermissions}
+import org.apache.commons.io.FileUtils
 
 /**
  * Represents a file that should be created in the new project.
@@ -103,9 +104,7 @@ object FileSource {
    */
   case class Str(source: String) extends FileSource {
     override def writeTo(file: File): Unit = {
-      val writer = new FileWriter(file)
-      writer.write(source)
-      writer.close()
+      FileUtils.writeStringToFile(file, source, Charset.defaultCharset())
     }
   }
 
@@ -114,7 +113,7 @@ object FileSource {
    */
   case class Streaming(inputStream: InputStream) extends FileSource {
     override def writeTo(file: File): Unit = {
-      Files.copy(inputStream, file.toPath)
+      FileUtils.copyInputStreamToFile(inputStream, file)
     }
   }
 }

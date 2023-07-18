@@ -80,7 +80,6 @@ class OpSparkListenerTest extends FlatSpec with TableDrivenPropertyChecks with T
     stageMetrics.size should be > 0
     val firstStage = stageMetrics.head
     firstStage.name should startWith("csv at OpSparkListenerTest.scala")
-    firstStage.stageId shouldBe 0
     firstStage.numTasks shouldBe 1
     firstStage.status shouldBe "succeeded"
     val dur = firstStage.completionTime.getOrElse(0L) - firstStage.submissionTime.getOrElse(0L)

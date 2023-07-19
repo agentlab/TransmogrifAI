@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  devenv:
+    build:
+      context: ..
+      dockerfile: .devcontainer/dev/Dockerfile
+    command: sleep infinity
+    user: "user"
+    volumes:
+      - ..:/workspace:cached

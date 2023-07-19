@@ -1,0 +1,25 @@
+{
+	"name": "Ubuntu",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "devenv",
+	"workspaceFolder": "/workspace",
+	"shutdownAction": "stopCompose",
+	"features": {
+		"ghcr.io/devcontainers/features/java:1": {
+			"version": "11",
+			"jdkDistro": "tem"
+		},
+		"ghcr.io/devcontainers/features/git:1": {}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"scalameta.metals",
+				"vscjava.vscode-gradle",
+				"mhutchie.git-graph"
+			]
+		}
+	},
+	"remoteUser": "user",
+	"postStartCommand": "git config --global --add safe.directory ${containerWorkspaceFolder}"
+}

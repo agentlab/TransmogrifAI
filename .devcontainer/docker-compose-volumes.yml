@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  spark-master:
+    volumes:
+      - data:/data
+  spark-worker:
+    volumes:
+      - data:/data
+
+volumes:
+  data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ../../test-data

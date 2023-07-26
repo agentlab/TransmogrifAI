@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  spark-master:
+    extends:
+      file: docker-compose.yml
+      service: spark-master
+    build:
+      target: "spark-cuda"
+      args: &build-args
+        USE_NATIVE_LA_LIBS: true
+        JAVA_VERSION: 11
+    deploy: &gpu-config
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              capabilities: [ gpu ]
+
+  spark-worker:
+    extends:
+      file: docker-compose.yml
+      service: spark-worker
+    build:
+      target: "spark-cuda"
+      args: *build-args
+    depends_on:
+      - spark-master
+    deploy: *gpu-config

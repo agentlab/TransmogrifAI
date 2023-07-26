@@ -7,6 +7,7 @@ ARG HADOOP_VERSION=2.7
 ARG JAVA_VERSION=11
 ARG USE_NATIVE_LA_LIBS
 ARG SPARK_BUILD=${USE_NATIVE_LA_LIBS:+build}
+ARG CUDA_VERSION=12.2.0
 
 FROM alpine:latest AS spark-release
 ARG SPARK_VERSION
@@ -59,5 +60,50 @@ COPY install_native_la_libs.sh /
 RUN chmod +x /install_native_la_libs.sh \
   && /install_native_la_libs.sh \
   && rm -f /install_native_la_libs.sh
+
+WORKDIR $SPARK_HOME
+
+
+FROM eclipse-temurin:${JAVA_VERSION}-jdk-jammy AS jdk-source
+FROM nvidia/cuda:${CUDA_VERSION}-base-ubuntu22.04 AS spark-cuda
+
+ENV LANG C.UTF-8
+ENV SPARK_HOME /opt/spark
+ENV PATH $PATH:$SPARK_HOME/bin
+ENV SPARK_MASTER_PORT 7077
+ENV PYTHONHASHSEED 1
+
+COPY --from=jdk-source /opt/java /opt/java
+
+ENV JAVA_HOME /opt/java/openjdk
+ENV PATH $JAVA_HOME/bin:$PATH
+
+COPY --from=source /spark.tgz /tmp/spark.tgz
+
+RUN mkdir -p $SPARK_HOME \
+  && tar -xzvf /tmp/spark.tgz --strip-components=1 -C $SPARK_HOME \
+  && rm -f /tmp/spark.tgz
+
+COPY conf/spark-env.gpu.sh $SPARK_HOME/conf/spark-env.sh
+
+COPY install_native_la_libs.sh /
+
+RUN chmod +x /install_native_la_libs.sh \
+  && /install_native_la_libs.sh \
+  && rm -f /install_native_la_libs.sh
+
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends wget openjdk-8-jdk openjdk-8-jre
+ENV JAVA_HOME /usr/lib/jvm/java-1.8.0-openjdk-amd64
+ENV PATH $PATH:/usr/lib/jvm/java-1.8.0-openjdk-amd64/jre/bin:/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin
+
+ARG RAPIDS_PLUGIN_HOME=/opt/sparkRapidsPlugin
+
+RUN mkdir -p $RAPIDS_PLUGIN_HOME \
+  && cd $RAPIDS_PLUGIN_HOME \
+  && wget -q --show-progress https://repo1.maven.org/maven2/com/nvidia/rapids-4-spark_2.12/23.06.0/rapids-4-spark_2.12-23.06.0.jar \
+  && wget -q https://raw.githubusercontent.com/apache/spark/master/examples/src/main/scripts/getGpusResources.sh \
+  && chown -R $SPARK_USERNAME:$SPARK_USERNAME $RAPIDS_PLUGIN_HOME \
+  && chmod +x $RAPIDS_PLUGIN_HOME/getGpusResources.sh
 
 WORKDIR $SPARK_HOME

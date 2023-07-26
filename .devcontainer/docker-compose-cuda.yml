@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  devenv:
+    extends:
+      file: docker-compose.yml
+      service: devenv
+    build:
+      target: spark-cuda
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              capabilities: [ gpu ]

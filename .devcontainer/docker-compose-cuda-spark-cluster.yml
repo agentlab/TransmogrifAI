@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  spark-master:
+    extends:
+      file: "../docker/spark/docker-compose.gpu.yml"
+      service: spark-master
+    build:
+      context: ../docker/spark
+  spark-worker:
+    extends:
+      file: "../docker/spark/docker-compose.gpu.yml"
+      service: spark-worker
+    build:
+      context: ../docker/spark

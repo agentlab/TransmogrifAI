@@ -5,10 +5,6 @@
 	"workspaceFolder": "/workspace",
 	"shutdownAction": "stopCompose",
 	"features": {
-		"ghcr.io/devcontainers/features/java:1": {
-			"version": "11",
-			"jdkDistro": "tem"
-		},
 		"ghcr.io/devcontainers/features/git:1": {}
 	},
 	"customizations": {
@@ -20,6 +16,5 @@
 			]
 		}
 	},
-	"remoteUser": "user",
 	"postStartCommand": "git config --global --add safe.directory ${containerWorkspaceFolder}"
 }

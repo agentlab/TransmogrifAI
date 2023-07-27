@@ -6,7 +6,7 @@ buildscript {
         maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
-        classpath 'org.github.ngbinh.scalastyle:gradle-scalastyle-plugin_2.11:1.0.1'
+        classpath "com.github.alisiikh:gradle-scalastyle-plugin:3.5.0"
         classpath 'com.commercehub.gradle.plugin:gradle-avro-plugin:0.16.0'
         classpath 'com.adtran:scala-multiversion-plugin:1.+'
     }
@@ -41,7 +41,7 @@ configure(allProjs) {
     apply plugin: 'scala'
     // apply plugin: 'findbugs'
     apply plugin: 'org.scoverage'
-    apply plugin: 'scalaStyle'
+    apply plugin: "com.github.alisiikh.scalastyle"
     apply plugin: 'maven-publish'
     apply plugin: 'signing'
     apply plugin: 'project-report'
@@ -162,16 +162,14 @@ configure(allProjs) {
         jar.dependsOn(createVersionProperties)
     }
 
-    scalaStyle {
-        scalaVersion = '$scalaVersion'
-        configLocation = "$rootProject.rootDir/gradle/scalastyle-config.xml"
-        includeTestSourceDirectory = true
-        source = "src/main/scala"
-        testSource = "src/test/scala"
+    scalastyle {
+        scalaVersion = '%%'
+        scalastyleVersion = '1.5.1'
+        config = file("$rootProject.rootDir/gradle/scalastyle-config.xml")
     }
 
     if (System.getenv("CI") != 'true') {
-        compileScala.dependsOn(scalaStyle)
+        compileScala.dependsOn(scalastyleCheck)
     }
 
     avro {

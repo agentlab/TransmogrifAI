@@ -58,7 +58,9 @@ configure(allProjs) {
     targetCompatibility = JavaVersion.VERSION_11
 
     // The main class for the application plugin and is currently unused. Setting a dummy one.
-    mainClassName = "please.set.main.class.in.build.gradle"
+    application {
+        mainClass.set("please.set.main.class.in.build.gradle")
+    }
 
     ext {
         scalaTestVersion = '3.0.8'
@@ -159,7 +161,7 @@ configure(allProjs) {
 
     jar {
         manifest.attributes "Main-Class": "$mainClassName"
-        baseName = "$rootProject.name"
+        archiveBaseName = "$rootProject.name"
     }
     if (System.getenv("CI") != 'true') {
         jar.dependsOn(createVersionProperties)
@@ -224,7 +226,7 @@ configure(allProjs) {
     shadowJar {
         zip64 = true
         exclude 'META-INF/**'
-        baseName = jar.baseName
+        archiveBaseName = jar.baseName
     }
     shadowJar.dependsOn(createVersionProperties)
 
@@ -241,7 +243,7 @@ configure(allProjs) {
 
     task runMain(type: JavaExec) {
         description 'Run a main class, i.e.: runMain -Dmain=MyMainClass -Dargs="arg1 arg2 arg3"'
-        main = System.getProperty("main")
+        mainClass = System.getProperty("main")
         classpath = sourceSets.main.runtimeClasspath
         systemProperties = System.getProperties()
         args = System.getProperty("args", "") == "" ? new LinkedList<String>() : Arrays.asList(System.getProperty("args").split(" "))
@@ -249,7 +251,7 @@ configure(allProjs) {
 
     task repl(type: JavaExec) {
         description 'Start Scala repl.'
-        main = "scala.tools.nsc.MainGenericRunner"
+        mainClass = "scala.tools.nsc.MainGenericRunner"
         classpath = sourceSets.main.runtimeClasspath + configurations.scalaCompiler
         standardInput System.in
         args '-usejavacp'

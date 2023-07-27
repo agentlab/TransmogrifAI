@@ -28,7 +28,7 @@ ext {
 
 application {
     // Set this to the main class for cli.
-    mainClassName = "com.salesforce.op.cli.CLI"
+    mainClass.set("com.salesforce.op.cli.CLI")
 }
 
 task copySpark(type: Copy) {

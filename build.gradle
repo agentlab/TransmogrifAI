@@ -296,6 +296,7 @@ configure(subProjs) {
 
     task sourcesJar(type: Jar, dependsOn: classes) {
         classifier = 'sources'
+        duplicatesStrategy = 'include'
         from sourceSets.main.allSource
     }
     sourcesJar.baseName = jar.baseName

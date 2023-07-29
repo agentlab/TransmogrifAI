@@ -16,7 +16,7 @@ buildscript {
 }
 
 plugins {
-    id 'org.scoverage' version '2.5.0'
+    id 'org.scoverage' version '8.0.3'
     id 'org.cadixdev.licenser' version '0.6.1'
     id 'com.github.jk1.dependency-license-report' version '2.5'
     id 'com.github.johnrengelman.shadow' version '5.0.0'
@@ -92,7 +92,7 @@ configure(allProjs) {
         pegdownVersion = '1.4.2'
         commonsValidatorVersion = '1.6'
         commonsIOVersion = '2.6'
-        scoveragePluginVersion = '1.3.1'
+        scoveragePluginVersion = '2.0.8'
         xgboostVersion = '1.3.1'
         akkaSlf4jVersion = '2.5.23'
         mleapVersion = '0.19.0'
@@ -105,8 +105,6 @@ configure(allProjs) {
     }
 
     dependencies {
-        scoverage "org.scoverage:scalac-scoverage-plugin_%%:$scoveragePluginVersion"
-        scoverage "org.scoverage:scalac-scoverage-runtime_%%:$scoveragePluginVersion"
         scalaLibrary "org.scala-lang:scala-library:$scalaVersion"
         scalaCompiler "org.scala-lang:scala-compiler:$scalaVersion"
         implementation "org.scala-lang:scala-library:$scalaVersion"
@@ -123,8 +121,6 @@ configure(allProjs) {
         compileOnly "org.scalatest:scalatest_%%:$scalaTestVersion"
         testImplementation "org.scalatest:scalatest_%%:$scalaTestVersion"
         compileOnly "org.scalacheck:scalacheck_%%:$scalaCheckVersion"
-        testImplementation "org.scoverage:scalac-scoverage-plugin_%%:$scoveragePluginVersion"
-        testImplementation "org.scoverage:scalac-scoverage-runtime_%%:$scoveragePluginVersion"
         testImplementation "org.scalacheck:scalacheck_%%:$scalaCheckVersion"
         testImplementation ("com.holdenkarau:spark-testing-base_%%:$sparkTestingBaseVersion") { transitive = false }
         testImplementation "junit:junit:$junitVersion"
@@ -217,6 +213,7 @@ configure(allProjs) {
     }
     scoverage {
         coverageOutputCobertura = false
+        scoverageVersion = scoveragePluginVersion
     }
 
     licenseReport {
@@ -267,16 +264,21 @@ configure(allProjs) {
     if (System.getenv("TEST_FILES") != null) {
         testScoverage.setIncludes(Arrays.asList(System.getenv("TEST_FILES").split('\n')))
     }
+
+    afterEvaluate {
+        compileScoverageJava.enabled = false
+        tasks.withType(com.github.alisiikh.scalastyle.ScalastyleCheckTask) {
+            if(it.name.contains("Scoverage")) {
+                it.enabled = false
+            }
+        }
+    }
 }
 
 wrapper {
     gradleVersion = '7.5.1'
     distributionType = Wrapper.DistributionType.BIN
     distributionSha256Sum = 'f6b8596b10cce501591e92f229816aa4046424f3b24d771751b06779d58c8ec4'
-}
-
-task aggregateScoverage(type: org.scoverage.ScoverageAggregate) {
-    description 'Aggregates scoverage reports of all subprojects.'
 }
 
 configure(subProjs) {

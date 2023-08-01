@@ -1,5 +1,4 @@
 # TODO: openblas vs intel mkl?
-# TODO: manually install cuda libraries and create intermediate build stage for basic spark on ubuntu
 # TODO: create user
 
 ARG SPARK_VERSION=3.1.3
@@ -64,38 +63,40 @@ RUN chmod +x /install_native_la_libs.sh \
 WORKDIR $SPARK_HOME
 
 
-FROM eclipse-temurin:${JAVA_VERSION}-jdk-jammy AS jdk-source
-FROM nvidia/cuda:${CUDA_VERSION}-base-ubuntu22.04 AS spark-cuda
-
-ENV LANG C.UTF-8
-ENV SPARK_HOME /opt/spark
-ENV PATH $PATH:$SPARK_HOME/bin
-ENV SPARK_MASTER_PORT 7077
-ENV PYTHONHASHSEED 1
-
-COPY --from=jdk-source /opt/java /opt/java
-
-ENV JAVA_HOME /opt/java/openjdk
-ENV PATH $JAVA_HOME/bin:$PATH
-
-COPY --from=source /spark.tgz /tmp/spark.tgz
-
-RUN mkdir -p $SPARK_HOME \
-  && tar -xzvf /tmp/spark.tgz --strip-components=1 -C $SPARK_HOME \
-  && rm -f /tmp/spark.tgz
+# see https://gitlab.com/nvidia/container-images/cuda/-/blob/master/dist/12.2.0/ubuntu2204/base/Dockerfile
+FROM spark-dev AS spark-cuda
 
 COPY conf/spark-env.gpu.sh $SPARK_HOME/conf/spark-env.sh
 
-COPY install_native_la_libs.sh /
+ENV NVARCH x86_64
+ENV NV_CUDA_CUDART_VERSION 12.2.53-1
+ENV NV_CUDA_COMPAT_PACKAGE cuda-compat-12-2
 
-RUN chmod +x /install_native_la_libs.sh \
-  && /install_native_la_libs.sh \
-  && rm -f /install_native_la_libs.sh
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  gnupg2 curl ca-certificates && \
+  curl -fsSLO https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/${NVARCH}/cuda-keyring_1.0-1_all.deb && \
+  dpkg -i cuda-keyring_1.0-1_all.deb && \
+  apt-get purge --autoremove -y curl \
+  && rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update \
-  && apt-get install -y --no-install-recommends wget openjdk-8-jdk openjdk-8-jre
-ENV JAVA_HOME /usr/lib/jvm/java-1.8.0-openjdk-amd64
-ENV PATH $PATH:/usr/lib/jvm/java-1.8.0-openjdk-amd64/jre/bin:/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin
+ENV CUDA_VERSION 12.2.0
+
+# For libraries in the cuda-compat-* package: https://docs.nvidia.com/cuda/eula/index.html#attachment-a
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  cuda-cudart-12-2=${NV_CUDA_CUDART_VERSION} \
+  ${NV_CUDA_COMPAT_PACKAGE} \
+  && rm -rf /var/lib/apt/lists/*
+
+# Required for nvidia-docker v1
+RUN echo "/usr/local/nvidia/lib" >> /etc/ld.so.conf.d/nvidia.conf \
+  && echo "/usr/local/nvidia/lib64" >> /etc/ld.so.conf.d/nvidia.conf
+
+ENV PATH /usr/local/nvidia/bin:/usr/local/cuda/bin:${PATH}
+ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64
+
+# nvidia-container-runtime
+ENV NVIDIA_VISIBLE_DEVICES all
+ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
 
 ARG RAPIDS_PLUGIN_HOME=/opt/sparkRapidsPlugin
 
@@ -105,5 +106,3 @@ RUN mkdir -p $RAPIDS_PLUGIN_HOME \
   && wget -q https://raw.githubusercontent.com/apache/spark/master/examples/src/main/scripts/getGpusResources.sh \
   && chown -R $SPARK_USERNAME:$SPARK_USERNAME $RAPIDS_PLUGIN_HOME \
   && chmod +x $RAPIDS_PLUGIN_HOME/getGpusResources.sh
-
-WORKDIR $SPARK_HOME

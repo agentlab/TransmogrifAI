@@ -31,6 +31,7 @@
 package com.salesforce.op
 
 import java.io.File
+import com.fasterxml.jackson.annotation.JsonCreator
 
 import com.salesforce.op.utils.json.{JsonLike, JsonUtils}
 
@@ -97,7 +98,7 @@ final class OpParams
   val alternateReaderParams: Map[String, ReaderParams]
 ) extends JsonLike {
 
-  // fix for jackson putting in nulls
+  @JsonCreator
   def this() = this(Map.empty, Map.empty, None, None, None, None, None, None, None, None,
     None, None, None, Map.empty, Map.empty)
 
@@ -233,6 +234,7 @@ final class ReaderParams
   val customParams: Map[String, Any]
 ) extends JsonLike {
 
+  @JsonCreator
   def this() = this(None, None, Map.empty) // fix for jackson putting in nulls
 
   /**
@@ -315,21 +317,4 @@ object OpParams {
    */
   def toYamlString(params: OpParams): String = JsonUtils.toYamlString(params)
 
-}
-
-/**
- * [[ReaderParams]] factory
- */
-object ReaderParams {
-  def apply(
-    path: Option[String],
-    partitions: Option[Int],
-    customParams: Map[String, Any] = Map.empty
-  ): ReaderParams = new ReaderParams(path = path, partitions = partitions, customParams = customParams)
-
-
-  def apply(
-    path: Option[String],
-    partitions: Option[Int]
-  ): ReaderParams = new ReaderParams(path = path, partitions = partitions, customParams = Map.empty)
 }

@@ -1,0 +1,25 @@
+{
+  "name": "Ubuntu",
+  "dockerComposeFile": [
+    "docker-compose-cuda.yml",
+    "docker-compose-cuda-spark-cluster.yml",
+    "docker-compose-volumes.yml"
+  ],
+  "service": "devenv",
+  "workspaceFolder": "/TransmogrifAI",
+  "shutdownAction": "stopCompose",
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {}
+  },
+  "remoteUser": "developer",
+  "customizations": {
+    "vscode": {
+      "extensions": ["scalameta.metals", "vscjava.vscode-gradle", "mhutchie.git-graph"]
+    }
+  },
+  "postStartCommand": "git config --global --add safe.directory ${containerWorkspaceFolder}",
+  "hostRequirements": {
+    "memory": "4gb",
+    "gpu": true
+  }
+}

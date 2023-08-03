@@ -27,8 +27,8 @@ apply plugin: 'com.github.johnrengelman.shadow'
 apply plugin: 'com.commercehub.gradle.plugin.avro'
 apply from: 'spark.gradle'
 
-sourceCompatibility = JavaVersion.VERSION_11
-targetCompatibility = JavaVersion.VERSION_11
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 // The main class for the application plugin
 mainClassName = "com.salesforce.app.Simple" /* << MAIN_CLASS */

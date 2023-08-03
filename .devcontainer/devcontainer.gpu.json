@@ -11,6 +11,7 @@
   "features": {
     "ghcr.io/devcontainers/features/git:1": {}
   },
+  "remoteUser": "developer",
   "customizations": {
     "vscode": {
       "extensions": ["scalameta.metals", "vscjava.vscode-gradle", "mhutchie.git-graph"]

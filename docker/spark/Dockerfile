@@ -1,11 +1,13 @@
 # TODO: openblas vs intel mkl?
-# TODO: create user
 
 ARG SPARK_VERSION=3.1.3
 ARG HADOOP_VERSION=2.7
 ARG JAVA_VERSION=11
 ARG USE_NATIVE_LA_LIBS
 ARG SPARK_BUILD=${USE_NATIVE_LA_LIBS:+build}
+ARG SPARK_USERNAME=spark
+ARG SPARK_USER_UID=1000
+ARG SPARK_USER_GID=${SPARK_USER_UID}
 ARG CUDA_VERSION=12.2.0
 
 FROM alpine:latest AS spark-release
@@ -38,6 +40,10 @@ RUN ./dev/make-distribution.sh --name ${BUILD_NAME} --tgz -Pnetlib-lgpl -DskipTe
 FROM spark-${SPARK_BUILD:-release} AS source
 FROM eclipse-temurin:${JAVA_VERSION}-jdk-jammy AS spark-dev
 
+ARG SPARK_USERNAME
+ARG SPARK_USER_UID
+ARG SPARK_USER_GID
+
 ENV LANG C.UTF-8
 ENV SPARK_HOME /opt/spark
 ENV PATH $PATH:$SPARK_HOME/bin
@@ -60,13 +66,25 @@ RUN chmod +x /install_native_la_libs.sh \
   && /install_native_la_libs.sh \
   && rm -f /install_native_la_libs.sh
 
+RUN groupadd --gid $SPARK_USER_GID $SPARK_USERNAME \
+  && useradd --uid $SPARK_USER_UID --gid $SPARK_USER_GID -s /bin/bash -m $SPARK_USERNAME
+
+RUN chown -R $SPARK_USERNAME:$SPARK_USERNAME $SPARK_HOME \
+  && chmod -R g+w $SPARK_HOME
+
 WORKDIR $SPARK_HOME
+
+USER $SPARK_USERNAME
 
 
 # see https://gitlab.com/nvidia/container-images/cuda/-/blob/master/dist/12.2.0/ubuntu2204/base/Dockerfile
 FROM spark-dev AS spark-cuda
 
+ARG SPARK_USERNAME
+
 COPY conf/spark-env.gpu.sh $SPARK_HOME/conf/spark-env.sh
+
+USER root
 
 ENV NVARCH x86_64
 ENV NV_CUDA_CUDART_VERSION 12.2.53-1
@@ -106,3 +124,5 @@ RUN mkdir -p $RAPIDS_PLUGIN_HOME \
   && wget -q https://raw.githubusercontent.com/apache/spark/master/examples/src/main/scripts/getGpusResources.sh \
   && chown -R $SPARK_USERNAME:$SPARK_USERNAME $RAPIDS_PLUGIN_HOME \
   && chmod +x $RAPIDS_PLUGIN_HOME/getGpusResources.sh
+
+USER $SPARK_USERNAME

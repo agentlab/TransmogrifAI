@@ -6,6 +6,8 @@ services:
       context: ../docker/spark
       dockerfile: Dockerfile
       target: spark-dev
+      args:
+        SPARK_USERNAME: developer
     command: sleep infinity
     volumes:
       - ..:/workspace:cached

@@ -2,7 +2,7 @@
 	"name": "Ubuntu",
 	"dockerComposeFile": "docker-compose.yml",
 	"service": "devenv",
-	"workspaceFolder": "/workspace",
+  "workspaceFolder": "/TransmogrifAI",
 	"shutdownAction": "stopCompose",
 	"features": {
 		"ghcr.io/devcontainers/features/git:1": {}

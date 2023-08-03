@@ -10,4 +10,4 @@ services:
         SPARK_USERNAME: developer
     command: sleep infinity
     volumes:
-      - ..:/workspace:cached
+      - ..:/TransmogrifAI:cached

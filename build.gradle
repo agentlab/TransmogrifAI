@@ -1,21 +1,24 @@
+import com.github.jk1.license.render.*
+import com.github.jk1.license.importer.*
+
 buildscript {
     repositories {
         mavenLocal()
         mavenCentral()
-        jcenter()
+        gradlePluginPortal()
         maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
-        classpath 'org.github.ngbinh.scalastyle:gradle-scalastyle-plugin_2.11:1.0.1'
+        classpath "com.github.alisiikh:gradle-scalastyle-plugin:3.5.0"
         classpath 'com.commercehub.gradle.plugin:gradle-avro-plugin:0.16.0'
-        classpath 'com.adtran:scala-multiversion-plugin:1.+'
+        classpath 'com.adtran:scala-multiversion-plugin:2.0.4'
     }
 }
 
 plugins {
-    id 'org.scoverage' version '2.5.0'
-    id 'net.minecrell.licenser' version '0.4.1'
-    id 'com.github.jk1.dependency-license-report' version '0.5.0'
+    id 'org.scoverage' version '8.0.3'
+    id 'org.cadixdev.licenser' version '0.6.1'
+    id 'com.github.jk1.dependency-license-report' version '2.5'
     id 'com.github.johnrengelman.shadow' version '5.0.0'
 }
 
@@ -23,7 +26,7 @@ allprojects {
     repositories {
         mavenLocal()
         mavenCentral()
-        jcenter()
+        gradlePluginPortal()
     }
 }
 
@@ -37,16 +40,16 @@ ext.subProjs = subProjs
 
 configure(allProjs) {
     apply plugin: 'application'
-    apply plugin: 'java'
+    apply plugin: 'java-library'
     apply plugin: 'scala'
     // apply plugin: 'findbugs'
     apply plugin: 'org.scoverage'
-    apply plugin: 'scalaStyle'
+    apply plugin: "com.github.alisiikh.scalastyle"
     apply plugin: 'maven-publish'
     apply plugin: 'signing'
     apply plugin: 'project-report'
     apply plugin: 'com.commercehub.gradle.plugin.avro'
-    apply plugin: 'net.minecrell.licenser'
+    apply plugin: 'org.cadixdev.licenser'
     apply plugin: 'com.github.jk1.dependency-license-report'
     apply plugin: 'com.github.johnrengelman.shadow'
     apply plugin: 'com.adtran.scala-multiversion-plugin'
@@ -55,7 +58,9 @@ configure(allProjs) {
     targetCompatibility = 1.8
 
     // The main class for the application plugin and is currently unused. Setting a dummy one.
-    mainClassName = "please.set.main.class.in.build.gradle"
+    application {
+        mainClass.set("please.set.main.class.in.build.gradle")
+    }
 
     ext {
         scalaTestVersion = '3.0.8'
@@ -87,7 +92,7 @@ configure(allProjs) {
         pegdownVersion = '1.4.2'
         commonsValidatorVersion = '1.6'
         commonsIOVersion = '2.6'
-        scoveragePluginVersion = '1.3.1'
+        scoveragePluginVersion = '2.0.8'
         xgboostVersion = '1.3.1'
         akkaSlf4jVersion = '2.5.23'
         mleapVersion = '0.19.0'
@@ -100,32 +105,26 @@ configure(allProjs) {
     }
 
     dependencies {
-        // Scala
-        zinc 'com.typesafe.zinc:zinc:0.3.15'
-        scoverage "org.scoverage:scalac-scoverage-plugin_%%:$scoveragePluginVersion"
-        scoverage "org.scoverage:scalac-scoverage-runtime_%%:$scoveragePluginVersion"
         scalaLibrary "org.scala-lang:scala-library:$scalaVersion"
         scalaCompiler "org.scala-lang:scala-compiler:$scalaVersion"
-        compile "org.scala-lang:scala-library:$scalaVersion"
+        implementation "org.scala-lang:scala-library:$scalaVersion"
 
         // Spark
         compileOnly "org.apache.spark:spark-core_%%:$sparkVersion"
-        testCompile "org.apache.spark:spark-core_%%:$sparkVersion"
+        testImplementation "org.apache.spark:spark-core_%%:$sparkVersion"
         compileOnly "org.apache.spark:spark-mllib_%%:$sparkVersion"
-        testCompile "org.apache.spark:spark-mllib_%%:$sparkVersion"
+        testImplementation "org.apache.spark:spark-mllib_%%:$sparkVersion"
         compileOnly "org.apache.spark:spark-sql_%%:$sparkVersion"
-        testCompile "org.apache.spark:spark-sql_%%:$sparkVersion"
+        testImplementation "org.apache.spark:spark-sql_%%:$sparkVersion"
 
         // Test
         compileOnly "org.scalatest:scalatest_%%:$scalaTestVersion"
-        testCompile "org.scalatest:scalatest_%%:$scalaTestVersion"
+        testImplementation "org.scalatest:scalatest_%%:$scalaTestVersion"
         compileOnly "org.scalacheck:scalacheck_%%:$scalaCheckVersion"
-        testCompile "org.scoverage:scalac-scoverage-plugin_%%:$scoveragePluginVersion"
-        testCompile "org.scoverage:scalac-scoverage-runtime_%%:$scoveragePluginVersion"
-        testCompile "org.scalacheck:scalacheck_%%:$scalaCheckVersion"
-        testCompile ("com.holdenkarau:spark-testing-base_%%:$sparkTestingBaseVersion") { transitive = false }
-        testCompile "junit:junit:$junitVersion"
-        testRuntime "org.pegdown:pegdown:$pegdownVersion"
+        testImplementation "org.scalacheck:scalacheck_%%:$scalaCheckVersion"
+        testImplementation ("com.holdenkarau:spark-testing-base_%%:$sparkTestingBaseVersion") { transitive = false }
+        testImplementation "junit:junit:$junitVersion"
+        testRuntimeOnly "org.pegdown:pegdown:$pegdownVersion"
     }
 
     configurations.all {
@@ -136,8 +135,10 @@ configure(allProjs) {
         }
     }
     configurations.zinc {
-        resolutionStrategy {
-            force 'org.scala-lang:scala-library:2.10.6', 'org.scala-lang:scala-reflect:2.10.6'
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            if (details.requested.group == 'org.scala-lang') {
+                details.useVersion '2.13.11'
+            }
         }
     }
 
@@ -148,30 +149,28 @@ configure(allProjs) {
         }
         scalaCompileOptions.additionalParameters = [
                 "-Yrangepos", "-feature",
-                "-language:implicitConversions", "-language:existentials", "-language:postfixOps"
+                "-language:implicitConversions", "-language:existentials", "-language:postfixOps",
+                "-opt:l:inline", "-opt-inline-from:**"
         ]
     }
-    compileScala.scalaCompileOptions.additionalParameters += ["-opt:l:inline", "-opt-inline-from:**"]
     [compileJava, compileTestJava]*.options.collect { options -> options.encoding = 'UTF-8' }
 
     jar {
         manifest.attributes "Main-Class": "$mainClassName"
-        baseName = "$rootProject.name"
+        archiveBaseName = "$rootProject.name"
     }
     if (System.getenv("CI") != 'true') {
         jar.dependsOn(createVersionProperties)
     }
 
-    scalaStyle {
-        scalaVersion = '$scalaVersion'
-        configLocation = "$rootProject.rootDir/gradle/scalastyle-config.xml"
-        includeTestSourceDirectory = true
-        source = "src/main/scala"
-        testSource = "src/test/scala"
+    scalastyle {
+        scalaVersion = '%%'
+        scalastyleVersion = '1.5.1'
+        config = file("$rootProject.rootDir/gradle/scalastyle-config.xml")
     }
 
     if (System.getenv("CI") != 'true') {
-        compileScala.dependsOn(scalaStyle)
+        compileScala.dependsOn(scalastyleCheck)
     }
 
     avro {
@@ -214,19 +213,17 @@ configure(allProjs) {
     }
     scoverage {
         coverageOutputCobertura = false
+        scoverageVersion = scoveragePluginVersion
     }
 
     licenseReport {
-        renderer = new com.github.jk1.license.render.MultiReportRenderer(
-                new com.github.jk1.license.render.CsvReportRenderer(),
-                new com.github.jk1.license.render.InventoryHtmlReportRenderer()
-        )
+        renderers = [new CsvReportRenderer(), new InventoryHtmlReportRenderer()]
     }
 
     shadowJar {
         zip64 = true
         exclude 'META-INF/**'
-        baseName = jar.baseName
+        archiveBaseName = jar.baseName
     }
     shadowJar.dependsOn(createVersionProperties)
 
@@ -243,7 +240,7 @@ configure(allProjs) {
 
     task runMain(type: JavaExec) {
         description 'Run a main class, i.e.: runMain -Dmain=MyMainClass -Dargs="arg1 arg2 arg3"'
-        main = System.getProperty("main")
+        mainClass = System.getProperty("main")
         classpath = sourceSets.main.runtimeClasspath
         systemProperties = System.getProperties()
         args = System.getProperty("args", "") == "" ? new LinkedList<String>() : Arrays.asList(System.getProperty("args").split(" "))
@@ -251,7 +248,7 @@ configure(allProjs) {
 
     task repl(type: JavaExec) {
         description 'Start Scala repl.'
-        main = "scala.tools.nsc.MainGenericRunner"
+        mainClass = "scala.tools.nsc.MainGenericRunner"
         classpath = sourceSets.main.runtimeClasspath + configurations.scalaCompiler
         standardInput System.in
         args '-usejavacp'
@@ -267,16 +264,21 @@ configure(allProjs) {
     if (System.getenv("TEST_FILES") != null) {
         testScoverage.setIncludes(Arrays.asList(System.getenv("TEST_FILES").split('\n')))
     }
+
+    afterEvaluate {
+        compileScoverageJava.enabled = false
+        tasks.withType(com.github.alisiikh.scalastyle.ScalastyleCheckTask) {
+            if(it.name.contains("Scoverage")) {
+                it.enabled = false
+            }
+        }
+    }
 }
 
 wrapper {
-    gradleVersion = '5.2'
+    gradleVersion = '7.5.1'
     distributionType = Wrapper.DistributionType.BIN
-    distributionSha256Sum = 'ff322863250159595e93b5a4d17a6f0d21c59a1a0497c1e1cf1d53826485503f'
-}
-
-task aggregateScoverage(type: org.scoverage.ScoverageAggregate) {
-    description 'Aggregates scoverage reports of all subprojects.'
+    distributionSha256Sum = 'f6b8596b10cce501591e92f229816aa4046424f3b24d771751b06779d58c8ec4'
 }
 
 configure(subProjs) {
@@ -296,6 +298,7 @@ configure(subProjs) {
 
     task sourcesJar(type: Jar, dependsOn: classes) {
         classifier = 'sources'
+        duplicatesStrategy = 'include'
         from sourceSets.main.allSource
     }
     sourcesJar.baseName = jar.baseName

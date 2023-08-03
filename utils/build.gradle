@@ -1,32 +1,32 @@
 dependencies {
 
     // Avro
-    compileOnly("org.apache.avro:avro:$avroVersion") { exclude group: 'org.mortbay.jetty', module: 'servlet-api' }
-    testCompile("org.apache.avro:avro:$avroVersion") { exclude group: 'org.mortbay.jetty', module: 'servlet-api' }
-    compileOnly("org.apache.avro:avro-mapred:$avroVersion") { exclude group: 'org.mortbay.jetty', module: 'servlet-api' }
-    testCompile("org.apache.avro:avro-mapred:$avroVersion") { exclude group: 'org.mortbay.jetty', module: 'servlet-api' }
+    implementation("org.apache.avro:avro:$avroVersion") { exclude group: 'org.mortbay.jetty', module: 'servlet-api' }
+    testImplementation("org.apache.avro:avro:$avroVersion") { exclude group: 'org.mortbay.jetty', module: 'servlet-api' }
+    implementation("org.apache.avro:avro-mapred:$avroVersion") { exclude group: 'org.mortbay.jetty', module: 'servlet-api' }
+    testImplementation("org.apache.avro:avro-mapred:$avroVersion") { exclude group: 'org.mortbay.jetty', module: 'servlet-api' }
 
     // Spark Avro
-    compile "org.apache.spark:spark-avro_%%:$sparkVersion"
+    api "org.apache.spark:spark-avro_%%:$sparkVersion"
 
     // Jackson Yaml
-    compile ("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:$jacksonVersion") { exclude group: "com.fasterxml.jackson.core" }
+    api ("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:$jacksonVersion") { exclude group: "com.fasterxml.jackson.core" }
 
     // Algebird
-    compile "com.twitter:algebird-core_%%:$algebirdVersion"
+    api("com.twitter:algebird-core_%%:$algebirdVersion")
 
     // Twitter Chill
-    compile ("com.twitter:chill-avro_%%:$chillVersion") { exclude group: "org.apache.avro", module: "avro" }
-    compile "com.twitter:chill-algebird_%%:$chillVersion"
+    api ("com.twitter:chill-avro_%%:$chillVersion") { exclude group: "org.apache.avro", module: "avro" }
+    api "com.twitter:chill-algebird_%%:$chillVersion"
 
     // Lucene - (geo location)
-    compile "org.apache.lucene:lucene-spatial3d:$luceneVersion"
+    api "org.apache.lucene:lucene-spatial3d:$luceneVersion"
 
     // Enumeratum
-    compile "com.beachape:enumeratum_%%:$enumeratumVersion"
+    api "com.beachape:enumeratum_%%:$enumeratumVersion"
 
     // Joda time & convert
-    compile "joda-time:joda-time:$jodaTimeVersion"
-    compile "org.joda:joda-convert:$jodaConvertVersion"
+    api "joda-time:joda-time:$jodaTimeVersion"
+    api "org.joda:joda-convert:$jodaConvertVersion"
 
 }

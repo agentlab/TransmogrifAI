@@ -1,34 +1,36 @@
 dependencies {
-    compile project(':readers')
-    testRuntime project(':models')
-    testCompile project(':testkit')
+    api project(':utils')
+    api project(':features')
+    api project(':readers')
+    testRuntimeOnly project(':models')
+    testImplementation project(':testkit')
 
     // Google libphonenumber
-    compile "com.googlecode.libphonenumber:libphonenumber:$googleLibPhoneNumberVersion"
-    compile "com.googlecode.libphonenumber:geocoder:$googleGeoCoderVersion"
-    compile "com.googlecode.libphonenumber:carrier:$googleCarrierVersion"
+    implementation "com.googlecode.libphonenumber:libphonenumber:$googleLibPhoneNumberVersion"
+    implementation "com.googlecode.libphonenumber:geocoder:$googleGeoCoderVersion"
+    implementation "com.googlecode.libphonenumber:carrier:$googleCarrierVersion"
 
     // Optimaize language detection
-    compile "com.salesforce.transmogrifai:language-detector:$optimaizeLangDetectorVersion"
+    implementation "com.salesforce.transmogrifai:language-detector:$optimaizeLangDetectorVersion"
 
     // Tika library for detecting various binary data formats
-    compile "org.apache.tika:tika-core:$tikaVersion"
+    implementation "org.apache.tika:tika-core:$tikaVersion"
 
     // Lucene text analysis
-    compile "org.apache.lucene:lucene-analyzers-common:$luceneVersion"
-    compile "org.apache.lucene:lucene-analyzers-kuromoji:$luceneVersion"
-    compile "org.apache.lucene:lucene-analyzers-opennlp:$luceneVersion"
-    compile "org.apache.lucene:lucene-suggest:$luceneVersion"
+    implementation "org.apache.lucene:lucene-analyzers-common:$luceneVersion"
+    implementation "org.apache.lucene:lucene-analyzers-kuromoji:$luceneVersion"
+    implementation "org.apache.lucene:lucene-analyzers-opennlp:$luceneVersion"
+    implementation "org.apache.lucene:lucene-suggest:$luceneVersion"
 
     // Scopt
-    compile "com.github.scopt:scopt_%%:$scoptVersion"
+    implementation "com.github.scopt:scopt_%%:$scoptVersion"
 
     // Zip util
-    compile 'org.zeroturnaround:zt-zip:1.14'
+    implementation 'org.zeroturnaround:zt-zip:1.14'
 
     // XGBoost
-    compile ("ml.dmlc:xgboost4j_%%:$xgboostVersion") { exclude group: 'com.esotericsoftware.kryo', module: 'kryo' }
-    compile ("ml.dmlc:xgboost4j-spark_%%:$xgboostVersion") { exclude group: 'com.esotericsoftware.kryo', module: 'kryo' }
+    implementation ("ml.dmlc:xgboost4j_%%:$xgboostVersion") { exclude group: 'com.esotericsoftware.kryo', module: 'kryo' }
+    implementation ("ml.dmlc:xgboost4j-spark_%%:$xgboostVersion") { exclude group: 'com.esotericsoftware.kryo', module: 'kryo' }
     // Akka slfj4 logging (version matches XGBoost dependency)
-    testCompile "com.typesafe.akka:akka-slf4j_%%:$akkaSlf4jVersion"
+    testImplementation "com.typesafe.akka:akka-slf4j_%%:$akkaSlf4jVersion"
 }

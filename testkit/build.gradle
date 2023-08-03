@@ -1,3 +1,4 @@
 dependencies {
-    compile project(':features')
+    implementation project(':utils')
+    implementation project(':features')
 }

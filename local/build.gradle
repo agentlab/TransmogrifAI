@@ -1,7 +1,7 @@
 dependencies {
-    compile project(':core')
-    testCompile project(':testkit')
+    implementation project(':core')
+    testImplementation project(':testkit')
 
     // In-memory file system (needed for MLeap serialization of models)
-    compile "com.github.marschall:memoryfilesystem:$memoryFilesystemVersion"
+    implementation "com.github.marschall:memoryfilesystem:$memoryFilesystemVersion"
 }

@@ -38,4 +38,4 @@ docs/_build
 */bin
 .vscode
 
-core/modelStagingDir
+**/modelStagingDir/

@@ -7,8 +7,6 @@ dependencies {
 
     // Google libphonenumber
     implementation "com.googlecode.libphonenumber:libphonenumber:$googleLibPhoneNumberVersion"
-    implementation "com.googlecode.libphonenumber:geocoder:$googleGeoCoderVersion"
-    implementation "com.googlecode.libphonenumber:carrier:$googleCarrierVersion"
 
     // Optimaize language detection
     implementation "com.salesforce.transmogrifai:language-detector:$optimaizeLangDetectorVersion"

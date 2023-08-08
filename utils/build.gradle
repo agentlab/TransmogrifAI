@@ -25,8 +25,7 @@ dependencies {
     // Enumeratum
     api "com.beachape:enumeratum_%%:$enumeratumVersion"
 
-    // Joda time & convert
+    // Joda time
     api "joda-time:joda-time:$jodaTimeVersion"
-    api "org.joda:joda-convert:$jodaConvertVersion"
 
 }

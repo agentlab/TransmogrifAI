@@ -72,7 +72,7 @@ configure(allProjs) {
         scalafmtVersion = '1.5.1'
         hadoopVersion = 'hadoop2'
         json4sVersion = '3.7.0-M5' // matches Spark dependency version
-        jodaTimeVersion = '2.9.4'
+        jodaTimeVersion = '2.12.5'
         algebirdVersion = '0.13.10'
         jacksonVersion = '2.12.2'
         luceneVersion = '7.3.0'

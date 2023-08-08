@@ -36,7 +36,7 @@ import com.salesforce.op.cli.GeneratorConfig
 import com.salesforce.op.cli.gen.FileSource.{Str, Streaming}
 import com.salesforce.op.cli.gen.templates.SimpleProject
 import org.reflections.Reflections
-import org.reflections.scanners.ResourcesScanner
+import org.reflections.scanners.Scanners
 import org.scalafmt.Scalafmt
 import org.scalafmt.config.ScalafmtConfig
 
@@ -80,7 +80,7 @@ trait ProjectGenerator {
   private lazy val templateResourcePath = s"templates/$name/"
 
   lazy val templateResources: List[String] =
-    new Reflections(s"templates.$name", new ResourcesScanner)
+    new Reflections(s"templates.$name", Scanners.Resources)
       .getResources(".*".r.pattern)
       .asScala.toList.map(_.replace(templateResourcePath, ""))
 

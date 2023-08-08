@@ -80,7 +80,7 @@ configure(allProjs) {
         scoptVersion = '3.5.0'
         googleLibPhoneNumberVersion = '8.12.0'
         chillVersion = '0.9.3'
-        reflectionsVersion = '0.9.11'
+        reflectionsVersion = '0.10.2'
         collectionsVersion = '3.2.2'
         optimaizeLangDetectorVersion = '0.0.1'
         tikaVersion = '2.4.1'

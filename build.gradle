@@ -85,7 +85,7 @@ configure(allProjs) {
         optimaizeLangDetectorVersion = '0.0.1'
         tikaVersion = '2.4.1'
         sparkTestingBaseVersion = '3.1.3_1.4.3'
-        sourceCodeVersion = '0.1.3'
+        sourceCodeVersion = '0.3.0'
         commonsValidatorVersion = '1.7'
         commonsIOVersion = '2.13.0'
         scoveragePluginVersion = '2.0.8'

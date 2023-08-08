@@ -275,7 +275,7 @@ object FeatureDistribution {
       case Left(seq) => seq.map(_.length.toDouble)
       case Right(seq) => seq
     }
-    MomentsGroup.sum(population.map(x => Moments(x)))
+    Moments.momentsMonoid.sum(population.map(x => Moments(x)))
   }
 
   /**

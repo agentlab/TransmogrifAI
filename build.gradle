@@ -64,7 +64,7 @@ configure(allProjs) {
 
     ext {
         scalaTestVersion = '3.0.8'
-        scalaCheckVersion = '1.14.0'
+        scalaCheckVersion = '1.17.0'
         junitVersion = '4.13.2'
         avroVersion = '1.8.2'
         sparkVersion = '3.1.3'

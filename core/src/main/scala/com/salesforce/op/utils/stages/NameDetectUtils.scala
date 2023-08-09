@@ -68,7 +68,7 @@ private[op] trait NameDetectFun[T <: Text] extends Logging with NameDetectParams
     hllMonoid: HyperLogLogMonoid
   ): GuardCheckStats = {
     input match {
-      case None => GuardCheckStats(0, 0, MomentsGroup.zero, hllMonoid.zero)
+      case None => GuardCheckStats(0, 0, Moments.momentsMonoid.zero, hllMonoid.zero)
       case Some(text) =>
         val textLength = text.length
         GuardCheckStats(
@@ -336,7 +336,7 @@ private[op] case class GuardCheckStats
 (
   countBelowMaxNumTokens: Int = 0,
   countAboveMinCharLength: Int = 0,
-  approxMomentsOfTextLength: Moments = MomentsGroup.zero,
+  approxMomentsOfTextLength: Moments = Moments.momentsMonoid.zero,
   approxNumUnique: HLL = new HyperLogLogMonoid(NameDetectUtils.HLLBits).zero
 )
 

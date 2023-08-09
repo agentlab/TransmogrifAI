@@ -107,7 +107,12 @@ class Base64(value: Option[String]) extends Text(value) {
    * @return Some(inputStream) if data present, or None if not
    */
   def asInputStream: Option[InputStream] = {
-    value map { v => new Base64InputStream(new CharSequenceInputStream(v, StandardCharsets.ISO_8859_1)) }
+    value map { v => new Base64InputStream(CharSequenceInputStream
+      .builder()
+      .setCharSequence(v)
+      .setCharset(StandardCharsets.ISO_8859_1)
+      .get())
+    }
   }
   /**
    * Maps f over the input stream of the contents this base64

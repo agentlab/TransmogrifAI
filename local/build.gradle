@@ -3,5 +3,5 @@ dependencies {
     testImplementation project(':testkit')
 
     // In-memory file system (needed for MLeap serialization of models)
-    implementation "com.github.marschall:memoryfilesystem:$memoryFilesystemVersion"
+    runtimeOnly "com.github.marschall:memoryfilesystem:$memoryFilesystemVersion"
 }

@@ -78,7 +78,7 @@ configure(allProjs) {
         luceneVersion = '7.3.0'
         enumeratumVersion = '1.4.18'
         scoptVersion = '3.5.0'
-        googleLibPhoneNumberVersion = '8.8.5'
+        googleLibPhoneNumberVersion = '8.12.0'
         chillVersion = '0.9.3'
         reflectionsVersion = '0.9.11'
         collectionsVersion = '3.2.2'

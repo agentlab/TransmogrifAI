@@ -6,11 +6,19 @@ dependencies {
     implementation("org.apache.avro:avro-mapred:$avroVersion") { exclude group: 'org.mortbay.jetty', module: 'servlet-api' }
     testImplementation("org.apache.avro:avro-mapred:$avroVersion") { exclude group: 'org.mortbay.jetty', module: 'servlet-api' }
 
+    implementation('com.thoughtworks.paranamer:paranamer') {
+        version {
+            strictly '2.8'
+            because "https://issues.apache.org/jira/browse/SPARK-22128"
+        }
+    }
+
     // Spark Avro
     api "org.apache.spark:spark-avro_%%:$sparkVersion"
 
     // Jackson Yaml
-    api ("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:$jacksonVersion") { exclude group: "com.fasterxml.jackson.core" }
+    api "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:$jacksonVersion"
+    implementation "com.fasterxml.jackson.module:jackson-module-scala_%%:$jacksonVersion"
 
     // Algebird
     api("com.twitter:algebird-core_%%:$algebirdVersion")

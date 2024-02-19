@@ -67,11 +67,11 @@ configure(allProjs) {
         scalaCheckVersion = '1.17.0'
         junitVersion = '4.13.2'
         avroVersion = '1.8.2'
-        sparkVersion = '3.1.3'
+        sparkVersion = '3.3.2'
         scalaGraphVersion = '1.13.1'
         scalafmtVersion = '1.5.1'
         hadoopVersion = 'hadoop2'
-        json4sVersion = '3.7.0-M5' // matches Spark dependency version
+        json4sVersion = '3.7.0-M11' // matches Spark dependency version
         jodaTimeVersion = '2.12.5'
         algebirdVersion = '0.13.10'
         jacksonVersion = '2.12.2'
@@ -84,7 +84,7 @@ configure(allProjs) {
         collectionsVersion = '3.2.2'
         optimaizeLangDetectorVersion = '0.0.1'
         tikaVersion = '2.4.1'
-        sparkTestingBaseVersion = '3.1.3_1.4.3'
+        sparkTestingBaseVersion = '3.3.2_1.4.7'
         sourceCodeVersion = '0.3.0'
         commonsValidatorVersion = '1.7'
         commonsIOVersion = '2.13.0'

@@ -48,7 +48,6 @@ import org.apache.spark.mllib.linalg.{DenseMatrix, DenseVector => OldDenseVector
 import org.apache.spark.mllib.stat.Statistics
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.Dataset
-import org.slf4j.impl.Log4jLoggerAdapter
 
 import scala.collection.mutable.ArrayBuffer
 import scala.math.min
@@ -367,7 +366,7 @@ class SanityChecker(uid: String = UID[SanityChecker])
   override def fitFn(data: Dataset[(RealNN#Value, OPVector#Value)]): BinaryModel[RealNN, OPVector, OPVector] = {
     // Set the desired log level
     if (isSet(logLevel)) {
-      Option(log).collect { case l: Log4jLoggerAdapter =>
+      Option(log).map { l =>
         LogManager.getLogger(l.getName).setLevel(Level.toLevel($(logLevel)))
       }
     }

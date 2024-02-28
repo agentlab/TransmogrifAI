@@ -34,6 +34,7 @@ import com.salesforce.op.features.OPFeature
 import com.salesforce.op.stages.impl.selector.ModelSelectorNames.{EstimatorType, ModelType}
 import com.salesforce.op.stages.impl.selector.{HasTestEval, ModelSelector, ModelSelectorNames}
 import com.salesforce.op.stages.{OPStage, OpTransformer}
+import com.salesforce.op.utils.cache.CacheUtils
 import com.salesforce.op.{OpWorkflow, OpWorkflowModel}
 import org.apache.spark.ml.{Estimator, Model, Transformer}
 import org.apache.spark.rdd.RDD
@@ -114,7 +115,7 @@ private[op] case object FitStagesUtil {
           Row.fromSeq(values)
         }
 
-      spark.createDataFrame(transformed, newSchema).persist()
+      spark.createDataFrame(transformed, newSchema)
     }
   }
 
@@ -155,8 +156,8 @@ private[op] case object FitStagesUtil {
         if (!persist) newDF
         else {
           // Converting to rdd and back here to break up Catalyst [SPARK-13346]
-          val persisted = newDF.rdd.persist()
-          lastPersisted.foreach(_.unpersist())
+          val persisted = CacheUtils.cache(newDF.rdd)
+          lastPersisted.foreach(CacheUtils.uncache(_))
           lastPersisted = Some(persisted)
           spark.createDataFrame(persisted, newDF.schema)
         }
@@ -233,7 +234,20 @@ private[op] case object FitStagesUtil {
         alreadyFitted ++= justFitted
         val newTrainCleanedUp = newTrain.drop(layerInputFeatures.map(_.name).toSeq: _*)
         val newTestCleanedUp = newTest.drop(layerInputFeatures.map(_.name).toSeq: _*)
-        newTrainCleanedUp -> newTestCleanedUp
+
+        // force caching
+        val cachedTrain = spark.createDataFrame(newTrainCleanedUp.rdd, newTrainCleanedUp.schema).persist()
+        val cachedTest = spark.createDataFrame(newTestCleanedUp.rdd, newTestCleanedUp.schema).persist()
+
+        val trainCount = cachedTrain.count()
+        val testCount = cachedTest.count()
+
+        log.info(s"Train count: ${trainCount}, test count: ${testCount}")
+
+        currTrain.unpersist()
+        currTest.unpersist()
+        CacheUtils.clearCache()
+        cachedTrain -> cachedTest
       }
 
     FittedDAG(newTrain, newTest, alreadyFitted.toArray)
@@ -278,11 +292,11 @@ private[op] case object FitStagesUtil {
     }
 
     if (transformData) {
-      val withOPTrain = applyOpTransformations(opTransformers, train)
+      val withOPTrain = CacheUtils.cache(applyOpTransformations(opTransformers, train))
       val withAllTrain = applySparkTransformations(withOPTrain, sparkTransformers, persistEveryKStages)
 
       val withAllTest = if (hasTest) {
-        val withOPTest = applyOpTransformations(opTransformers, test)
+        val withOPTest = CacheUtils.cache(applyOpTransformations(opTransformers, test))
         applySparkTransformations(withOPTest, sparkTransformers, persistEveryKStages)
       } else test
 

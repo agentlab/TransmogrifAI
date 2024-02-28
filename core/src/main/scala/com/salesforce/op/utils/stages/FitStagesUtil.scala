@@ -229,8 +229,11 @@ private[op] case object FitStagesUtil {
           transformData = true, // even transformers need to be fit because may need metadata from training
           persistEveryKStages = persistEveryKStages
         )
+        val layerInputFeatures = justFitted.flatMap(s => s.getInputFeatures().filter(f => !f.isResponse)).toSet
         alreadyFitted ++= justFitted
-        newTrain -> newTest
+        val newTrainCleanedUp = newTrain.drop(layerInputFeatures.map(_.name).toSeq: _*)
+        val newTestCleanedUp = newTest.drop(layerInputFeatures.map(_.name).toSeq: _*)
+        newTrainCleanedUp -> newTestCleanedUp
       }
 
     FittedDAG(newTrain, newTest, alreadyFitted.toArray)

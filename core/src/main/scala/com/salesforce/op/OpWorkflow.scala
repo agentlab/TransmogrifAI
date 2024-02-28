@@ -37,6 +37,7 @@ import com.salesforce.op.stages.OPStage
 import com.salesforce.op.stages.impl.feature.TimePeriod
 import com.salesforce.op.stages.impl.preparators.CorrelationType
 import com.salesforce.op.stages.impl.selector.ModelSelector
+import com.salesforce.op.utils.cache.CacheUtils
 import com.salesforce.op.utils.reflection.ReflectionUtils
 import com.salesforce.op.utils.spark.{JobGroupUtil, OpStep}
 import com.salesforce.op.utils.stages.FitStagesUtil
@@ -237,7 +238,7 @@ class OpWorkflow(val uid: String = UID[OpWorkflow]) extends OpWorkflowCore {
           "Data reader must be set either directly on the workflow or through the RawFeatureFilter")
         case (Some(r), None) =>
           checkFeatures()
-          r.generateDataFrame(rawFeatures, parameters).persist()
+          CacheUtils.cache(r.generateDataFrame(rawFeatures, parameters))
         case (rd, Some(rf)) =>
           rd match {
             case None => setReader(rf.trainingReader)

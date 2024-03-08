@@ -41,6 +41,8 @@ import org.apache.spark.util.ClosureUtils
 
 import scala.reflect.runtime.universe.TypeTag
 import scala.util.Try
+import org.apache.spark.sql.types.StructType
+import org.apache.spark.sql.Column
 
 /**
  * Base trait for unary transformers and models which take one input feature and perform specified function on it to
@@ -73,10 +75,14 @@ trait OpTransformer1[I <: FeatureType, O <: FeatureType]
    * @return a new dataset containing a column for the transformed feature
    */
   override def transform(dataset: Dataset[_]): DataFrame = {
-    val newSchema = setInputSchema(dataset.schema).transformSchema(dataset.schema)
+    dataset.select(col("*"), buildColumnExpr(dataset.schema))
+  }
+
+  override def buildColumnExpr: StructType => Column = (schema) => {
+    val newSchema = setInputSchema(schema).transformSchema(schema)
     val functionUDF = FeatureSparkTypes.udf1[I, O](transformFn)
     val meta = newSchema(getOutputFeatureName).metadata
-    dataset.select(col("*"), functionUDF(col(in1.name)).as(getOutputFeatureName, meta))
+    functionUDF(col(in1.name)).as(getOutputFeatureName, meta)
   }
 
   private lazy val transform1Fn = FeatureSparkTypes.transform1[I, O](transformFn)

@@ -15,7 +15,7 @@ Note: make sure you have all the [prerequisites](http://docs.transmogrif.ai/en/s
 
 ### Titanic Mini
 
-First, build project with `./gradlew installDist`. Then run:
+First, build project with `./gradlew clean installDist`. Then run:
 
 ```shell
 ./gradlew -q sparkSubmit -Dmain=com.salesforce.hw.titanic.OpTitanicMini -Dargs="\
@@ -24,7 +24,7 @@ First, build project with `./gradlew installDist`. Then run:
 
 ### Titanic model - run with gradle (**recommended**)
 
-First, build project with `./gradlew installDist`.
+First, build project with `./gradlew clean installDist`.
 
 #### Train
 ```shell
@@ -56,36 +56,54 @@ First, build project with `./gradlew installDist`.
 First, build project with `./gradlew shadowJar`.
 
 #### Train
+For Java 8 and Java 11
 ```shell
-$SPARK_HOME/bin/spark-submit --class com.salesforce.hw.titanic.OpTitanic \
-  build/libs/transmogrifai-helloworld-0.0.1-all.jar \
+$SPARK_HOME/bin/spark-submit --packages org.apache.spark:spark-avro_2.12:3.1.3 \
+  --class com.salesforce.hw.titanic.OpTitanic \
+  build/libs/transmogrifai-helloworld_2.12-0.0.1-all.jar \
   --run-type train \
   --model-location /tmp/titanic-model \
   --read-location Passenger=`pwd`/src/main/resources/TitanicDataset/TitanicPassengersTrainData.csv
 ```
 #### Score
+For Java 8 and Java 11
 ```shell
-$SPARK_HOME/bin/spark-submit --class com.salesforce.hw.titanic.OpTitanic \
-  build/libs/transmogrifai-helloworld-0.0.1-all.jar \
+$SPARK_HOME/bin/spark-submit --packages org.apache.spark:spark-avro_2.12:3.1.3 \
+  --class com.salesforce.hw.titanic.OpTitanic \
+  build/libs/transmogrifai-helloworld_2.12-0.0.1-all.jar \
   --run-type score \
   --model-location /tmp/titanic-model \
   --read-location Passenger=`pwd`/src/main/resources/TitanicDataset/TitanicPassengersTrainData.csv \
   --write-location /tmp/titanic-scores
 ```
 #### Evaluate
+For Java 8 and Java 11
 ```shell
-$SPARK_HOME/bin/spark-submit --class com.salesforce.hw.titanic.OpTitanic \
-  build/libs/transmogrifai-helloworld-0.0.1-all.jar \
+$SPARK_HOME/bin/spark-submit --packages org.apache.spark:spark-avro_2.12:3.1.3 \
+  --class com.salesforce.hw.titanic.OpTitanic \
+  build/libs/transmogrifai-helloworld_2.12-0.0.1-all.jar \
   --run-type evaluate \
   --model-location /tmp/titanic-model \
   --read-location Passenger=`pwd`/src/main/resources/TitanicDataset/TitanicPassengersTrainData.csv \
   --write-location /tmp/titanic-eval \
   --metrics-location /tmp/titanic-metrics
 ```
+#### Steaming Score
+For Java 8 and Java 11
+```shell
+$SPARK_HOME/bin/spark-submit --packages org.apache.spark:spark-avro_2.12:3.1.3 \
+  --class com.salesforce.hw.titanic.OpTitanic \
+  --conf spark.driver.extraJavaOptions=-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005 \
+  build/libs/transmogrifai-helloworld_2.12-0.0.1-all.jar \
+  --run-type streamingScore \
+  --model-location /tmp/titanic-model \
+  --read-location Passenger=`pwd`/src/main/resources/TitanicDataset/TitanicPassengersTrainData.csv \
+  --write-location /tmp/titanic-scores
+```
 
 ### Boston model
 
-First, build project with `./gradlew installDist`.
+First, build project with `./gradlew clean installDist`.
 
 #### Train
 ```shell
@@ -114,7 +132,7 @@ First, build project with `./gradlew installDist`.
 
 ### Iris model
 
-First, build project with `./gradlew installDist`.
+First, build project with `./gradlew clean installDist`.
 
 #### Train
 ```shell
@@ -143,7 +161,7 @@ First, build project with `./gradlew installDist`.
 
 ### Data Preparation
 
-First, build project with `./gradlew installDist`. Then run:
+First, build project with `./gradlew clean installDist`. Then run:
 
 ```shell
 ./gradlew -q sparkSubmit -Dmain=com.salesforce.hw.dataprep.ConditionalAggregation -Dargs="\

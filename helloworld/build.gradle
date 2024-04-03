@@ -11,7 +11,7 @@ buildscript {
     }
 }
 plugins {
-    id 'com.github.johnrengelman.shadow' version '5.0.0'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'org.scoverage' version '2.5.0'
 }
 repositories {
@@ -31,8 +31,8 @@ apply plugin: 'com.adtran.scala-multiversion-plugin'
 apply from: 'gradle/tests.gradle'
 apply from: 'gradle/spark.gradle'
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
 
 // The main class for the application plugin and is currently unused. Setting a dummy one.
 application {
@@ -119,6 +119,12 @@ shadowJar {
     zip64 = true
     exclude 'META-INF/**'
     archiveBaseName = jar.baseName
+    // The main class for the application plugin and is currently unused. Setting a dummy one.
+    mainClassName = "please.set.main.class.in.build.gradle"
+
+    // Concatenate modularized mleap metadata
+    // https://github.com/combust/mleap/issues/656
+    append 'reference.conf'
 }
 
 scalastyle {

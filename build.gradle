@@ -19,7 +19,7 @@ plugins {
     id 'org.scoverage' version '8.0.3'
     id 'org.cadixdev.licenser' version '0.6.1'
     id 'com.github.jk1.dependency-license-report' version '2.5'
-    id 'com.github.johnrengelman.shadow' version '5.0.0'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 allprojects {
@@ -54,8 +54,8 @@ configure(allProjs) {
     apply plugin: 'com.github.johnrengelman.shadow'
     apply plugin: 'com.adtran.scala-multiversion-plugin'
 
-    sourceCompatibility = 1.8
-    targetCompatibility = 1.8
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
 
     // The main class for the application plugin and is currently unused. Setting a dummy one.
     application {
@@ -219,6 +219,10 @@ configure(allProjs) {
         zip64 = true
         exclude 'META-INF/**'
         archiveBaseName = jar.baseName
+
+        // Concatenate modularized mleap metadata
+        // https://github.com/combust/mleap/issues/656
+        append 'reference.conf'
     }
     shadowJar.dependsOn(createVersionProperties)
 

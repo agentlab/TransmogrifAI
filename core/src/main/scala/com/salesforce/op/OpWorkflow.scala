@@ -238,7 +238,7 @@ class OpWorkflow(val uid: String = UID[OpWorkflow]) extends OpWorkflowCore {
           "Data reader must be set either directly on the workflow or through the RawFeatureFilter")
         case (Some(r), None) =>
           checkFeatures()
-          CacheUtils.cache(r.generateDataFrame(rawFeatures, parameters))
+          CacheUtils.cache(r.generateDataFrame(rawFeatures, parameters), "raw")
         case (rd, Some(rf)) =>
           rd match {
             case None => setReader(rf.trainingReader)

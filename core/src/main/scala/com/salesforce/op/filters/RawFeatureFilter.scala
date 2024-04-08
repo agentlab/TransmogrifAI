@@ -487,7 +487,7 @@ class RawFeatureFilter[T]
   def generateFilteredRaw(rawFeatures: Array[OPFeature], parameters: OpParams)
     (implicit spark: SparkSession): FilteredRawData = {
 
-    val trainData = CacheUtils.cache(trainingReader.generateDataFrame(rawFeatures, parameters))
+    val trainData = CacheUtils.cache(trainingReader.generateDataFrame(rawFeatures, parameters), "raw")
     log.info("Loaded training data")
     require(trainData.count() > 0, "RawFeatureFilter cannot work with empty training data")
     val trainingSummary = computeFeatureStats(trainData, rawFeatures, FeatureDistributionType.Training)
@@ -498,7 +498,7 @@ class RawFeatureFilter[T]
     }
 
     val scoreData = scoringReader.flatMap { s =>
-      val sd = CacheUtils.cache(s.generateDataFrame(rawFeatures, parameters.switchReaderParams()))
+      val sd = CacheUtils.cache(s.generateDataFrame(rawFeatures, parameters.switchReaderParams()), "raw")
       log.info("Loaded scoring data")
       val scoringDataCount = sd.count()
       if (scoringDataCount >= minScoringRows) Some(sd)

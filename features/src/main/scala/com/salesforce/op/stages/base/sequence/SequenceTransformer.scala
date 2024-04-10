@@ -41,6 +41,8 @@ import org.apache.spark.util.ClosureUtils
 
 import scala.reflect.runtime.universe.TypeTag
 import scala.util.Try
+import org.apache.spark.sql.types.StructType
+import org.apache.spark.sql.Column
 
 /**
  * Base trait for sequence transformers and models which take a sequence of input features of the same type and perform
@@ -73,12 +75,16 @@ trait OpTransformerN[I <: FeatureType, O <: FeatureType]
    * @return a new dataset containing a column for the transformed feature
    */
   override def transform(dataset: Dataset[_]): DataFrame = {
+    dataset.select(col("*"), buildColumnExpr(dataset.schema))
+  }
+
+  override def buildColumnExpr: StructType => Column = (schema) => {
     require(inN.nonEmpty, "Inputs cannot be empty")
-    val newSchema = setInputSchema(dataset.schema).transformSchema(dataset.schema)
+    val newSchema = setInputSchema(schema).transformSchema(schema)
     val functionUDF = FeatureSparkTypes.udfN[I, O](transformFn)
     val meta = newSchema(getOutputFeatureName).metadata
-    val columns = inN.map(in => dataset.col(in.name))
-    dataset.select(col("*"), functionUDF(struct(columns: _*)).as(getOutputFeatureName, meta))
+    val columns = inN.map(in => col(in.name))
+    functionUDF(struct(columns: _*)).as(getOutputFeatureName, meta)
   }
 
   private lazy val transformNFn = FeatureSparkTypes.transformN[I, O](transformFn)

@@ -41,6 +41,8 @@ import org.apache.spark.util.ClosureUtils
 
 import scala.reflect.runtime.universe.TypeTag
 import scala.util.Try
+import org.apache.spark.sql.types.StructType
+import org.apache.spark.sql.Column
 
 
 /**
@@ -80,11 +82,14 @@ trait OpTransformer4[I1 <: FeatureType, I2 <: FeatureType, I3 <: FeatureType, I4
    * @return a new dataset containing a column for the transformed feature
    */
   override def transform(dataset: Dataset[_]): DataFrame = {
-    val newSchema = setInputSchema(dataset.schema).transformSchema(dataset.schema)
+    dataset.select(col("*"), buildColumnExpr(dataset.schema))
+  }
+
+  override def buildColumnExpr: StructType => Column = (schema) => {
+    val newSchema = setInputSchema(schema).transformSchema(schema)
     val functionUDF = FeatureSparkTypes.udf4[I1, I2, I3, I4, O](transformFn)
     val meta = newSchema(getOutputFeatureName).metadata
-    dataset.select(col("*"),
-      functionUDF(col(in1.name), col(in2.name), col(in3.name), col(in4.name)).as(getOutputFeatureName, meta))
+    functionUDF(col(in1.name), col(in2.name), col(in3.name), col(in4.name)).as(getOutputFeatureName, meta)
   }
 
   private lazy val transform4Fn = FeatureSparkTypes.transform4[I1, I2, I3, I4, O](transformFn)

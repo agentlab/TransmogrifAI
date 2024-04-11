@@ -48,6 +48,7 @@ import org.json4s.JsonAST.{JField, JObject}
 import org.json4s.jackson.JsonMethods.{pretty, render}
 
 import scala.reflect.ClassTag
+import com.salesforce.op.utils.cache.CacheUtils
 
 
 /**
@@ -95,7 +96,7 @@ class OpWorkflowModel(val uid: String = UID[OpWorkflowModel], val trainingParams
     JobGroupUtil.withJobGroup(OpStep.DataReadingAndFiltering) {
       require(reader.nonEmpty, "Data reader must be set")
       checkFeatures()
-      reader.get.generateDataFrame(rawFeatures, parameters).persist() // don't want to redo this
+      CacheUtils.cache(reader.get.generateDataFrame(rawFeatures, parameters), "raw")
     }
   }
 

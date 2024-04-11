@@ -28,6 +28,7 @@ import org.apache.spark.sql.SparkSession
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 import org.apache.spark.{SparkConf, SparkContext}
 import org.scalatest.Suite
+import com.salesforce.op.utils.cache.CacheUtils
 
 /**
  * Trait to enable Spark context for tests
@@ -62,6 +63,10 @@ trait TestSparkContext extends TempDirectoryTest with TestCommon {
   implicit lazy val sc: SparkContext = spark.sparkContext
 
   lazy val checkpointDir: String = createDirectory(tempDir.getCanonicalPath, "checkpoints").toString
+
+  override protected def afterEach(): Unit = {
+    CacheUtils.clearCache()
+  }
 
   override def beforeAll: Unit = {
     super[TempDirectoryTest].beforeAll()

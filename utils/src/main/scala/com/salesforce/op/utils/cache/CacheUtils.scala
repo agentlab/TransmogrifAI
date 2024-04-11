@@ -139,7 +139,7 @@ object CacheUtils {
 
   def clearCache(context: Option[String] = None): Unit = {
     context match {
-      case None => (persistedDatasets.keySet ++ persistedRDDs.keySet).foreach(clearContext(_))
+      case None => (persistedDatasets.keySet ++ persistedRDDs.keySet).foreach(clearContext)
       case Some(ctx) => clearContext(ctx)
     }
     // persistedDatasets.foreach(ds => {

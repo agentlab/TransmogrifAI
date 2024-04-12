@@ -100,6 +100,19 @@ class OpWorkflowModel(val uid: String = UID[OpWorkflowModel], val trainingParams
   }
 
   /**
+   * Used to generate dataframe from reader and raw features list
+   *
+   * @return Dataframe with all the features generated
+   */
+  protected def generateRawData_Mock()(implicit spark: SparkSession): DataFrame = {
+    JobGroupUtil.withJobGroup(OpStep.DataReadingAndFiltering) {
+      require(reader.nonEmpty, "Data reader must be set")
+      checkFeatures()
+      reader.get.generateDataFrame(rawFeatures, parameters)//.persist() // don't want to redo this
+    }
+  }
+
+  /**
    * Returns a dataframe containing all the columns generated up to and including the feature input
    *
    * @param feature input feature to compute up to
@@ -363,6 +376,43 @@ class OpWorkflowModel(val uid: String = UID[OpWorkflowModel], val trainingParams
       )
       // Unpersist raw data, since it's not needed anymore
       rawData.unpersist()
+      scores -> metrics
+    }
+  }
+
+  private[op] def scoreFn_Mock(
+    keepRawFeatures: Boolean = OpWorkflowModel.KeepRawFeatures,
+    keepIntermediateFeatures: Boolean = OpWorkflowModel.KeepIntermediateFeatures,
+    persistEveryKStages: Int = OpWorkflowModel.PersistEveryKStages,
+    persistScores: Boolean = OpWorkflowModel.PersistScores,
+    evaluator: Option[OpEvaluatorBase[_ <: EvaluationMetrics]] = None,
+    metricsPath: Option[String] = None
+  )(implicit spark: SparkSession): Option[String] => (DataFrame, Option[EvaluationMetrics]) = {
+    require(persistEveryKStages >= 1, s"persistEveryKStages value of $persistEveryKStages is invalid must be >= 1")
+
+    // TODO: replace 'stages' with 'stagesDag'. (is a breaking change for serialization, but would simplify scoreFn)
+    // Pre-compute transformations dag
+    val dag = FitStagesUtil.computeDAG(resultFeatures)
+
+    (path: Option[String]) => {
+      // Generate the dataframe with raw features
+      val rawData: DataFrame = generateRawData_Mock()
+
+      // Apply the transformations DAG on raw data
+      val transformedData: DataFrame = applyTransformationsDAG_Mock(rawData, dag, persistEveryKStages)
+
+      // Save the scores
+      val (scores, metrics) = saveScores(
+        path = path,
+        keepRawFeatures = keepRawFeatures,
+        keepIntermediateFeatures = keepIntermediateFeatures,
+        transformedData = transformedData,
+        persistScores = persistScores,
+        evaluator = evaluator,
+        metricsPath = metricsPath
+      )
+      // Unpersist raw data, since it's not needed anymore
+      // rawData.unpersist()
       scores -> metrics
     }
   }

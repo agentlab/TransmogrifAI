@@ -1,0 +1,71 @@
+---
+# Borrowed from https://github.com/confluentinc/confluent-kafka-python/blob/master/tests/docker/docker-compose.yaml
+# https://www.baeldung.com/scala/kafka
+# https://docs.confluent.io/platform/current/installation/docker/config-reference.html#confluent-ak-configuration
+
+version: "3"
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.6.0
+    ports:
+      - 2181:2181
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+    networks:
+      - kafka_net
+
+  kafka:
+    image: confluentinc/cp-kafka:7.6.0
+    depends_on:
+      - zookeeper
+    ports:
+      - 9092:9092
+      - 29094:29094
+    #volumes:
+    #  - ./../helloworld/src/main/resources/TitanicDataset:/data
+    networks:
+      - kafka_net
+    environment:
+      KAFKA_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_EXT://kafka:9092,PLAINTEXT_HOST://kafka:29094
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092, PLAINTEXT_HOST://host.docker.internal:29094,PLAINTEXT_EXT://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT, PLAINTEXT_HOST:PLAINTEXT, PLAINTEXT_EXT:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_DEFAULT_REPLICATION_FACTOR: 1
+
+  kafka-schema-registry:
+    image: confluentinc/cp-schema-registry:7.6.0
+    networks:
+      - kafka_net
+    ports:
+      - "8081:8081"
+    depends_on:
+      kafka:
+        condition: service_started
+    environment:
+      SCHEMA_REGISTRY_DEBUG: true
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: PLAINTEXT://kafka:29092
+      SCHEMA_REGISTRY_HOST_NAME: localhost
+      #SCHEMA_REGISTRY_LISTENERS: http://localhost:8081
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui:v0.7.1
+    networks:
+      - kafka_net
+    ports:
+      - "8088:8080"
+    depends_on:
+      kafka:
+        condition: service_started
+      kafka-schema-registry:
+        condition: service_started
+    environment:
+      KAFKA_CLUSTERS_0_NAME: test-cluster
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:29092
+      KAFKA_CLUSTERS_0_SCHEMAREGISTRY: http://kafka-schema-registry:8081
+      DYNAMIC_CONFIG_ENABLED: 'true'
+
+
+networks:
+  kafka_net:

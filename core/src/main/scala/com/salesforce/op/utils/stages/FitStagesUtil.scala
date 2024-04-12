@@ -38,7 +38,7 @@ import com.salesforce.op.utils.cache.CacheUtils
 import com.salesforce.op.{OpWorkflow, OpWorkflowModel}
 import org.apache.spark.ml.{Estimator, Model, Transformer}
 import org.apache.spark.rdd.RDD
-import org.apache.spark.sql.{DataFrame, Dataset, Row, SparkSession}
+import org.apache.spark.sql.{Column, DataFrame, Dataset, Row, SparkSession}
 import org.slf4j.LoggerFactory
 
 import scala.collection.mutable.ListBuffer
@@ -48,7 +48,7 @@ import org.apache.spark.util.SparkThreadUtils
 import com.salesforce.op.stages.OpPipelineStage
 import scala.concurrent.duration.Duration
 import org.apache.spark.sql.functions._
-import org.apache.spark.sql.types.StructType
+import org.apache.spark.sql.types.{StructField, StructType}
 import com.salesforce.op.features.types.FeatureType
 import org.apache.spark.storage.StorageLevel
 
@@ -145,6 +145,35 @@ private[op] case object FitStagesUtil {
     }
   }
 
+    /**
+   * Efficiently apply all op stages
+   *
+   * @param opStages list of op stages to apply
+   * @param df       dataframe to apply them too
+   * @return new data frame containing columns with output for all stages fed in
+   */
+  def applyOpTransformations_Mock(opStages: Array[_ <: OPStage with OpTransformer], df: Dataset[Row])
+    (implicit spark: SparkSession): Dataset[Row] = {
+    if (opStages.isEmpty) df
+    else {
+      log.info("Applying {} OP stage(s): {}", opStages.length, opStages.map(_.uid).mkString(","))
+
+      val newSchema = opStages.foldLeft(df.schema) {
+        case (schema, s) => s.setInputSchema(schema).transformSchema(schema)
+      }
+      val transforms = opStages.map(_.transformRow)
+
+      val schema = df.schema
+      val transformerColsMap: Map[String, Column] = opStages.map {
+        case t: OpTransformer => {
+          val inputSchema = StructType(t.getInputFeatures().map(f => schema(f.name)))
+          (t.getOutputFeatureName, t.buildColumnExpr(inputSchema))
+        }
+      }.toMap      
+      df.withColumns(transformerColsMap)
+    }
+  }
+
   /**
    * Transform the data using the specified Spark transformers.
    * Applying all the transformers one by one as [[org.apache.spark.ml.Pipeline]] does.
@@ -232,6 +261,44 @@ private[op] case object FitStagesUtil {
     val (checkpointedTransformedDf, rdds) = CacheUtils.checkpoint(transformedData, persistContext)
     cleanUp()
     checkpointedTransformedDf
+  }
+
+  /**
+   * Transform the data using the specified Spark transformers.
+   * Applying all the transformers one by one as [[org.apache.spark.ml.Pipeline]] does.
+   *
+   * ATTENTION: This method applies transformers sequentially (as [[org.apache.spark.ml.Pipeline]] does)
+   * and usually results in slower run times with large amount of transformations due to Catalyst crashes,
+   * therefore always remember to set 'persistEveryKStages' to break up Catalyst.
+   *
+   * @param transformers        spark transformers to apply
+   * @param persistEveryKStages how often to break up Catalyst by persisting the data,
+   *                            to turn off set to Int.MaxValue (not recommended)
+   * @return Dataframe transformed data
+   */
+  def applySparkTransformations_Mock(
+    data: Dataset[Row], transformers: Array[Transformer], persistEveryKStages: Int
+  )(implicit spark: SparkSession): Dataset[Row] = {
+
+    // you have more than 5 stages and are not persisting at least once
+    if (transformers.length > 5 && persistEveryKStages > transformers.length) {
+      log.warn(
+        "Number of transformers for scoring pipeline exceeds the persistence frequency. " +
+          "Scoring performance may significantly degrade due to Catalyst optimizer issues. " +
+          s"Consider setting 'persistEveryKStages' to a smaller number (ex. ${OpWorkflowModel.PersistEveryKStages}).")
+    }
+
+    // A holder for the last persisted rdd
+    var lastPersisted: Option[RDD[_]] = None
+
+    // Apply all the transformers one by one as [[org.apache.spark.ml.Pipeline]] does
+    val transformedData: DataFrame =
+      transformers.zipWithIndex.foldLeft(data) { case (df, (stage, i)) =>
+        val persist = i > 0 && i % persistEveryKStages == 0
+        log.info(s"Applying stage: ${stage.uid}{}", if (persist) " (persisted)" else "")
+        stage.asInstanceOf[Transformer].transform(df)
+      }
+    transformedData
   }
 
   /**

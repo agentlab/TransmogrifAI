@@ -13,6 +13,20 @@ Each project can be either be run with the gradle task, `sparkSubmit` (**recomme
 
 Note: make sure you have all the [prerequisites](http://docs.transmogrif.ai/en/stable/installation/index.html).
 
+# Build
+
+1. For Spark Structured Streaming support -- clone and build https://github.com/AbsaOSS/ABRiS with maven
+2. Build project with `./gradlew clean shadowJar`.
+
+
+com.fasterxml.jackson.core:jackson-databind:2.10.5.1
+com.fasterxml.jackson.core:jackson-annotations:2.10.5
+org.apache.commons:commons-lang3:3.2.1
+
+mvn org.apache.maven.plugins:maven-dependency-plugin:2.1:get -DrepoUrl=https://mvnrepository.com/repos/central -Dartifact=com.fasterxml.jackson.core:jackson-databind:2.10.5.1
+mvn org.apache.maven.plugins:maven-dependency-plugin:2.1:get -DrepoUrl=https://mvnrepository.com/repos/central -Dartifact=com.fasterxml.jackson.core:jackson-annotations:2.10.5
+mvn org.apache.maven.plugins:maven-dependency-plugin:2.1:get -DrepoUrl=https://mvnrepository.com/repos/central -Dartifact=org.apache.commons:commons-lang3:3.2.1
+
 ### Titanic Mini
 
 First, build project with `./gradlew clean installDist`. Then run:
@@ -66,7 +80,7 @@ rm -rf /tmp/titanic-model \
     build/libs/transmogrifai-helloworld_2.12-0.0.1-all.jar \
     --run-type train \
     --model-location /tmp/titanic-model \
-    --read-location Passenger=`pwd`/src/main/resources/TitanicDataset/TitanicPassengersTrainData.csv
+    --read-location Passenger2=`pwd`/src/main/resources/TitanicDataset/TitanicPassengersTrainData.csv
 ```
 #### Score
 For Java 8 and Java 11
@@ -77,7 +91,7 @@ rm -rf /tmp/titanic-scores \
     build/libs/transmogrifai-helloworld_2.12-0.0.1-all.jar \
     --run-type score \
     --model-location /tmp/titanic-model \
-    --read-location Passenger=`pwd`/src/main/resources/TitanicDataset/TitanicPassengersTrainData.csv \
+    --read-location Passenger2=`pwd`/src/main/resources/TitanicDataset/TitanicPassengersTrainData.csv \
     --write-location /tmp/titanic-scores
 ```
 #### Evaluate
@@ -88,21 +102,37 @@ rm -rf /tmp/titanic-eval \
     build/libs/transmogrifai-helloworld_2.12-0.0.1-all.jar \
     --run-type evaluate \
     --model-location /tmp/titanic-model \
-    --read-location Passenger=`pwd`/src/main/resources/TitanicDataset/TitanicPassengersTrainData.csv \
+    --read-location Passenger2=`pwd`/src/main/resources/TitanicDataset/TitanicPassengersTrainData.csv \
     --write-location /tmp/titanic-eval \
     --metrics-location /tmp/titanic-metrics
 ```
 #### Steaming Score
-For Java 8 and Java 11
 ```shell
 rm -rf /tmp/titanic-scores \
-  && $SPARK_HOME/bin/spark-submit --packages org.apache.spark:spark-avro_2.12:3.3.2 \
+  && $SPARK_HOME/bin/spark-submit \
+    --packages 'org.apache.spark:spark-avro_2.12:3.3.2,org.apache.spark:spark-sql-kafka-0-10_2.12:3.3.2,org.apache.kafka:kafka-clients:2.8.1,za.co.absa:abris_2.12:6.4.0,io.confluent:kafka-avro-serializer:6.2.1,io.confluent:kafka-schema-registry-client:6.2.1' \
+    --repositories 'https://mvnrepository.com/repos/central,https://packages.confluent.io/maven/' \
     --class com.salesforce.hw.titanic.OpTitanic \
-    --conf spark.driver.extraJavaOptions=-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005 \
+    --conf 'spark.executor.extraJavaOptions=-Dio.netty.tryReflectionSetAccessible=true' \
     build/libs/transmogrifai-helloworld_2.12-0.0.1-all.jar \
     --run-type streamingScore \
     --model-location /tmp/titanic-model \
-    --read-location Passenger=`pwd`/src/main/resources/TitanicDataset/TitanicPassengersTrainData.csv \
+    --read-location Passenger2=`pwd`/src/main/resources/TitanicDataset/TitanicPassengersTrainData.csv \
+    --write-location /tmp/titanic-scores
+```
+For Java 8 and Java 11 with debugger on port 5005.
+```shell
+rm -rf /tmp/titanic-scores \
+  && $SPARK_HOME/bin/spark-submit \
+    --packages 'org.apache.spark:spark-avro_2.12:3.3.2,org.apache.spark:spark-sql-kafka-0-10_2.12:3.3.2,org.apache.kafka:kafka-clients:2.8.1,za.co.absa:abris_2.12:6.4.0,io.confluent:kafka-avro-serializer:6.2.1,io.confluent:kafka-schema-registry-client:6.2.1' \
+    --repositories 'https://mvnrepository.com/repos/central,https://packages.confluent.io/maven/' \
+    --class com.salesforce.hw.titanic.OpTitanic \
+    --conf 'spark.driver.extraJavaOptions=-Dio.netty.tryReflectionSetAccessible=true -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005' \
+    --conf 'spark.executor.extraJavaOptions=-Dio.netty.tryReflectionSetAccessible=true' \
+    build/libs/transmogrifai-helloworld_2.12-0.0.1-all.jar \
+    --run-type streamingScore \
+    --model-location /tmp/titanic-model \
+    --read-location Passenger2=`pwd`/src/main/resources/TitanicDataset/TitanicPassengersTrainData.csv \
     --write-location /tmp/titanic-scores
 ```
 

@@ -9,7 +9,7 @@ buildscript {
         maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
-        classpath "com.github.alisiikh:gradle-scalastyle-plugin:3.5.0"
+        // classpath "com.github.alisiikh:gradle-scalastyle-plugin:3.5.0"
         classpath 'com.commercehub.gradle.plugin:gradle-avro-plugin:0.16.0'
         classpath 'com.adtran:scala-multiversion-plugin:2.0.4'
     }
@@ -44,7 +44,7 @@ configure(allProjs) {
     apply plugin: 'scala'
     // apply plugin: 'findbugs'
     apply plugin: 'org.scoverage'
-    apply plugin: "com.github.alisiikh.scalastyle"
+    // apply plugin: "com.github.alisiikh.scalastyle"
     apply plugin: 'maven-publish'
     apply plugin: 'signing'
     apply plugin: 'project-report'
@@ -158,7 +158,7 @@ configure(allProjs) {
         jar.dependsOn(createVersionProperties)
     }
 
-    scalastyle {
+    /* scalastyle {
         scalaVersion = '%%'
         scalastyleVersion = '1.5.1'
         config = file("$rootProject.rootDir/gradle/scalastyle-config.xml")
@@ -166,7 +166,7 @@ configure(allProjs) {
 
     if (System.getenv("CI") != 'true') {
         compileScala.dependsOn(scalastyleCheck)
-    }
+    } */
 
     avro {
         createSetters = true
@@ -266,11 +266,11 @@ configure(allProjs) {
 
     afterEvaluate {
         compileScoverageJava.enabled = false
-        tasks.withType(com.github.alisiikh.scalastyle.ScalastyleCheckTask) {
+        /* tasks.withType(com.github.alisiikh.scalastyle.ScalastyleCheckTask) {
             if(it.name.contains("Scoverage")) {
                 it.enabled = false
             }
-        }
+        } */
         tasks.withType(GenerateModuleMetadata) {
             enabled = false
         }

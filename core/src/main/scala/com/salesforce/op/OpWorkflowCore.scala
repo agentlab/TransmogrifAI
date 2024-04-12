@@ -315,6 +315,36 @@ private[op] trait OpWorkflowCore {
     }
   }
 
+  /**
+   * Efficiently applies all fitted stages grouping by level in the DAG where possible
+   *
+   * @param rawData             data to transform
+   * @param dag                 computation graph
+   * @param persistEveryKStages breaks in computation to persist
+   * @param spark               spark session
+   * @return transformed dataframe
+   */
+  protected def applyTransformationsDAG_Mock(
+    rawData: DataFrame, dag: StagesDAG, persistEveryKStages: Int
+  )(implicit spark: SparkSession): DataFrame = {
+    if (dag.exists(_.exists(_._1.isInstanceOf[Estimator[_]]))) {
+      throw new IllegalArgumentException("Cannot apply transformations to DAG that contains estimators")
+    }
+
+    // Apply stages layer by layer
+    dag.foldLeft(rawData) { case (df, stagesLayer) =>
+      // Apply all OP stages
+      val opStages = stagesLayer.collect { case (s: OpTransformer, _) => s }
+      val dfTransformed: DataFrame = FitStagesUtil.applyOpTransformations_Mock(opStages, df)
+
+      // Apply all non OP stages (ex. Spark wrapping stages etc)
+      val sparkStages = stagesLayer.collect {
+        case (s: Transformer, _) if !s.isInstanceOf[OpTransformer] => s.asInstanceOf[Transformer]
+      }
+      FitStagesUtil.applySparkTransformations_Mock(dfTransformed, sparkStages, persistEveryKStages)
+    }
+  }
+
 
   /**
    * Looks at model parents to match parent stage for features (since features are created from the estimator not

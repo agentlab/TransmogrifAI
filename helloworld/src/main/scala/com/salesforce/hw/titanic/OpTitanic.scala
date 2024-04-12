@@ -38,6 +38,8 @@ import com.salesforce.op.stages.impl.tuning.DataSplitter
 import com.salesforce.op.utils.kryo.OpKryoRegistrator
 import org.apache.spark.ml.tuning.ParamGridBuilder
 
+import org.apache.spark.sql.Encoders
+
 /**
  * TransmogrifAI example classification app using the Titanic dataset
  */
@@ -48,8 +50,9 @@ object OpTitanic extends OpAppWithRunner with TitanicFeatures {
   /////////////////////////////////////////////////////////////////////////////////
 
   val randomSeed = 42L
-  val simpleReader = DataReaders.Simple.csv[Passenger](
-    schema = Passenger.getClassSchema.toString, key = _.getPassengerId.toString
+  implicit val titanicEncoder = Encoders.product[Passenger2]
+  val simpleReader = DataReaders.Simple.csvCase[Passenger2](
+    key = _.PassengerId.toString
   )
 
   ////////////////////////////////////////////////////////////////////////////////
@@ -92,7 +95,7 @@ object OpTitanic extends OpAppWithRunner with TitanicFeatures {
   // APPLICATION RUNNER DEFINITION
   /////////////////////////////////////////////////////////////////////////////////
   def runner(opParams: OpParams): OpWorkflowRunner =
-    new OpWorkflowRunner(
+    new OpWorkflowRunnerEx(
       workflow = workflow,
       trainingReader = simpleReader,
       scoringReader = simpleReader,

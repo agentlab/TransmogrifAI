@@ -52,7 +52,7 @@ import org.apache.spark.sql.types.StructType
 import com.salesforce.op.features.types.FeatureType
 import scala.util.{Failure, Success, Try}
 import org.apache.spark.SparkException
-import scala.util.Success
+import com.salesforce.op.stages.impl.preparators.SanityCheckerModel
 
 /**
  * Functionality for manipulating stages DAG and fitting stages
@@ -184,22 +184,24 @@ private[op] case object FitStagesUtil {
   )(implicit spark: SparkSession): Dataset[Row] = {
     log.info(s"Applying transformations with persisting every ${persistEveryKStages} stage(s)")
 
-    val opTransformers = stages.collect { case s: OPStage with OpTransformer => s }
+    val opTransformers = stages.collect {
+      case s: OPStage with OpTransformer if !s.isInstanceOf[SanityCheckerModel] => s
+    }
     val sparkTransformers = stages.collect {
-      case s: Transformer if !s.isInstanceOf[OpTransformer] => s.asInstanceOf[Transformer]
+      case s: Transformer if !s.isInstanceOf[OpTransformer] || s.isInstanceOf[SanityCheckerModel] => s
     }
 
     val nlfs = nextLayersFeatures match {
       case None => None
       case Some(value) =>
         val currentLevelSparkFeatures = sparkTransformers
-                                          .flatMap(t => t.asInstanceOf[OPStage].getInputFeatures())
+                                          .flatMap(t => t.getInputFeatures())
                                           .map(_.name)
         Some(value ++ currentLevelSparkFeatures)
     }
 
     val opTransformed = applyOpTransformations(opTransformers, data, nlfs)
-    val sparkTransformed = applySparkTransformations(opTransformed, sparkTransformers,
+    val sparkTransformed = applySparkTransformations(opTransformed, sparkTransformers.map(_.asInstanceOf[Transformer]),
         persistEveryKStages, nextLayersFeatures)
 
     val (checkpointedTransformedDf, rdds) = CacheUtils.checkpoint(sparkTransformed, persistContext)
@@ -221,30 +223,30 @@ private[op] case object FitStagesUtil {
     }
 
     val fittedEstimators: Array[OPStage] = if (estimators.length > 8 * 4) {
-    val fitEstimatorsFutures: Seq[Future[OpPipelineStage[_]]] = estimators.toSeq.map { e =>
-      Future {
+      val fitEstimatorsFutures: Seq[Future[OpPipelineStage[_]]] = estimators.toSeq.map { e =>
+        Future {
           e.fit(datasetToFit) match {
-          case m: HasTestEval if test.nonEmpty =>
-            m.evaluateModel(test.get)
-            m.asInstanceOf[OPStage]
-          case m =>
-            m.asInstanceOf[OPStage]
+            case m: HasTestEval if test.nonEmpty =>
+              m.evaluateModel(test.get)
+              m.asInstanceOf[OPStage]
+            case m =>
+              m.asInstanceOf[OPStage]
+          }
         }
       }
-    }
-    val futureSeq = Future.sequence(fitEstimatorsFutures)
-    Try {
-      SparkThreadUtils.utils.awaitResult(futureSeq, Duration.Inf)
-        .toArray.asInstanceOf[Array[OPStage]]
-    } match {
-      case Failure(exception) => exception match {
+      val futureSeq = Future.sequence(fitEstimatorsFutures)
+      Try {
+        SparkThreadUtils.utils.awaitResult(futureSeq, Duration.Inf)
+          .toArray.asInstanceOf[Array[OPStage]]
+      } match {
+        case Failure(exception) => exception match {
           case ex: SparkException =>
             CacheUtils.clearContext("fit-estimators")
             throw ex.getCause()
           case ex =>
             CacheUtils.clearContext("fit-estimators")
             throw ex
-      }
+        }
         case Success(value) =>
           value
       }

@@ -53,6 +53,9 @@ import org.slf4j.impl.Log4jLoggerAdapter
 import scala.collection.mutable.ArrayBuffer
 import scala.math.min
 import scala.reflect.runtime.universe._
+import org.apache.spark.ml.feature.VectorSlicer
+import org.apache.spark.sql.DataFrame
+import org.apache.spark.sql.functions._
 
 
 trait SanityCheckerParams extends DerivedFeatureFilterParams {
@@ -555,6 +558,23 @@ final class SanityCheckerModel private[op]
    */
   def transformFn: (RealNN, OPVector) => OPVector = (label, feature) => {
     DerivedFeatureFilterUtils.removeFeatures(indicesToKeep, removeBadFeatures)(feature)
+  }
+
+  override def transform(dataset: Dataset[_]): DataFrame = {
+    val newSchema = setInputSchema(dataset.schema).transformSchema(dataset.schema)
+    val meta = newSchema(getOutputFeatureName).metadata
+    if (!removeBadFeatures) {
+      dataset.withColumn(getOutputFeatureName, col(in2.name).as(getOutputFeatureName, meta))
+    } else {
+      val transitiveColName = UID(uid)
+      val slicer = new VectorSlicer()
+        .setInputCol(in2.name)
+        .setOutputCol(transitiveColName)
+        .setIndices(indicesToKeep)
+      slicer.transform(dataset)
+        .withColumn(getOutputFeatureName, col(transitiveColName).as(getOutputFeatureName, meta))
+        .drop(col(transitiveColName))
+    }
   }
 }
 

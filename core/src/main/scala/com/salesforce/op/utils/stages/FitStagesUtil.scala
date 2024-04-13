@@ -210,9 +210,20 @@ private[op] case object FitStagesUtil {
 
   def fitEstimators(estimators: Array[Estimator[_]], train: Dataset[Row], test: Option[Dataset[Row]])
   (implicit spark: SparkSession, ec: ExecutionContext): Array[OPStage] = {
+    val inputFeatures = estimators.flatMap {
+      case e: OpPipelineStage[_] =>
+        e.getInputFeatures().map(_.name)
+    }.toSet.toSeq
+    val datasetToFit = if ( (inputFeatures.length.toDouble / estimators.length) > 10) {
+      train
+    } else {
+      CacheUtils.cache(train.select(inputFeatures.map(col): _*), "fit-estimators")
+    }
+
+    val fittedEstimators: Array[OPStage] = if (estimators.length > 8 * 4) {
     val fitEstimatorsFutures: Seq[Future[OpPipelineStage[_]]] = estimators.toSeq.map { e =>
       Future {
-        e.fit(train) match {
+          e.fit(datasetToFit) match {
           case m: HasTestEval if test.nonEmpty =>
             m.evaluateModel(test.get)
             m.asInstanceOf[OPStage]
@@ -227,11 +238,29 @@ private[op] case object FitStagesUtil {
         .toArray.asInstanceOf[Array[OPStage]]
     } match {
       case Failure(exception) => exception match {
-        case ex: SparkException => throw ex.getCause()
-        case ex => throw ex
+          case ex: SparkException =>
+            CacheUtils.clearContext("fit-estimators")
+            throw ex.getCause()
+          case ex =>
+            CacheUtils.clearContext("fit-estimators")
+            throw ex
       }
-      case Success(value) => value
+        case Success(value) =>
+          value
+      }
+    } else {
+      estimators.map { e =>
+        e.fit(datasetToFit) match {
+            case m: HasTestEval if test.nonEmpty =>
+              m.evaluateModel(test.get)
+              m.asInstanceOf[OPStage]
+            case m =>
+              m.asInstanceOf[OPStage]
+          }
+      }
     }
+    CacheUtils.clearContext("fit-estimators")
+    fittedEstimators
   }
 
   /**

@@ -91,7 +91,7 @@ configure(allProjs) {
         scoveragePluginVersion = '2.0.8'
         xgboostVersion = '1.5.2'
         akkaSlf4jVersion = '2.5.23'
-        mleapVersion = '0.20.0'
+        mleapVersion = '0.21.1'
         memoryFilesystemVersion = '2.1.0'
     }
 
@@ -120,6 +120,14 @@ configure(allProjs) {
         testImplementation "org.scalacheck:scalacheck_%%:$scalaCheckVersion"
         testImplementation ("com.holdenkarau:spark-testing-base_%%:$sparkTestingBaseVersion") { transitive = false }
         testImplementation "junit:junit:$junitVersion"
+    }
+    
+    configurations.all {
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            if (details.requested.group == 'ml.dmlc') {
+                details.useVersion "$xgboostVersion"
+            }
+        }
     }
 
     configurations.all {

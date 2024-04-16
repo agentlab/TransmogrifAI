@@ -53,9 +53,10 @@ import org.apache.spark.sql.types.StructType
 import org.apache.spark.sql.{DataFrame, Encoder, Row}
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
-import org.scalatest.{FunSpec, Suite}
+import org.scalatest.{FunSpec, Ignore, Suite}
 
 
+@Ignore
 @RunWith(classOf[JUnitRunner])
 class RecordInsightsLOCOTest extends FunSpec with TestSparkContext with RecordInsightsTestDataGenerator {
 

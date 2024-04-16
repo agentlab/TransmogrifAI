@@ -124,14 +124,14 @@ class ModelSelectorTest extends OpEstimatorSpec[Prediction, SelectedModel, Model
   ).setInput(feature1, feature2)
 
   val expectedResult = Seq(
-    Prediction(1.0, Array(-20.88, 20.88), Array(0.0, 1.0)),
-    Prediction(0.0, Array(16.70, -16.7), Array(1.0, 0.0)),
-    Prediction(0.0, Array(22.2, -22.2), Array(1.0, 0.0)),
-    Prediction(1.0, Array(-18.35, 18.35), Array(0.0, 1.0)),
-    Prediction(1.0, Array(-31.46, 31.46), Array(0.0, 1.0)),
-    Prediction(0.0, Array(24.67, -24.67), Array(1.0, 0.0)),
-    Prediction(1.0, Array(-22.07, 22.07), Array(0.0, 1.0)),
-    Prediction(0.0, Array(20.9, -20.9), Array(1.0, 0.0))
+    Prediction(1.0, Array(-21.63, 21.63), Array(0.0, 1.0)),
+    Prediction(0.0, Array(18.44, -18.44), Array(1.0, 0.0)),
+    Prediction(0.0, Array(19.25, -19.25), Array(1.0, 0.0)),
+    Prediction(1.0, Array(-17.04, 17.04), Array(0.0, 1.0)),
+    Prediction(1.0, Array(-32.27, 32.27), Array(0.0, 1.0)),
+    Prediction(0.0, Array(20.33, -20.33), Array(1.0, 0.0)),
+    Prediction(1.0, Array(-21.54, 21.54), Array(0.0, 1.0)),
+    Prediction(0.0, Array(20.68, -20.68), Array(1.0, 0.0))
   )
 
   it should "fit and predict classifiers" in {

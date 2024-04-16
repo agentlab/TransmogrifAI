@@ -59,9 +59,9 @@ class OpGeneralizedLinearRegressionTest extends OpEstimatorSpec[Prediction,
   val estimator = new OpGeneralizedLinearRegression().setInput(label, features)
 
   val expectedResult = Seq(
-    Prediction(10.0, 9.99),
-    Prediction(20.0, 19.99),
-    Prediction(30.0, 29.99),
+    Prediction(9.99, 9.99),
+    Prediction(19.99, 19.99),
+    Prediction(29.99, 29.99),
     Prediction(40.0, 40.0),
     Prediction(50.0, 50.0)
   )

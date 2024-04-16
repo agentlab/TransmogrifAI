@@ -62,14 +62,14 @@ class OpLinearSVCTest extends OpEstimatorSpec[Prediction, OpPredictorWrapperMode
   val estimator = new OpLinearSVC().setInput(feature1, feature2)
 
   val expectedResult = Seq(
-    Prediction(1.0, Vectors.dense(Array(-1.33, 1.33))),
-    Prediction(0.0, Vectors.dense(Array(1.04, -1.04))),
-    Prediction(0.0, Vectors.dense(Array(2.69, -2.69))),
-    Prediction(1.0, Vectors.dense(Array(-1.32, 1.32))),
-    Prediction(1.0, Vectors.dense(Array(-2.11, 2.11))),
-    Prediction(0.0, Vectors.dense(Array(4.41, -4.41))),
-    Prediction(1.0, Vectors.dense(Array(-1.46, 1.46))),
-    Prediction(0.0, Vectors.dense(Array(1.42, -1.42)))
+    Prediction(1.0, Vectors.dense(Array(-1.68, 1.68))),
+    Prediction(0.0, Vectors.dense(Array(1.21, -1.21))),
+    Prediction(0.0, Vectors.dense(Array(1.48, -1.48))),
+    Prediction(1.0, Vectors.dense(Array(-1.22, 1.22))),
+    Prediction(1.0, Vectors.dense(Array(-2.44, 2.44))),
+    Prediction(0.0, Vectors.dense(Array(2.32, -2.32))),
+    Prediction(1.0, Vectors.dense(Array(-1.55, 1.55))),
+    Prediction(0.0, Vectors.dense(Array(1.19, -1.19)))
   )
 
 

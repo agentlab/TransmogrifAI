@@ -84,7 +84,7 @@ class AvroFieldTest extends FlatSpec with TestCommon with Assertions {
       ABoolean(fields(8), isNullable = false)
     )
 
-    an[IllegalArgumentException] should be thrownBy {
+    an[NullPointerException] should be thrownBy {
       val nullSchema = Schema.create(Schema.Type.NULL)
       val nullField = new Schema.Field("xxx", null, "Nobody", null: Object)
       AvroField from nullField

@@ -60,15 +60,15 @@ class RichVectorTest extends PropSpec with ScalaCheckPropertyChecks with TestSpa
       val dense = sparse.toDense
       for {
         res <- Seq(
-          () => sparse + wrongSize,
-          () => sparse - wrongSize,
-          () => sparse dot wrongSize,
-          () => dense + wrongSize,
-          () => dense - wrongSize,
-          () => dense dot wrongSize,
-          () => dense + wrongSize.toDense,
-          () => dense - wrongSize.toDense,
-          () => dense dot wrongSize.toDense
+          () => wrongSize + sparse,
+          () => wrongSize - sparse,
+          () => wrongSize dot sparse,
+          () => wrongSize + dense,
+          () => wrongSize - dense,
+          () => wrongSize dot dense,
+          () => wrongSize.toDense + dense,
+          () => wrongSize.toDense - dense,
+          () => wrongSize.toDense dot dense
         )
       } {
         intercept[IllegalArgumentException](res()).getMessage should {

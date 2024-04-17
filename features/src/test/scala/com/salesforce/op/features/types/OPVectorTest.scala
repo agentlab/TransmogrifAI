@@ -58,7 +58,7 @@ class OPVectorTest extends FlatSpec with TestCommon {
   it should "error on size mismatch" in {
     val ones = Array.fill(vectors.size)(Vectors.sparse(1, Array(0), Array(1.0)).toOPVector)
     for {
-      (v1, v2) <- vectors.zip(ones)
+      (v1, v2) <- ones.zip(vectors)
       res <- Seq(() => v1 + v2, () => v1 - v2, () => v1 dot v2)
     } intercept[IllegalArgumentException](res()).getMessage should {
       (startWith("requirement failed: Vectors must") and include("same length")) or

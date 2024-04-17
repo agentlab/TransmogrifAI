@@ -41,7 +41,6 @@ import org.apache.spark.mllib.linalg.{Vector => OldVector, Vectors => OldVectors
 import org.apache.spark.mllib.stat.Statistics
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.Dataset
-import org.slf4j.impl.Log4jLoggerAdapter
 
 
 /**
@@ -70,7 +69,7 @@ class MinVarianceFilter
   override def fitFn(data: Dataset[OPVector#Value]): UnaryModel[OPVector, OPVector] = {
     // Set the desired log level
     if (isSet(logLevel)) {
-      Option(log).collect { case l: Log4jLoggerAdapter =>
+      Option(log).collect { case l =>
         LogManager.getLogger(l.getName).setLevel(Level.toLevel($(logLevel)))
       }
     }

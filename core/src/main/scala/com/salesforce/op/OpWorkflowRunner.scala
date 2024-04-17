@@ -33,7 +33,8 @@ package com.salesforce.op
 import java.io.File
 import java.nio.file.Paths
 
-import com.github.fommil.netlib.{BLAS, LAPACK}
+import dev.ludovic.netlib.blas.BLAS
+import dev.ludovic.netlib.lapack.LAPACK
 import com.salesforce.op.evaluators.{EvaluationMetrics, OpEvaluatorBase}
 import com.salesforce.op.features.OPFeature
 import com.salesforce.op.readers.{Reader, StreamingReader}

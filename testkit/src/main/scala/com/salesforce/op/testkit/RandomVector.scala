@@ -36,7 +36,7 @@ import org.apache.spark.ml.linalg._
 import com.salesforce.op.utils.spark.RichVector._
 
 import scala.util.Random
-import com.github.fommil.netlib.LAPACK.{getInstance => lapack}
+import dev.ludovic.netlib.lapack.LAPACK.{getInstance => lapack}
 import org.netlib.util.intW
 
 /**

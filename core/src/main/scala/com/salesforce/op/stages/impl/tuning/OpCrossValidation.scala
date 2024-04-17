@@ -20,7 +20,7 @@
 
 package com.salesforce.op.stages.impl.tuning
 
-import com.github.fommil.netlib.BLAS
+import dev.ludovic.netlib.blas.BLAS
 import com.salesforce.op.evaluators.{EvaluationMetrics, OpEvaluatorBase}
 import com.salesforce.op.stages.OPStage
 import com.salesforce.op.stages.impl.selector.ModelSelectorNames

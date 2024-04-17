@@ -13,6 +13,8 @@ dependencies {
         }
     }
 
+    implementation "com.chuusai:shapeless_%%:2.3.10"
+
     // Spark Avro
     api "org.apache.spark:spark-avro_%%:$sparkVersion"
 

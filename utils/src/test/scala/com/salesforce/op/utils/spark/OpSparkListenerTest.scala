@@ -36,6 +36,8 @@ import com.twitter.algebird.Max
 import com.twitter.algebird.Operators._
 import com.twitter.algebird.macros.caseclass
 import org.apache.log4j._
+import org.apache.log4j.spi.LoggingEvent
+import org.apache.logging.log4j.message.ParameterizedMessage
 import org.junit.runner.RunWith
 import org.scalatest.FlatSpec
 import org.scalatest.junit.JUnitRunner
@@ -90,7 +92,12 @@ class OpSparkListenerTest extends FlatSpec with TableDrivenPropertyChecks with T
   it should "log messages for listener initialization, stage completion, app completion" in {
     val firstStage = listener.metrics.stageMetrics.head
     val logPrefix = listener.logPrefix
-    val logs = sparkLogAppender.logs.map(_.getMessage.toString)
+    val logs = sparkLogAppender.logs.map {
+      event: LoggingEvent => event.getMessage() match {
+        case m: ParameterizedMessage => m.getFormattedMessage()
+        case other => other.toString()
+      }
+    }
     val messages = Table("Spark Log Messages",
       "Instantiated spark listener: %s. Log Prefix %s".format(classOf[OpSparkListener].getName, logPrefix),
       "%s,APP_TIME_MS:%s".format(logPrefix, listener.metrics.appEndTime - listener.metrics.appStartTime),

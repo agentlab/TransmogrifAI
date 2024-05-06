@@ -1,0 +1,21 @@
+plugins {
+    id 'scala-common-conventions'
+    id 'test-common-conventions'
+    id 'formatting-conventions'
+    id 'packaging-conventions'
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+configurations {
+    provided
+    compileOnly.extendsFrom provided
+    testImplementation.extendsFrom provided
+}
+
+dependencies {
+    provided libs.bundles.spark
+}

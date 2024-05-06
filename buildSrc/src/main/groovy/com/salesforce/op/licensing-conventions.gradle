@@ -1,0 +1,27 @@
+import com.github.jk1.license.render.*
+import com.github.jk1.license.importer.*
+
+plugins {
+  id 'org.cadixdev.licenser'
+  id 'com.github.jk1.dependency-license-report'
+}
+
+license {
+  header = rootProject.file('LICENSE')
+  ignoreFailures = true
+  include '**/*.java', '**/*.scala'
+  exclude '**/org/apache/spark/ml/SparkDefaultParamsReadWrite.scala',
+          '**/com/salesforce/op/test/TestSparkContext.scala',
+          '**/com/salesforce/op/test/TempDirectoryTest.scala',
+          '**/com/salesforce/op/stages/impl/tuning/OpCrossValidation.scala',
+          '**/com/salesforce/op/stages/impl/tuning/OpTrainValidationSplit.scala',
+          '**/com/salesforce/op/test/*.java',
+          '**/com/fasterxml/jackson/module/scala/**',
+          '**/com/salesforce/op/utils/stats/StreamingHistogram.java',
+          '**/com/salesforce/app/schema/PassengerDataAll.java',
+          '**/templates/**', '**/resources/**'
+}
+
+licenseReport {
+  renderers = [new CsvReportRenderer(), new InventoryHtmlReportRenderer()]
+}

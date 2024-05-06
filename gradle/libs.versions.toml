@@ -1,0 +1,80 @@
+[versions]
+scala = "2.12.17"
+algebird = "0.13.10"
+avro = "1.8.2"
+chill = "0.9.3"
+jackson = "2.12.2"
+jodaTime = "2.12.5"
+junit = "4.13.2"
+lucene = "7.3.0"
+mleap = "0.19.0"
+spark = "3.1.3"
+scalatest = "3.0.9"
+scoverage = "2.0.10"
+scalastyle = "1.5.1"
+xgboost = "1.3.1"
+
+[libraries]
+akka-slf4j = { module = "com.typesafe.akka:akka-slf4j_2.12", version = "2.5.23" }
+scala-library = { module = "org.scala-lang:scala-library", version.ref = "scala" }
+scala-compiler = { module = "org.scala-lang:scala-compiler", version.ref = "scala" }
+scala-reflect = { module = "org.scala-lang:scala-reflect", version.ref = "scala" }
+algebird = { module = "com.twitter:algebird-core_2.12", version.ref = "algebird" }
+avro-core = { module = "org.apache.avro:avro", version.ref = "avro" }
+avro-mapred = { module = "org.apache.avro:avro-mapred", version.ref = "avro" }
+chill-avro = { module = "com.twitter:chill-avro_2.12", version.ref = "chill" }
+chill-algebird = { module = "com.twitter:chill-algebird_2.12", version.ref = "chill" }
+commons-io = { module = "commons-io:commons-io", version = "2.13.0" }
+commons-validator = { module = "commons-validator:commons-validator", version = "1.7" }
+enumeratum = { module = "com.beachape:enumeratum_2.12", version = "1.4.18" }
+jackson-dataformat-yaml = { module = "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml", version.ref = "jackson" }
+jackson-scala = { module = "com.fasterxml.jackson.module:jackson-module-scala_2.12", version = "jackson" }
+jodaTime = { module = "joda-time:joda-time", version.ref = "jodaTime" }
+json4s = { module = "org.json4s:json4s-ext_2.12", version = "3.7.0-M5" }
+junit = { module = "junit:junit", version.ref = "junit" }
+lucene-spacial3d = { module = "org.apache.lucene:lucene-spatial3d", version.ref = "lucene" }
+lucene-analyzers-common = { module = "org.apache.lucene:lucene-analyzers-common", version.ref = "lucene" }
+lucene-analyzers-kuromoji = { module = "org.apache.lucene:lucene-analyzers-kuromoji", version.ref = "lucene" }
+lucene-analyzers-opennlp = { module = "org.apache.lucene:lucene-analyzers-opennlp", version.ref = "lucene" }
+lucene-suggest = { module = "org.apache.lucene:lucene-suggest", version.ref = "lucene" }
+memoryFileSystem = { module = "com.github.marschall:memoryfilesystem", version = "2.1.0" }
+mleap-spark = { module = "ml.combust.mleap:mleap-spark_2.12", version.ref = "mleap" }
+mleap-runtime = { module = "ml.combust.mleap:mleap-runtime_2.12", version.ref = "mleap" }
+mleap-xgboost-spark = { module = "ml.combust.mleap:mleap-xgboost-spark_2.12", version.ref = "mleap" }
+mleap-xgboost-runtime = { module = "ml.combust.mleap:mleap-xgboost-runtime_2.12", version.ref = "mleap" }
+languageDetector = { module = "com.salesforce.transmogrifai:language-detector", version = "0.0.1" }
+paranamer = { module = "com.thoughtworks.paranamer:paranamer", version = "2.8" }
+phonenumber = { module = "com.googlecode.libphonenumber:libphonenumber", version = "8.12.0" }
+reflections = { module = "org.reflections:reflections", version = "0.10.2" }
+scalafmt = { module = "com.geirsson:scalafmt-core_2.12", version = "1.5.1" }
+scalatest = { module = "org.scalatest:scalatest_2.12", version.ref = "scalatest" }
+scalacheck = { module = "org.scalacheck:scalacheck_2.12", version = "1.17.0" }
+scala-graph = { module = "org.scala-graph:graph-core_2.12", version = "1.13.1" }
+scopt = { module = "com.github.scopt:scopt_2.12", version = "3.7.1" }
+sourcecode = { module = "com.lihaoyi:sourcecode_2.12", version = "0.3.0" }
+spark-avro = { module = "org.apache.spark:spark-avro_2.12", version.ref = "spark" }
+spark-core = { module = "org.apache.spark:spark-core_2.12", version.ref = "spark" }
+spark-sql = { module = "org.apache.spark:spark-sql_2.12", version.ref = "spark" }
+spark-mllib = { module = "org.apache.spark:spark-mllib_2.12", version.ref = "spark" }
+spark-testing = { module = "com.holdenkarau:spark-testing-base_2.12", version = "3.1.3_1.4.3" }
+tika = { module = "org.apache.tika:tika-core", version = "2.4.1" }
+xgboost4j-core = { module = "ml.dmlc:xgboost4j_2.12", version.ref = "xgboost" }
+xgboost4j-spark = { module = "ml.dmlc:xgboost4j-spark_2.12", version.ref = "xgboost" }
+
+[bundles]
+avro = ["avro-core", "avro-mapred"]
+spark = ["spark-core", "spark-sql", "spark-mllib"]
+mleap = ["mleap-spark", "mleap-runtime"]
+mleap-xgboost = ["mleap-xgboost-spark", "mleap-xgboost-runtime"]
+lucene-analyzers = ["lucene-analyzers-common", "lucene-analyzers-kuromoji", "lucene-analyzers-opennlp"]
+xgboost4j = ["xgboost4j-core", "xgboost4j-spark"]
+
+[plugins]
+avro = { id = "com.github.davidmc24.gradle.plugin.avro", version = "1.9.1" }
+licenser = { id = "org.cadixdev.licenser", version = "0.6.1" }
+licenseReport = { id = "com.github.jk1.dependency-license-report", version = "2.5" }
+scalastyle = { id = "com.github.alisiikh.scalastyle", version = "3.5.0" }
+scoverage = { id = "org.scoverage", version = "8.0.3" }
+shadow = { id = "com.github.johnrengelman.shadow", version = "8.1.1" }
+spotless = { id = "com.diffplug.spotless", version = "6.25.0" }
+versioning = { id = "net.nemerosa.versioning", version = "3.1.0" }

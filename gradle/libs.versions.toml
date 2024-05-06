@@ -1,8 +1,10 @@
 [versions]
+scalaLang = "2.12"
 scala = "2.12.17"
 algebird = "0.13.10"
 avro = "1.8.2"
 chill = "0.9.3"
+collections = "3.2.2"
 jackson = "2.12.2"
 jodaTime = "2.12.5"
 junit = "4.13.2"

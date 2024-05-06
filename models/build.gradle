@@ -1,3 +1,6 @@
+plugins {
+  id 'library-common-conventions'
+}
 
 // Avoid compressing models, cause it's quite slow
 jar.entryCompression = ZipEntryCompression.STORED

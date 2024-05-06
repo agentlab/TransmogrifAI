@@ -1,3 +1,8 @@
+plugins {
+    id 'library-common-conventions'
+    id 'avro-generation-conventions'
+}
+
 dependencies {
     implementation project(':utils')
     implementation project(':features')

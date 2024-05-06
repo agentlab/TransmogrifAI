@@ -1,3 +1,8 @@
+plugins {
+    id 'library-common-conventions'
+    id 'avro-generation-conventions'
+}
+
 dependencies {
     api project(':utils')
     api project(':features')
@@ -6,29 +11,26 @@ dependencies {
     testImplementation project(':testkit')
 
     // Google libphonenumber
-    implementation "com.googlecode.libphonenumber:libphonenumber:$googleLibPhoneNumberVersion"
+    implementation libs.phonenumber
 
     // Optimaize language detection
-    implementation "com.salesforce.transmogrifai:language-detector:$optimaizeLangDetectorVersion"
+    implementation libs.languageDetector
 
     // Tika library for detecting various binary data formats
-    implementation "org.apache.tika:tika-core:$tikaVersion"
+    implementation libs.tika
 
     // Lucene text analysis
-    implementation "org.apache.lucene:lucene-analyzers-common:$luceneVersion"
-    implementation "org.apache.lucene:lucene-analyzers-kuromoji:$luceneVersion"
-    implementation "org.apache.lucene:lucene-analyzers-opennlp:$luceneVersion"
-    implementation "org.apache.lucene:lucene-suggest:$luceneVersion"
+    implementation libs.bundles.lucene.analyzers
+    implementation libs.lucene.suggest
 
     // Scopt
-    implementation "com.github.scopt:scopt_%%:$scoptVersion"
+    implementation libs.scopt
 
     // Zip util
     implementation 'org.zeroturnaround:zt-zip:1.14'
 
     // XGBoost
-    implementation ("ml.dmlc:xgboost4j_%%:$xgboostVersion") { exclude group: 'com.esotericsoftware.kryo', module: 'kryo' }
-    implementation ("ml.dmlc:xgboost4j-spark_%%:$xgboostVersion") { exclude group: 'com.esotericsoftware.kryo', module: 'kryo' }
+    implementation (libs.bundles.xgboost4j) { exclude group: 'com.esotericsoftware.kryo', module: 'kryo' }
     // Akka slfj4 logging (version matches XGBoost dependency)
-    testImplementation "com.typesafe.akka:akka-slf4j_%%:$akkaSlf4jVersion"
+    testImplementation libs.akka.slf4j
 }

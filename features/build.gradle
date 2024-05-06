@@ -1,26 +1,28 @@
+plugins {
+    id 'library-common-conventions'
+}
+
 dependencies {
     implementation project(':utils')
     testImplementation project(':testkit')
 
     // Scala graph
-    implementation "org.scala-graph:graph-core_%%:$scalaGraphVersion"
+    implementation libs.scala.graph
 
 
     // Sourcecode macros
-    api "com.lihaoyi:sourcecode_%%:$sourceCodeVersion"
+    api libs.sourcecode
 
     // Needed for Url validation
-    implementation "commons-validator:commons-validator:$commonsValidatorVersion"
+    implementation libs.commons.validator
 
     // Needed for Base64 contents streaming
-    implementation "commons-io:commons-io:$commonsIOVersion"
+    implementation libs.commons.io
 
     // Json4s extensions (needed for Joda time)
-    implementation "org.json4s:json4s-ext_%%:$json4sVersion"
+    implementation libs.json4s
 
     // MLeap serialization & runtime for Spark models
-    api "ml.combust.mleap:mleap-spark_%%:$mleapVersion"
-    api "ml.combust.mleap:mleap-runtime_%%:$mleapVersion"
-    api "ml.combust.mleap:mleap-xgboost-spark_%%:$mleapVersion"
-    api "ml.combust.mleap:mleap-xgboost-runtime_%%:$mleapVersion"
+    api libs.bundles.mleap
+    api libs.bundles.mleap.xgboost
 }

@@ -4,7 +4,7 @@ plugins {
   id 'licensing-conventions'
 }
 
-def baseName = "${rootProject.name}-${project.name}_${scalaVersion}"
+def baseName = "${rootProject.name}-${project.name}_${libs.versions.scalaLang.get()}"
 
 jar.archiveBaseName = baseName
 

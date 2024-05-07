@@ -23,7 +23,6 @@ repositories {
 apply plugin: 'application'
 apply plugin: 'java'
 apply plugin: 'com.github.johnrengelman.shadow'
-apply plugin: "com.github.alisiikh.scalastyle"
 
 apply from: 'gradle/spark.gradle'
 
@@ -70,11 +69,6 @@ shadowJar {
     // https://github.com/combust/mleap/issues/656
     append 'reference.conf'
 }
-
-scalastyle {
-    config = file("${rootProject.projectDir}/gradle/scalastyle-config.xml")
-}
-compileScala.dependsOn(scalastyleCheck)
 
 wrapper {
     gradleVersion = '8.7'

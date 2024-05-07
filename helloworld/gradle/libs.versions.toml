@@ -18,3 +18,4 @@ scala-reflect = { module = "org.scala-lang:scala-reflect", version.ref = "scala"
 [plugins]
 scalastyle = { id = "com.github.alisiikh.scalastyle", version = "3.5.0" }
 scoverage = { id = "org.scoverage", version = "8.0.3" }
+shadow = { id = "com.github.johnrengelman.shadow", version = "8.1.1" }

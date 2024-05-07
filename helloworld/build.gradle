@@ -14,7 +14,6 @@ plugins {
     id 'avro-generation-conventions'
     id 'test-common-conventions'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
-    id 'org.scoverage' version '2.5.0'
 }
 repositories {
     mavenLocal()
@@ -43,7 +42,6 @@ ext {
     sparkVersion = '3.1.3'
     transmogrifaiVersion ='0.8.0-SNAPSHOT'
     collectionsVersion = '3.2.2'
-    scoveragePluginVersion = '1.3.1'
 }
 
 //noinspection GroovyAssignabilityCheck
@@ -54,8 +52,6 @@ configurations {
 
 //noinspection GroovyAssignabilityCheck
 dependencies {
-    scoverage "org.scoverage:scalac-scoverage-plugin_%%:$scoveragePluginVersion"
-    scoverage "org.scoverage:scalac-scoverage-runtime_%%:$scoveragePluginVersion"
     scalaLibrary "org.scala-lang:scala-library:$scalaVersion"
     scalaCompiler "org.scala-lang:scala-compiler:$scalaVersion"
     implementation "org.scala-lang:scala-library:$scalaVersion"
@@ -73,10 +69,6 @@ dependencies {
 
     // Pretrained models used in TransmogrifAI, e.g. OpenNLP POS/NER models etc. (optional)
     // compile "com.salesforce.transmogrifai:transmogrifai-models_%%:$transmogrifaiVersion"
-
-    // Test
-    testImplementation "org.scoverage:scalac-scoverage-plugin_%%:$scoveragePluginVersion"
-    testImplementation "org.scoverage:scalac-scoverage-runtime_%%:$scoveragePluginVersion"
 }
 
 configurations.all {
@@ -127,17 +119,6 @@ scalastyle {
     config = file("${rootProject.projectDir}/gradle/scalastyle-config.xml")
 }
 compileScala.dependsOn(scalastyleCheck)
-
-sourceSets {
-    scoverage {
-        runtimeClasspath += sourceSets.main.output
-        compileClasspath += sourceSets.main.output
-    }
-    testScoverage {
-        runtimeClasspath += sourceSets.main.output + sourceSets.test.output
-        compileClasspath += sourceSets.main.output + sourceSets.test.output
-    }
-}
 
 wrapper {
     gradleVersion = '8.7'

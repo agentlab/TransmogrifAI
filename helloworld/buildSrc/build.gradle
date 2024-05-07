@@ -9,4 +9,9 @@ repositories {
 
 dependencies {
     implementation(libs.gradleAvroPlugin)
+    implementation(plugin(libs.plugins.scoverage))
+}
+
+def plugin(Provider<PluginDependency> pluginDependency) {
+    pluginDependency.map { "${it.pluginId}:${it.pluginId}.gradle.plugin:${it.version}" }
 }

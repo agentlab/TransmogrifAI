@@ -10,6 +10,9 @@ transmogrifai = "0.8.0-SNAPSHOT"
 gradleAvroPlugin = { module = "com.commercehub.gradle.plugin:gradle-avro-plugin", version = "0.16.0" }
 junit = { module = "junit:junit", version.ref = "junit" }
 scalatest = { module = "org.scalatest:scalatest_2.12", version.ref = "scalatest" }
+scala-library = { module = "org.scala-lang:scala-library", version.ref = "scala" }
+scala-compiler = { module = "org.scala-lang:scala-compiler", version.ref = "scala" }
+scala-reflect = { module = "org.scala-lang:scala-reflect", version.ref = "scala" }
 
 [plugins]
 scoverage = { id = "org.scoverage", version = "8.0.3" }

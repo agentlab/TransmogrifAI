@@ -1,13 +1,3 @@
-buildscript {
-    repositories {
-        mavenLocal()
-        mavenCentral()
-        maven { url "https://plugins.gradle.org/m2/" }
-    }
-    dependencies {
-        classpath 'com.commercehub.gradle.plugin:gradle-avro-plugin:0.16.0'
-    }
-}
 plugins {
     id 'scala-common-conventions'
     id 'avro-generation-conventions'
@@ -15,10 +5,10 @@ plugins {
     id 'packaging-conventions'
     id 'spark-application-conventions'
 }
+
 repositories {
-    mavenLocal()
     mavenCentral()
-    gradlePluginPortal()
+    mavenLocal()
 }
 
 ext {
@@ -49,7 +39,7 @@ wrapper {
     distributionSha256Sum = '544c35d6bd849ae8a5ed0bcea39ba677dc40f49df7d1835561582da2009b961d'
 }
 
-task runMain(type: JavaExec) {
+tasks.register('runMain', JavaExec) {
     description 'run a main class, i.e.: runMain -Dmain=MyMainClass -Dargs="arg1 arg2 arg3"'
     main = System.getProperty("main")
     classpath = sourceSets.main.runtimeClasspath
@@ -58,7 +48,7 @@ task runMain(type: JavaExec) {
     args = System.getProperty("args", "") == "" ? new LinkedList<String>() : Arrays.asList(System.getProperty("args").split(" "))
 }
 
-task repl(type: JavaExec) {
+tasks.register('repl', JavaExec) {
     description 'Start Scala repl.'
     main = "scala.tools.nsc.MainGenericRunner"
     classpath = sourceSets.main.runtimeClasspath + configurations.scalaCompiler
@@ -66,7 +56,7 @@ task repl(type: JavaExec) {
     args '-usejavacp'
 }
 
-task classpath {
+tasks.register('classpath') {
     doLast {
         description 'Print project classpath.'
         println sourceSets.main.runtimeClasspath.asPath

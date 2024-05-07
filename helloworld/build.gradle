@@ -11,6 +11,7 @@ buildscript {
     }
 }
 plugins {
+    id 'avro-generation-conventions'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'org.scoverage' version '2.5.0'
 }
@@ -25,7 +26,6 @@ apply plugin: 'java'
 apply plugin: 'scala'
 apply plugin: 'com.github.johnrengelman.shadow'
 apply plugin: "com.github.alisiikh.scalastyle"
-apply plugin: 'com.commercehub.gradle.plugin.avro'
 apply plugin: 'com.adtran.scala-multiversion-plugin'
 
 apply from: 'gradle/tests.gradle'
@@ -132,19 +132,7 @@ scalastyle {
 }
 compileScala.dependsOn(scalastyleCheck)
 
-avro {
-    createSetters = true
-    fieldVisibility = "PUBLIC_DEPRECATED"
-    outputCharacterEncoding = "UTF-8"
-    stringType = "String"
-}
-
 sourceSets {
-    main {
-        java {
-            srcDir 'build/generated-main-avro-java'
-        }
-    }
     scoverage {
         runtimeClasspath += sourceSets.main.output
         compileClasspath += sourceSets.main.output

@@ -1,9 +1,13 @@
 [versions]
+junit = "4.13.2"
 scala = "2.12.17"
+scalatest = "3.0.9"
 spark = "3.1.3"
 transmogrifai = "0.8.0-SNAPSHOT"
 
 [libraries]
 gradleAvroPlugin = { module = "com.commercehub.gradle.plugin:gradle-avro-plugin", version = "0.16.0" }
+junit = { module = "junit:junit", version.ref = "junit" }
+scalatest = { module = "org.scalatest:scalatest_2.12", version.ref = "scalatest" }
 
 [plugins]

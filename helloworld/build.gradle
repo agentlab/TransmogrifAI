@@ -12,6 +12,7 @@ buildscript {
 }
 plugins {
     id 'avro-generation-conventions'
+    id 'test-common-conventions'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'org.scoverage' version '2.5.0'
 }
@@ -28,7 +29,6 @@ apply plugin: 'com.github.johnrengelman.shadow'
 apply plugin: "com.github.alisiikh.scalastyle"
 apply plugin: 'com.adtran.scala-multiversion-plugin'
 
-apply from: 'gradle/tests.gradle'
 apply from: 'gradle/spark.gradle'
 
 sourceCompatibility = JavaVersion.VERSION_11
@@ -40,9 +40,7 @@ application {
 }
 
 ext {
-    junitVersion = '4.13.2'
     sparkVersion = '3.1.3'
-    scalatestVersion = '3.0.8'
     transmogrifaiVersion ='0.8.0-SNAPSHOT'
     collectionsVersion = '3.2.2'
     scoveragePluginVersion = '1.3.1'
@@ -77,8 +75,6 @@ dependencies {
     // compile "com.salesforce.transmogrifai:transmogrifai-models_%%:$transmogrifaiVersion"
 
     // Test
-    testImplementation "org.scalatest:scalatest_%%:$scalatestVersion"
-    testImplementation "junit:junit:${junitVersion}"
     testImplementation "org.scoverage:scalac-scoverage-plugin_%%:$scoveragePluginVersion"
     testImplementation "org.scoverage:scalac-scoverage-runtime_%%:$scoveragePluginVersion"
 }

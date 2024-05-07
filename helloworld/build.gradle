@@ -13,14 +13,13 @@ plugins {
     id 'avro-generation-conventions'
     id 'test-common-conventions'
     id 'packaging-conventions'
+    id 'spark-application-conventions'
 }
 repositories {
     mavenLocal()
     mavenCentral()
     gradlePluginPortal()
 }
-
-apply from: 'gradle/spark.gradle'
 
 ext {
     sparkVersion = '3.1.3'

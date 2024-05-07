@@ -11,26 +11,22 @@ repositories {
     mavenLocal()
 }
 
-ext {
-    sparkVersion = '3.1.3'
-    transmogrifaiVersion ='0.8.0-SNAPSHOT'
+configurations {
+    provided
+    compileOnly.extendsFrom provided
+    testImplementation.extendsFrom provided
 }
 
 //noinspection GroovyAssignabilityCheck
 dependencies {
     // Spark
-    compileOnly "org.apache.spark:spark-core_2.12:$sparkVersion"
-    testImplementation "org.apache.spark:spark-core_2.12:$sparkVersion"
-    compileOnly "org.apache.spark:spark-mllib_2.12:$sparkVersion"
-    testImplementation "org.apache.spark:spark-mllib_2.12:$sparkVersion"
-    compileOnly "org.apache.spark:spark-sql_2.12:$sparkVersion"
-    testImplementation "org.apache.spark:spark-sql_2.12:$sparkVersion"
+    provided libs.bundles.spark
 
     // TransmogrifAI
-    implementation "com.salesforce.transmogrifai:transmogrifai-core_2.12:$transmogrifaiVersion"
+    implementation libs.transmogrifai.core
 
     // Pretrained models used in TransmogrifAI, e.g. OpenNLP POS/NER models etc. (optional)
-    // compile "com.salesforce.transmogrifai:transmogrifai-models_2.12:$transmogrifaiVersion"
+    // compile libs.transmogrifai.models
 }
 
 wrapper {

@@ -8,7 +8,7 @@ repositories {
 }
 
 dependencies {
-    implementation('com.commercehub.gradle.plugin:gradle-avro-plugin:0.16.0')
+    implementation(plugin(libs.plugins.avro))
     implementation(plugin(libs.plugins.licenser))
     implementation(plugin(libs.plugins.licenseReport))
     implementation(plugin(libs.plugins.scalastyle))

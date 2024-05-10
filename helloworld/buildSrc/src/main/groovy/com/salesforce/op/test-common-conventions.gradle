@@ -1,3 +1,17 @@
+plugins {
+    id 'org.scoverage'
+}
+
+dependencies {
+  testImplementation libs.scalatest
+  testImplementation libs.junit
+}
+
+scoverage {
+    coverageOutputCobertura = false
+    scoverageVersion = libs.versions.scoverage.get()
+}
+
 // Based on from https://github.com/mendhak/Gradle-Travis-Colored-Output
 tasks.withType(Test) {
 
@@ -24,7 +38,8 @@ tasks.withType(Test) {
         showStandardStreams true
     }
     maxParallelForks = 1
-    failFast = true
+    maxHeapSize = "1500m"
+    failFast = System.getenv('TESTS_FAIL_FAST') == 'true'
 
     beforeSuite { suite ->
         if (suite.name.startsWith("Gradle Test Executor")) return

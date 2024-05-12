@@ -1,0 +1,86 @@
+plugins {
+  id 'java-library'
+  id 'maven-publish'
+  id 'licensing-conventions'
+}
+
+def baseName = "${rootProject.name}-${project.name}_${libs.versions.scalaLang.get()}"
+
+jar.archiveBaseName = baseName
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            artifactId = baseName
+            pom {
+                name = 'TransmogrifAI'
+                description = 'AutoML library for building modular, reusable, strongly typed machine learning workflows on Spark with minimal hand tuning'
+                url = 'https://github.com/salesforce/TransmogrifAI'
+                scm {
+                    connection = 'scm:git:https://github.com/salesforce/TransmogrifAI.git'
+                    developerConnection = 'scm:git:https://github.com/salesforce/TransmogrifAI.git'
+                    url = 'https://github.com/salesforce/TransmogrifAI'
+                }
+                licenses {
+                    license {
+                        name = 'BSD-3-Clause'
+                        url = 'https://github.com/salesforce/TransmogrifAI/blob/master/LICENSE'
+                        distribution = 'repo'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'tovbinm'
+                        name = 'Matthew Tovbin'
+                        email = 'tovbinm@gmail.com'
+                    }
+                    developer {
+                        id = 'leahmcguire'
+                        name = 'Leah McGuire'
+                        email = 'lmcguire@salesforce.com'
+                    }
+                }
+            }
+        }
+    }
+    repositories {
+        // Disable Sonatype publication for now
+        // maven {
+        //     // Note: requires 'nexusUsername' and 'nexusPassword' to be set in ~/.gradle/gradle.properties file
+        //     url "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+        //     credentials {
+        //         username nexusUsername
+        //         password nexusPassword
+        //     }
+        // }
+        // Disable Bintray publication for now
+        // maven {
+        //     // Note: requires 'bintrayUsername' and 'bintrayPassword' to be set in ~/.gradle/gradle.properties file
+        //     url "https://api.bintray.com/maven/salesforce/maven/TransmogrifAI/;publish=1"
+        //     credentials {
+        //         username bintrayUsername
+        //         password bintrayPassword
+        //     }
+        // }
+        mavenLocal()
+    }
+}
+
+if (System.getenv("SIGN_RELEASE") == 'true') {
+  signing {
+      // For signing to work read - https://docs.gradle.org/current/userguide/signing_plugin.html
+      // Most importantly:
+      // 1. Install & configure GPGTools - https://gpgtools.org
+      // 2. Copy the full 40 character key id from the output of the command: gpg2 -K
+      // 3. Set 'signing.gnupg.keyName=<key id>' in ~/.gradle/gradle.properties file
+      // 4. If you protect your key with a passphrase add 'signing.password=<secret>' in ~/.gradle/gradle.properties file
+      useGpgCmd()
+      sign publishing.publications.mavenJava
+  }
+}

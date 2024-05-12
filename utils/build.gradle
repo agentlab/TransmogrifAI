@@ -1,41 +1,21 @@
+plugins {
+  id 'library-common-conventions'
+  id 'avro-generation-conventions'
+}
+
 dependencies {
+  api libs.jackson.dataformat.yaml
+  implementation libs.jackson.scala
+  implementation libs.paranamer
+  provided(libs.bundles.avro) { exclude group: 'org.mortbay.jetty', module: 'servlet-api' }
+  api libs.algebird
+  api(libs.chill.avro) { exclude group: "org.apache.avro", module: "avro" }
+  api libs.spark.avro
+  api libs.chill.algebird
+  api libs.lucene.spacial3d
+  api libs.enumeratum
+  api libs.jodaTime
 
-    // Avro
-    implementation("org.apache.avro:avro:$avroVersion") { exclude group: 'org.mortbay.jetty', module: 'servlet-api' }
-    testImplementation("org.apache.avro:avro:$avroVersion") { exclude group: 'org.mortbay.jetty', module: 'servlet-api' }
-    implementation("org.apache.avro:avro-mapred:$avroVersion") { exclude group: 'org.mortbay.jetty', module: 'servlet-api' }
-    testImplementation("org.apache.avro:avro-mapred:$avroVersion") { exclude group: 'org.mortbay.jetty', module: 'servlet-api' }
-
-    implementation('com.thoughtworks.paranamer:paranamer') {
-        version {
-            strictly '2.8'
-            because "https://issues.apache.org/jira/browse/SPARK-22128"
-        }
-    }
-
-    implementation "com.chuusai:shapeless_%%:2.3.10"
-
-    // Spark Avro
-    api "org.apache.spark:spark-avro_%%:$sparkVersion"
-
-    // Jackson Yaml
-    api "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:$jacksonVersion"
-    implementation "com.fasterxml.jackson.module:jackson-module-scala_%%:$jacksonVersion"
-
-    // Algebird
-    api("com.twitter:algebird-core_%%:$algebirdVersion")
-
-    // Twitter Chill
-    api ("com.twitter:chill-avro_%%:$chillVersion") { exclude group: "org.apache.avro", module: "avro" }
-    api "com.twitter:chill-algebird_%%:$chillVersion"
-
-    // Lucene - (geo location)
-    api "org.apache.lucene:lucene-spatial3d:$luceneVersion"
-
-    // Enumeratum
-    api "com.beachape:enumeratum_%%:$enumeratumVersion"
-
-    // Joda time
-    api "joda-time:joda-time:$jodaTimeVersion"
-
+  compileOnly libs.scalatest
+  compileOnly libs.scalacheck
 }

@@ -1,0 +1,23 @@
+plugins {
+    id 'application'
+    id 'com.github.johnrengelman.shadow'
+}
+
+// The main class for the application plugin and is currently unused. Setting a dummy one.
+application {
+    mainClass.set("please.set.main.class.in.build.gradle")
+}
+
+jar {
+    archiveBaseName = "${rootProject.name}"
+}
+
+shadowJar {
+    zip64 = true
+    exclude 'META-INF/**'
+    archiveBaseName = jar.archiveBaseName
+
+    // Concatenate modularized mleap metadata
+    // https://github.com/combust/mleap/issues/656
+    append 'reference.conf'
+}

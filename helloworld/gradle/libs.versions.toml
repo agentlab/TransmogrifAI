@@ -1,0 +1,29 @@
+[versions]
+junit = "4.13.2"
+scala = "2.12.17"
+scalastyle = "1.5.1"
+scalatest = "3.0.9"
+scoverage = "2.0.11"
+spark = "3.1.3"
+transmogrifai = "0.8.0-SNAPSHOT"
+
+[libraries]
+gradleAvroPlugin = { module = "com.commercehub.gradle.plugin:gradle-avro-plugin", version = "0.16.0" }
+junit = { module = "junit:junit", version.ref = "junit" }
+scalatest = { module = "org.scalatest:scalatest_2.12", version.ref = "scalatest" }
+scala-library = { module = "org.scala-lang:scala-library", version.ref = "scala" }
+scala-compiler = { module = "org.scala-lang:scala-compiler", version.ref = "scala" }
+scala-reflect = { module = "org.scala-lang:scala-reflect", version.ref = "scala" }
+spark-core = { module = "org.apache.spark:spark-core_2.12", version.ref = "spark" }
+spark-sql = { module = "org.apache.spark:spark-sql_2.12", version.ref = "spark" }
+spark-mllib = { module = "org.apache.spark:spark-mllib_2.12", version.ref = "spark" }
+transmogrifai-core = { module = "com.salesforce.transmogrifai:transmogrifai-core_2.12", version.ref = "transmogrifai" }
+transmogrifai-models = { module = "com.salesforce.transmogrifai:transmogrifai-models_2.12", version.ref = "transmogrifai" }
+
+[bundles]
+spark = ["spark-core", "spark-sql", "spark-mllib"]
+
+[plugins]
+scalastyle = { id = "com.github.alisiikh.scalastyle", version = "3.5.0" }
+scoverage = { id = "org.scoverage", version = "8.0.3" }
+shadow = { id = "com.github.johnrengelman.shadow", version = "8.1.1" }

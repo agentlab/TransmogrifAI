@@ -1,167 +1,41 @@
-buildscript {
-    repositories {
-        mavenLocal()
-        mavenCentral()
-        maven { url "https://plugins.gradle.org/m2/" }
-    }
-    dependencies {
-        classpath "com.github.alisiikh:gradle-scalastyle-plugin:3.5.0"
-        classpath 'com.commercehub.gradle.plugin:gradle-avro-plugin:0.16.0'
-        classpath 'com.adtran:scala-multiversion-plugin:2.0.4'
-    }
-}
 plugins {
-    id 'com.github.johnrengelman.shadow' version '7.1.2'
-    id 'org.scoverage' version '2.5.0'
+    id 'scala-common-conventions'
+    id 'avro-generation-conventions'
+    id 'test-common-conventions'
+    id 'packaging-conventions'
+    id 'spark-application-conventions'
 }
+
 repositories {
-    mavenLocal()
     mavenCentral()
-    gradlePluginPortal()
+    mavenLocal()
 }
 
-apply plugin: 'application'
-apply plugin: 'java'
-apply plugin: 'scala'
-apply plugin: 'com.github.johnrengelman.shadow'
-apply plugin: "com.github.alisiikh.scalastyle"
-apply plugin: 'com.commercehub.gradle.plugin.avro'
-apply plugin: 'com.adtran.scala-multiversion-plugin'
-
-apply from: 'gradle/tests.gradle'
-apply from: 'gradle/spark.gradle'
-
-sourceCompatibility = JavaVersion.VERSION_11
-targetCompatibility = JavaVersion.VERSION_11
-
-// The main class for the application plugin and is currently unused. Setting a dummy one.
-application {
-    mainClass.set("please.set.main.class.in.build.gradle")
-}
-
-ext {
-    junitVersion = '4.13.2'
-    sparkVersion = '3.1.3'
-    scalatestVersion = '3.0.8'
-    transmogrifaiVersion ='0.8.0-SNAPSHOT'
-    collectionsVersion = '3.2.2'
-    scoveragePluginVersion = '1.3.1'
-}
-
-//noinspection GroovyAssignabilityCheck
 configurations {
-    scalaLibrary
-    scalaCompiler
+    provided
+    compileOnly.extendsFrom provided
+    testImplementation.extendsFrom provided
 }
 
 //noinspection GroovyAssignabilityCheck
 dependencies {
-    scoverage "org.scoverage:scalac-scoverage-plugin_%%:$scoveragePluginVersion"
-    scoverage "org.scoverage:scalac-scoverage-runtime_%%:$scoveragePluginVersion"
-    scalaLibrary "org.scala-lang:scala-library:$scalaVersion"
-    scalaCompiler "org.scala-lang:scala-compiler:$scalaVersion"
-    implementation "org.scala-lang:scala-library:$scalaVersion"
-
     // Spark
-    compileOnly "org.apache.spark:spark-core_%%:$sparkVersion"
-    testImplementation "org.apache.spark:spark-core_%%:$sparkVersion"
-    compileOnly "org.apache.spark:spark-mllib_%%:$sparkVersion"
-    testImplementation "org.apache.spark:spark-mllib_%%:$sparkVersion"
-    compileOnly "org.apache.spark:spark-sql_%%:$sparkVersion"
-    testImplementation "org.apache.spark:spark-sql_%%:$sparkVersion"
+    provided libs.bundles.spark
 
     // TransmogrifAI
-    implementation "com.salesforce.transmogrifai:transmogrifai-core_%%:$transmogrifaiVersion"
+    implementation libs.transmogrifai.core
 
     // Pretrained models used in TransmogrifAI, e.g. OpenNLP POS/NER models etc. (optional)
-    // compile "com.salesforce.transmogrifai:transmogrifai-models_%%:$transmogrifaiVersion"
-
-    // Test
-    testImplementation "org.scalatest:scalatest_%%:$scalatestVersion"
-    testImplementation "junit:junit:${junitVersion}"
-    testImplementation "org.scoverage:scalac-scoverage-plugin_%%:$scoveragePluginVersion"
-    testImplementation "org.scoverage:scalac-scoverage-runtime_%%:$scoveragePluginVersion"
-}
-
-configurations.all {
-    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
-    resolutionStrategy {
-        force "commons-collections:commons-collections:$collectionsVersion",
-                "org.scala-lang:scala-library:$scalaVersion",
-                "org.scala-lang:scala-reflect:$scalaVersion"
-    }
-}
-configurations.zinc {
-    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
-        if (details.requested.group == 'org.scala-lang') {
-            details.useVersion '2.13.11'
-        }
-    }
-}
-
-
-tasks.withType(ScalaCompile) {
-    configure(scalaCompileOptions.forkOptions) {
-        memoryMaximumSize = '1g'
-        jvmArgs = ['-XX:MaxMetaspaceSize=256m']
-    }
-}
-compileScala { scalaCompileOptions.additionalParameters = ["-opt:l:inline", "-opt-inline-from:**"] }
-compileTestScala { scalaCompileOptions.additionalParameters = ["-Yrangepos"] }
-[compileJava, compileTestJava]*.options.collect { options -> options.encoding = 'UTF-8' }
-
-jar {
-    manifest.attributes "Main-Class": "$mainClassName"
-    archiveBaseName = "${rootProject.name}"
-}
-
-shadowJar {
-    zip64 = true
-    exclude 'META-INF/**'
-    archiveBaseName = jar.baseName
-    // The main class for the application plugin and is currently unused. Setting a dummy one.
-    mainClassName = "please.set.main.class.in.build.gradle"
-
-    // Concatenate modularized mleap metadata
-    // https://github.com/combust/mleap/issues/656
-    append 'reference.conf'
-}
-
-scalastyle {
-    config = file("${rootProject.projectDir}/gradle/scalastyle-config.xml")
-}
-compileScala.dependsOn(scalastyleCheck)
-
-avro {
-    createSetters = true
-    fieldVisibility = "PUBLIC_DEPRECATED"
-    outputCharacterEncoding = "UTF-8"
-    stringType = "String"
-}
-
-sourceSets {
-    main {
-        java {
-            srcDir 'build/generated-main-avro-java'
-        }
-    }
-    scoverage {
-        runtimeClasspath += sourceSets.main.output
-        compileClasspath += sourceSets.main.output
-    }
-    testScoverage {
-        runtimeClasspath += sourceSets.main.output + sourceSets.test.output
-        compileClasspath += sourceSets.main.output + sourceSets.test.output
-    }
+    // compile libs.transmogrifai.models
 }
 
 wrapper {
-    gradleVersion = '7.5.1'
+    gradleVersion = '8.7'
     distributionType = Wrapper.DistributionType.BIN
-    distributionSha256Sum = 'f6b8596b10cce501591e92f229816aa4046424f3b24d771751b06779d58c8ec4'
+    distributionSha256Sum = '544c35d6bd849ae8a5ed0bcea39ba677dc40f49df7d1835561582da2009b961d'
 }
 
-task runMain(type: JavaExec) {
+tasks.register('runMain', JavaExec) {
     description 'run a main class, i.e.: runMain -Dmain=MyMainClass -Dargs="arg1 arg2 arg3"'
     main = System.getProperty("main")
     classpath = sourceSets.main.runtimeClasspath
@@ -170,7 +44,7 @@ task runMain(type: JavaExec) {
     args = System.getProperty("args", "") == "" ? new LinkedList<String>() : Arrays.asList(System.getProperty("args").split(" "))
 }
 
-task repl(type: JavaExec) {
+tasks.register('repl', JavaExec) {
     description 'Start Scala repl.'
     main = "scala.tools.nsc.MainGenericRunner"
     classpath = sourceSets.main.runtimeClasspath + configurations.scalaCompiler
@@ -178,7 +52,7 @@ task repl(type: JavaExec) {
     args '-usejavacp'
 }
 
-task classpath {
+tasks.register('classpath') {
     doLast {
         description 'Print project classpath.'
         println sourceSets.main.runtimeClasspath.asPath

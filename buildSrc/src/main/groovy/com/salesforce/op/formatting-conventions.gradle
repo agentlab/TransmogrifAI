@@ -1,0 +1,18 @@
+plugins {
+  id 'com.github.alisiikh.scalastyle'
+}
+
+scalastyle {
+  scalastyleVersion = libs.versions.scalastyle.get()
+  config = file("$rootProject.rootDir/gradle/scalastyle-config.xml")
+}
+
+tasks.withType(com.github.alisiikh.scalastyle.ScalastyleCheckTask) {
+  if(it.name.contains("Scoverage")) {
+    it.enabled = false
+  }
+}
+
+if (System.getenv("CI") != 'true') {
+  compileScala.dependsOn(scalastyleCheck)
+}

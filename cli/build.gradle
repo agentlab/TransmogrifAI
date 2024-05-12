@@ -1,25 +1,32 @@
+plugins {
+    id 'avro-generation-conventions'
+    id 'application-conventions'
+}
+
+configurations {
+    provided
+    compileOnly.extendsFrom provided
+    testImplementation.extendsFrom provided
+}
+
 dependencies {
     // scopt
-    implementation "com.github.scopt:scopt_%%:$scoptVersion"
+    implementation libs.scopt
 
     // scalafmt
-    implementation "com.geirsson:scalafmt-core_%%:$scalafmtVersion"
+    implementation libs.scalafmt
 
     // Reflections
-    implementation "org.reflections:reflections:$reflectionsVersion"
+    implementation libs.reflections
 
-    implementation "commons-io:commons-io:$commonsIOVersion"
+    implementation libs.commons.io
 
-    implementation "org.apache.spark:spark-sql_%%:$sparkVersion"
+    provided libs.bundles.spark
 
-    implementation project(":utils")
-
-    implementation project(':features')
     implementation project(":core")
-    implementation project(":readers")
 
     // avro
-    implementation("org.apache.avro:avro:$avroVersion") { exclude group: 'org.mortbay.jetty', module: 'servlet-api' }
+    implementation(libs.avro.core) { exclude group: 'org.mortbay.jetty', module: 'servlet-api' }
 }
 
 ext {
@@ -31,7 +38,7 @@ application {
     mainClass.set("com.salesforce.op.cli.CLI")
 }
 
-task copySpark(type: Copy) {
+tasks.register('copySpark', Copy) {
     from '../templates/simple/gradle'
     into "$templateResourcesDir/templates/simple/gradle"
     // shadowJar STILL expands jars into the shadow jar.. this prevents that
@@ -40,7 +47,7 @@ task copySpark(type: Copy) {
     }
 }
 
-task copyTools(type: Copy) {
+tasks.register('copyTools', Copy) {
     from '../templates/simple'
     into "$templateResourcesDir/templates/simple"
     include "**/gradlew"
@@ -49,13 +56,13 @@ task copyTools(type: Copy) {
     exclude "**/*.gradle.template"
 }
 
-task copyLocalTemplates(type: Copy) {
+tasks.register('copyLocalTemplates', Copy) {
     from 'src/main/scala/com/salesforce/op/cli/gen/templates'
     into "$templateResourcesDir/templates"
     include "*Template.scala"
 }
 
-task copyTemplates(type: Copy) {
+tasks.register('copyTemplates', Copy) {
     from '../templates'
     into "$templateResourcesDir/templates"
     exclude '**/*.jar'
@@ -72,14 +79,14 @@ task copyTemplates(type: Copy) {
         fileName.replace(".gradle.template", ".gradle")
     }
     expand([
-            version: scalaVersion,
-            scalaVersion: scalaVersion,
-            scalaTestVersion: scalaTestVersion,
-            junitVersion: junitVersion,
-            sparkVersion: sparkVersion,
-            avroVersion: avroVersion,
-            hadoopVersion: hadoopVersion,
-            collectionsVersion: collectionsVersion,
+            version: version,
+            scalaVersionFull: libs.versions.scala.get(),
+            scalaVersion: libs.versions.scalaLang.get(),
+            scalaTestVersion: libs.versions.scalatest.get(),
+            junitVersion: libs.versions.junit.get(),
+            sparkVersion: libs.versions.spark.get(),
+            avroVersion: libs.versions.avro.get(),
+            collectionsVersion: libs.versions.collections.get(),
             transmogrifaiVersion: version
     ])
 }
@@ -93,3 +100,9 @@ sourceSets {
 }
 
 processResources.dependsOn copyTemplates, copyTools, copySpark, copyLocalTemplates
+
+def sourcesJar = project.tasks.findByName('sourcesJar')
+if (sourcesJar != null) {
+  sourcesJar.dependsOn copyTemplates, copyTools, copySpark, copyLocalTemplates
+  sourcesJar.duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}

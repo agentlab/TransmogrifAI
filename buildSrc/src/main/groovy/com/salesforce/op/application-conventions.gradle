@@ -1,0 +1,39 @@
+plugins {
+  id 'scala-common-conventions'
+  id 'test-common-conventions'
+  id 'formatting-conventions'
+  id 'application'
+  id 'com.github.johnrengelman.shadow'
+  id 'net.nemerosa.versioning'
+  id 'packaging-conventions'
+}
+
+tasks.register('createVersionProperties') {
+    outputs.file(project.layout.buildDirectory.file("op-version.properties"))
+    doLast {
+        String gitCommitHash = versioning.info.commit
+        String gitBranch = versioning.info.branch
+        String gitDate = versioning.info.time
+        def formattedDate = java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ssZ")
+                                .format(ZonedDateTime.now())
+        String propsStr = 'version=' + version + '\n' +
+                        'build.time=' + formattedDate + '\n' +
+                        'git.branch=' + gitBranch + '\n' +
+                        'git.commit.id=' + gitCommitHash + '\n' +
+                        'git.commit.time=' + gitDate + '\n'
+        outputs.files.singleFile.text = propsStr
+    }
+}
+
+shadowJar {
+  zip64 = true
+  from createVersionProperties
+//   from sourceSets.main.output
+//   from project.configurations.runtimeClasspath
+  exclude 'META-INF/**'
+  archiveBaseName = "${rootProject.name}-${project.name}_${libs.versions.scalaLang.get()}"
+
+  // Concatenate modularized mleap metadata
+  // https://github.com/combust/mleap/issues/656
+  append 'reference.conf'
+}

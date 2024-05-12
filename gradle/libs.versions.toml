@@ -2,19 +2,19 @@
 scalaLang = "2.12"
 scala = "2.12.17"
 algebird = "0.13.10"
-avro = "1.8.2"
+avro = "1.11.1"
 chill = "0.9.3"
 collections = "3.2.2"
 jackson = "2.12.2"
 jodaTime = "2.12.5"
 junit = "4.13.2"
 lucene = "7.3.0"
-mleap = "0.19.0"
-spark = "3.1.3"
+mleap = "0.23.0"
+spark = "3.4.2"
 scalatest = "3.0.9"
 scoverage = "2.0.10"
 scalastyle = "1.5.1"
-xgboost = "1.3.1"
+xgboost = "1.5.2"
 
 [libraries]
 akka-slf4j = { module = "com.typesafe.akka:akka-slf4j_2.12", version = "2.5.23" }
@@ -32,7 +32,7 @@ enumeratum = { module = "com.beachape:enumeratum_2.12", version = "1.4.18" }
 jackson-dataformat-yaml = { module = "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml", version.ref = "jackson" }
 jackson-scala = { module = "com.fasterxml.jackson.module:jackson-module-scala_2.12", version = "jackson" }
 jodaTime = { module = "joda-time:joda-time", version.ref = "jodaTime" }
-json4s = { module = "org.json4s:json4s-ext_2.12", version = "3.7.0-M5" }
+json4s = { module = "org.json4s:json4s-ext_2.12", version = "3.7.0-M11" }
 junit = { module = "junit:junit", version.ref = "junit" }
 lucene-spacial3d = { module = "org.apache.lucene:lucene-spatial3d", version.ref = "lucene" }
 lucene-analyzers-common = { module = "org.apache.lucene:lucene-analyzers-common", version.ref = "lucene" }
@@ -59,7 +59,7 @@ spark-avro = { module = "org.apache.spark:spark-avro_2.12", version.ref = "spark
 spark-core = { module = "org.apache.spark:spark-core_2.12", version.ref = "spark" }
 spark-sql = { module = "org.apache.spark:spark-sql_2.12", version.ref = "spark" }
 spark-mllib = { module = "org.apache.spark:spark-mllib_2.12", version.ref = "spark" }
-spark-testing = { module = "com.holdenkarau:spark-testing-base_2.12", version = "3.1.3_1.4.3" }
+spark-testing = { module = "com.holdenkarau:spark-testing-base_2.12", version = "3.4.2_1.5.2" }
 tika = { module = "org.apache.tika:tika-core", version = "2.4.1" }
 xgboost4j-core = { module = "ml.dmlc:xgboost4j_2.12", version.ref = "xgboost" }
 xgboost4j-spark = { module = "ml.dmlc:xgboost4j-spark_2.12", version.ref = "xgboost" }

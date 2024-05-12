@@ -34,3 +34,11 @@ dependencies {
     // Akka slfj4 logging (version matches XGBoost dependency)
     testImplementation libs.akka.slf4j
 }
+
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        if (details.requested.group == 'ml.dmlc') {
+            details.useVersion libs.versions.xgboost.get()
+        }
+    }
+}

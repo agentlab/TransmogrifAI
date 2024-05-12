@@ -7,6 +7,7 @@ dependencies {
   api libs.jackson.dataformat.yaml
   implementation libs.jackson.scala
   implementation libs.paranamer
+  implementation libs.shapeless
   provided(libs.bundles.avro) { exclude group: 'org.mortbay.jetty', module: 'servlet-api' }
   api libs.algebird
   api(libs.chill.avro) { exclude group: "org.apache.avro", module: "avro" }

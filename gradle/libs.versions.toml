@@ -53,6 +53,7 @@ scalatest = { module = "org.scalatest:scalatest_2.12", version.ref = "scalatest"
 scalacheck = { module = "org.scalacheck:scalacheck_2.12", version = "1.17.0" }
 scala-graph = { module = "org.scala-graph:graph-core_2.12", version = "1.13.1" }
 scopt = { module = "com.github.scopt:scopt_2.12", version = "3.7.1" }
+shapeless = { module = "com.chuusai:shapeless_2.12", version = "2.3.10" }
 sourcecode = { module = "com.lihaoyi:sourcecode_2.12", version = "0.3.0" }
 spark-avro = { module = "org.apache.spark:spark-avro_2.12", version.ref = "spark" }
 spark-core = { module = "org.apache.spark:spark-core_2.12", version.ref = "spark" }

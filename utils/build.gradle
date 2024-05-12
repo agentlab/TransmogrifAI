@@ -19,4 +19,6 @@ dependencies {
 
   compileOnly libs.scalatest
   compileOnly libs.scalacheck
+
+  testImplementation("${libs.log4j.core.tests.get().module}:${libs.log4j.core.tests.get().version}:tests")
 }

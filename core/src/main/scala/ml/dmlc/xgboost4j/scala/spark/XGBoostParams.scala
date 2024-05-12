@@ -34,18 +34,20 @@ import enumeratum.{Enum, EnumEntry}
 import ml.dmlc.xgboost4j.LabeledPoint
 import ml.dmlc.xgboost4j.scala.Booster
 import ml.dmlc.xgboost4j.scala.spark.params.GeneralParams
-import org.apache.log4j.{Level, Logger}
+import ml.dmlc.xgboost4j.scala.spark.util.DataUtils
+import org.apache.logging.log4j.{Level, LogManager}
+import org.apache.logging.log4j.core.config.Configurator
 import org.apache.spark.ml.linalg.{DenseVector, SparseVector, Vector, Vectors}
 
 /**
  * Hack to access [[XGBoostClassifierParams]]
  */
-trait OpXGBoostClassifierParams extends XGBoostClassifierParams with OpXGBoostGeneralParamsDefaults
+trait OpXGBoostClassifierParams extends params.XGBoostClassifierParams with OpXGBoostGeneralParamsDefaults
 
 /**
  * Hack to access [[XGBoostRegressorParams]]
  */
-trait OpXGBoostRegressorParams extends XGBoostRegressorParams with OpXGBoostGeneralParamsDefaults
+trait OpXGBoostRegressorParams extends params.XGBoostRegressorParams with OpXGBoostGeneralParamsDefaults
 
 /**
  * XGBoost [[GeneralParams]] defaults
@@ -59,10 +61,10 @@ trait OpXGBoostGeneralParamsDefaults {
  * Helper trait to hush XGBoost annoying logging
  */
 trait OpXGBoostQuietLogging {
-  Logger.getLogger("akka").setLevel(Level.WARN)
-  Logger.getLogger("XGBoostSpark").setLevel(Level.WARN)
-  Logger.getLogger(classOf[XGBoostClassifier]).setLevel(Level.WARN)
-  Logger.getLogger(classOf[XGBoostRegressor]).setLevel(Level.WARN)
+  Configurator.setLevel("akka", Level.WARN)
+  Configurator.setLevel("XGBoostSpark", Level.WARN)
+  Configurator.setLevel(classOf[XGBoostClassifier], Level.WARN)
+  Configurator.setLevel(classOf[XGBoostRegressor], Level.WARN)
 }
 
 case object OpXGBoost {
@@ -113,7 +115,7 @@ case object OpXGBoost {
     missing: Float,
     allowNonZeroMissing: Boolean
   ): Iterator[LabeledPoint] =
-    XGBoost.processMissingValues(xgbLabelPoints, missing, allowNonZeroMissing)
+    DataUtils.processMissingValues(xgbLabelPoints, missing, allowNonZeroMissing)
 }
 
 /**
@@ -145,4 +147,3 @@ object ImportanceType extends Enum[ImportanceType] {
   case object TotalCover extends ImportanceType(name = "total_cover")
 
 }
-

@@ -35,27 +35,23 @@ import com.salesforce.op.utils.date.DateTimeUtils
 import com.twitter.algebird.Max
 import com.twitter.algebird.Operators._
 import com.twitter.algebird.macros.caseclass
-import org.apache.log4j._
-import org.apache.log4j.spi.LoggingEvent
-import org.apache.logging.log4j.message.ParameterizedMessage
-import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.apache.logging.log4j.{Level, LogManager}
+import org.apache.logging.log4j.core.{Logger, LoggerContext}
+import org.apache.logging.log4j.test.appender.ListAppender
+import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.prop.TableDrivenPropertyChecks
 
-import scala.collection.mutable.ArrayBuffer
+import collection.JavaConverters._
 
-@RunWith(classOf[JUnitRunner])
-class OpSparkListenerTest extends FlatSpec with TableDrivenPropertyChecks with TestSparkContext {
-  val sparkLogAppender: MemoryAppender = {
-    val sparkAppender = new MemoryAppender()
-    sparkAppender.setName("spark-appender")
-    sparkAppender.setThreshold(Level.INFO)
-    sparkAppender.setLayout(new org.apache.log4j.PatternLayout)
-    LogManager.getLogger(classOf[OpSparkListener]).setLevel(Level.INFO)
-    Logger.getRootLogger.addAppender(sparkAppender)
-    sparkAppender
-  }
+class OpSparkListenerTest extends AnyFlatSpec with TableDrivenPropertyChecks with TestSparkContext {
+
+  val ctx = LogManager.getContext(false).asInstanceOf[LoggerContext]
+  val config = ctx.getConfiguration()
+  val appenderName = "spark-appender"
+  val appender = new ListAppender(appenderName)
+  val logger = ctx.getLogger(classOf[OpSparkListener]).asInstanceOf[Logger]
+  logger.get().setLevel(Level.INFO)
+  config.addLoggerAppender(logger, appender)
 
   val start = DateTimeUtils.now().getMillis
   val listener = new OpSparkListener(sc.appName, sc.applicationId, "testRun", Some("tag"), Some("tagValue"), true, true)
@@ -92,12 +88,8 @@ class OpSparkListenerTest extends FlatSpec with TableDrivenPropertyChecks with T
   it should "log messages for listener initialization, stage completion, app completion" in {
     val firstStage = listener.metrics.stageMetrics.head
     val logPrefix = listener.logPrefix
-    val logs = sparkLogAppender.logs.map {
-      event: LoggingEvent => event.getMessage() match {
-        case m: ParameterizedMessage => m.getFormattedMessage()
-        case other => other.toString()
-      }
-    }
+    val sparkLogAppender = config.getAppender[ListAppender](appenderName)
+    val logs = sparkLogAppender.getEvents().asScala map { event => event.getMessage().getFormattedMessage() }
     val messages = Table("Spark Log Messages",
       "Instantiated spark listener: %s. Log Prefix %s".format(classOf[OpSparkListener].getName, logPrefix),
       "%s,APP_TIME_MS:%s".format(logPrefix, listener.metrics.appEndTime - listener.metrics.appStartTime),
@@ -177,36 +169,4 @@ class OpSparkListenerTest extends FlatSpec with TableDrivenPropertyChecks with T
     jsonStr should include ("\"peakExecutionMemory\" : 1001")
     jsonStr should include ("\"duration\" : 3")
   }
-}
-
-/**
- * Class to enable in memory logging for tests
- */
-class MemoryAppender extends AppenderSkeleton {
-  private val logRecords = new ArrayBuffer[spi.LoggingEvent]
-
-  override def requiresLayout: Boolean = true
-
-  /**
-   * Clear out the logRecords in log collection
-   * @return Unit
-   */
-  override def close(): Unit = {
-    logRecords.clear
-  }
-
-  /**
-   * Add a log to the log collection
-   * @param event The log event
-   * @return Unit
-   */
-  override def append(event: spi.LoggingEvent): Unit = {
-    logRecords.append(event)
-  }
-
-  /**
-   * Log event collection
-   * @return A collection of log events
-   */
-  def logs: ArrayBuffer[spi.LoggingEvent] = logRecords
 }

@@ -90,7 +90,7 @@ trait Base64TestData {
   lazy val (realData, realBase64) = TestFeatureBuilder(
     Seq(
       "811harmo24to36.mp3", "820orig36to48.wav", "face.png",
-      "log4j.properties", "note.xml", "RunnerParams.json",
+      "log4j2.properties", "note.xml", "RunnerParams.json",
       "dummy.csv", "Canon_40D.jpg", "sample.pdf"
     ).map(loadResourceAsBase64)
   )

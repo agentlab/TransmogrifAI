@@ -33,7 +33,7 @@ package com.salesforce.op.stages.impl.preparators
 import com.salesforce.op.features.types.{OPVector, Text, TextArea, TextAreaMap, TextMap, VectorConversions}
 import com.salesforce.op.utils.spark.OpVectorColumnMetadata
 import com.salesforce.op.utils.spark.RichMetadata._
-import org.apache.log4j.Level
+import org.apache.logging.log4j.Level
 import org.apache.spark.ml.linalg.{Vectors => NewVectors}
 import org.apache.spark.ml.param.{BooleanParam, DoubleParam, Param, Params}
 import org.apache.spark.mllib.linalg.Matrix

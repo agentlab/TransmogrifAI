@@ -35,7 +35,8 @@ import com.salesforce.op.features.types.OPVector
 import com.salesforce.op.stages.base.unary.{UnaryEstimator, UnaryModel}
 import com.salesforce.op.utils.spark.OpVectorMetadata
 import com.salesforce.op.utils.spark.RichMetadata._
-import org.apache.log4j.{Level, LogManager}
+import org.apache.logging.log4j.Level
+import org.apache.logging.log4j.core.config.Configurator
 import org.apache.spark.ml.linalg.{DenseVector, SparseVector}
 import org.apache.spark.mllib.linalg.{Vector => OldVector, Vectors => OldVectors}
 import org.apache.spark.mllib.stat.Statistics
@@ -70,7 +71,7 @@ class MinVarianceFilter
     // Set the desired log level
     if (isSet(logLevel)) {
       Option(log).collect { case l =>
-        LogManager.getLogger(l.getName).setLevel(Level.toLevel($(logLevel)))
+        Configurator.setLevel(l.getName(), Level.toLevel($(logLevel)))
       }
     }
     val removeBad = $(removeBadFeatures)

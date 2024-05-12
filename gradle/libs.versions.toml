@@ -8,6 +8,7 @@ collections = "3.2.2"
 jackson = "2.12.2"
 jodaTime = "2.12.5"
 junit = "4.13.2"
+log4j = "2.19.0"
 lucene = "7.3.0"
 mleap = "0.23.0"
 spark = "3.4.2"
@@ -39,6 +40,7 @@ lucene-analyzers-common = { module = "org.apache.lucene:lucene-analyzers-common"
 lucene-analyzers-kuromoji = { module = "org.apache.lucene:lucene-analyzers-kuromoji", version.ref = "lucene" }
 lucene-analyzers-opennlp = { module = "org.apache.lucene:lucene-analyzers-opennlp", version.ref = "lucene" }
 lucene-suggest = { module = "org.apache.lucene:lucene-suggest", version.ref = "lucene" }
+log4j-core-tests = { module = "org.apache.logging.log4j:log4j-core", version.ref = "log4j" }
 memoryFileSystem = { module = "com.github.marschall:memoryfilesystem", version = "2.1.0" }
 mleap-spark = { module = "ml.combust.mleap:mleap-spark_2.12", version.ref = "mleap" }
 mleap-runtime = { module = "ml.combust.mleap:mleap-runtime_2.12", version.ref = "mleap" }

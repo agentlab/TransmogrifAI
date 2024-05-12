@@ -33,13 +33,17 @@ package com.salesforce.op.test
 import java.io.File
 import java.nio.file.Paths
 
-import org.apache.log4j.{Level, LogManager, Logger}
-import org.scalatest._
+import org.apache.logging.log4j.{Level, LogManager, Logger}
+import org.scalatest.Assertions
+import org.scalatest.compatible.Assertion
+import org.scalatest.matchers.should.Matchers
 
 import scala.collection.JavaConverters._
 import scala.io.Source
 import scala.language.postfixOps
 import scala.reflect.{ClassTag, _}
+import org.apache.logging.log4j.core.LoggerContext
+import org.apache.logging.log4j.core.config.Configurator
 
 /**
  * Trait with test commons such as Spec and Resource functions
@@ -55,7 +59,8 @@ trait TestCommon extends Matchers with Assertions {
    * Get logging level for all loggers
    */
   def getLoggingLevels: Seq[Level] = {
-    val loggers = Logger.getRootLogger :: LogManager.getCurrentLoggers.asScala.toList
+    val loggers = LogManager.getRootLogger ::
+      LogManager.getContext(false).asInstanceOf[LoggerContext].getLoggers.asScala.toList
     loggers.collect { case l: Logger => l.getLevel }
   }
 
@@ -63,16 +68,20 @@ trait TestCommon extends Matchers with Assertions {
    * Set logging level for
    */
   def loggingLevel(level: Level): Unit = {
-    val loggers = Logger.getRootLogger :: LogManager.getCurrentLoggers.asScala.toList
-    loggers.collect { case l: Logger => l }.foreach(_.setLevel(level))
+    val loggers = LogManager.getRootLogger ::
+      LogManager.getContext(false).asInstanceOf[LoggerContext].getLoggers.asScala.toList
+    loggers.collect { case l: Logger => l }.foreach( Configurator.setLevel(_, level) )
   }
 
   /**
    * Set logging level individually
    */
   def loggingLevels(levels: Seq[Level]): Unit = {
-    val loggers = Logger.getRootLogger :: LogManager.getCurrentLoggers.asScala.toList
-    loggers.collect { case l: Logger => l } zip levels foreach { case (logger, level) => logger.setLevel(level) }
+    val loggers = LogManager.getRootLogger() ::
+      LogManager.getContext(false).asInstanceOf[LoggerContext].getLoggers.asScala.toList
+    loggers.collect { case l: Logger => l } zip levels foreach {
+      case (logger, level) => Configurator.setLevel(logger, level)
+    }
   }
 
   /**

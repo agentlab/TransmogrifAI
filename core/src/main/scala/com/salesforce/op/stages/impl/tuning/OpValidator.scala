@@ -38,7 +38,8 @@ import com.salesforce.op.stages.impl.selector.{ModelSelectorNames, _}
 import com.salesforce.op.utils.spark.RichParamMap._
 import com.salesforce.op.utils.stages.FitStagesUtil
 import com.salesforce.op.utils.stages.FitStagesUtil._
-import org.apache.log4j.{Level, LogManager}
+import org.apache.logging.log4j.{Level, LogManager}
+import org.apache.logging.log4j.core.config.Configurator
 import org.apache.spark.ml.param.ParamMap
 import org.apache.spark.ml.{Estimator, Model}
 import org.apache.spark.rdd.RDD
@@ -279,9 +280,9 @@ private[op] trait OpValidator[M <: Model[_], E <: Estimator[_]] extends Serializ
   protected def suppressLoggingForFun[Result](level: Level = Level.ERROR)(f: => Result): Result = {
     val opLog = LogManager.getLogger("com.salesforce.op")
     val originalLevel = opLog.getLevel
-    opLog.setLevel(level)
+    Configurator.setLevel(opLog, level)
     val result = f
-    opLog.setLevel(originalLevel) // Reset log level back to normal
+    Configurator.setLevel(opLog, originalLevel) // Reset log level back to normal
     result
   }
 

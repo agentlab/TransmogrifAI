@@ -97,7 +97,7 @@ class OpParamsTest extends FlatSpec with TestCommon {
   }
 
   it should "fail to load parameters from an invalid file" in {
-    val workflowParams = OpParams.fromFile(resourceFile(name = "log4j.properties"))
+    val workflowParams = OpParams.fromFile(resourceFile(name = "log4j2.properties"))
     workflowParams shouldBe a[Failure[_]]
     workflowParams.failed.get shouldBe a[IllegalArgumentException]
   }
@@ -113,7 +113,7 @@ class OpParamsTest extends FlatSpec with TestCommon {
   }
 
   it should "fail to load parameters from an invalid string" in {
-    val workflowParams = OpParams.fromString(loadResource("/log4j.properties", noSpaces = true))
+    val workflowParams = OpParams.fromString(loadResource("/log4j2.properties", noSpaces = true))
     workflowParams shouldBe a[Failure[_]]
     workflowParams.failed.get shouldBe a[IllegalArgumentException]
   }

@@ -41,7 +41,8 @@ import com.salesforce.op.utils.stats.OpStatistics
 import com.twitter.algebird.Monoid._
 import com.twitter.algebird.Operators._
 import enumeratum._
-import org.apache.log4j.{Level, LogManager}
+import org.apache.logging.log4j.Level
+import org.apache.logging.log4j.core.config.Configurator
 import org.apache.spark.ml.linalg.{DenseVector, SparseVector}
 import org.apache.spark.ml.param._
 import org.apache.spark.mllib.linalg.{DenseMatrix, DenseVector => OldDenseVector, SparseVector => OldSparseVector, Vector => OldVector, Vectors => OldVectors}
@@ -370,7 +371,7 @@ class SanityChecker(uid: String = UID[SanityChecker])
     // Set the desired log level
     if (isSet(logLevel)) {
       Option(log).collect { case l =>
-        LogManager.getLogger(l.getName).setLevel(Level.toLevel($(logLevel)))
+        Configurator.setLevel(l.getName(), Level.toLevel($(logLevel)))
       }
     }
     val sampSeed = $(sampleSeed)

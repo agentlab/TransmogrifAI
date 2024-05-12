@@ -23,7 +23,8 @@ package com.salesforce.op.test
 import java.io.File
 
 import com.salesforce.op.utils.kryo.OpKryoRegistrator
-import org.apache.log4j.{Level, Logger}
+import org.apache.logging.log4j.Level
+import org.apache.logging.log4j.core.config.Configurator
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 import org.apache.spark.{SparkConf, SparkContext}
@@ -38,7 +39,7 @@ trait TestSparkContext extends TempDirectoryTest with TestCommon {
   self: Suite =>
 
   // Remove Breeze logging noise
-  Logger.getLogger("breeze.optimize").setLevel(Level.WARN)
+  Configurator.setLevel("breeze.optimize", Level.WARN)
 
   lazy val kryoClasses: Array[Class[_]] = Array(
     classOf[com.salesforce.op.test.Passenger],

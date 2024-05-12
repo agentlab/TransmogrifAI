@@ -37,6 +37,7 @@ import com.salesforce.op.filters.Summary._
 import com.salesforce.op.readers.{DataFrameFieldNames, Reader}
 import com.salesforce.op.stages.impl.feature.TimePeriod
 import com.salesforce.op.stages.impl.preparators.CorrelationType
+import com.salesforce.op.utils.cache.CacheUtils
 import com.salesforce.op.utils.spark.RichRow._
 import com.twitter.algebird.Monoid._
 import com.twitter.algebird.Operators._
@@ -486,7 +487,7 @@ class RawFeatureFilter[T]
   def generateFilteredRaw(rawFeatures: Array[OPFeature], parameters: OpParams)
     (implicit spark: SparkSession): FilteredRawData = {
 
-    val trainData = trainingReader.generateDataFrame(rawFeatures, parameters).persist()
+    val trainData = CacheUtils.cache(trainingReader.generateDataFrame(rawFeatures, parameters), "raw")
     log.info("Loaded training data")
     require(trainData.count() > 0, "RawFeatureFilter cannot work with empty training data")
     val trainingSummary = computeFeatureStats(trainData, rawFeatures, FeatureDistributionType.Training)
@@ -497,7 +498,7 @@ class RawFeatureFilter[T]
     }
 
     val scoreData = scoringReader.flatMap { s =>
-      val sd = s.generateDataFrame(rawFeatures, parameters.switchReaderParams()).persist()
+      val sd = CacheUtils.cache(s.generateDataFrame(rawFeatures, parameters.switchReaderParams()), "raw")
       log.info("Loaded scoring data")
       val scoringDataCount = sd.count()
       if (scoringDataCount >= minScoringRows) Some(sd)
@@ -540,9 +541,9 @@ class RawFeatureFilter[T]
     }
 
     val schema = StructType(featuresToKeepNames.map(featuresDropped.schema(_)))
-    val cleanedData = spark.createDataFrame(mapsCleaned, schema).persist()
-    trainData.unpersist()
-    scoreData.map(_.unpersist())
+    val cleanedData = spark.createDataFrame(mapsCleaned, schema)
+    CacheUtils.uncache(trainData)
+    scoreData.map(CacheUtils.uncache(_))
 
     val rawFeatureFilterConfig = RawFeatureFilterConfig(
       minFill = minFill,

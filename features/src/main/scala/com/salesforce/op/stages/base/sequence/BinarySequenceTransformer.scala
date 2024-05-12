@@ -41,6 +41,8 @@ import org.apache.spark.util.ClosureUtils
 
 import scala.reflect.runtime.universe.TypeTag
 import scala.util.Try
+import org.apache.spark.sql.types.StructType
+import org.apache.spark.sql.Column
 
 /**
  * Base trait for binary sequence transformers and models which take a single feature as first argument and a
@@ -76,12 +78,16 @@ trait OpTransformer2N[I1 <: FeatureType, I2 <: FeatureType, O <: FeatureType]
    * @return a new dataset containing a column for the transformed feature
    */
   override def transform(dataset: Dataset[_]): DataFrame = {
+    dataset.select(col("*"), buildColumnExpr(dataset.schema))
+  }
+
+  override def buildColumnExpr: StructType => Column = (schema) => {
     require(getTransientFeatures.size > 1, "Inputs cannot be empty")
-    val newSchema = setInputSchema(dataset.schema).transformSchema(dataset.schema)
+    val newSchema = setInputSchema(schema).transformSchema(schema)
     val functionUDF = FeatureSparkTypes.udf2N[I1, I2, O](transformFn)
     val meta = newSchema(getOutputFeatureName).metadata
-    val columns = getTransientFeatures().map(in => dataset.col(in.name))
-    dataset.select(col("*"), functionUDF(struct(columns: _*)).as(getOutputFeatureName, meta))
+    val columns = getTransientFeatures().map(in => col(in.name))
+    functionUDF(struct(columns: _*)).as(getOutputFeatureName, meta)
   }
 
   private lazy val transformNFn = FeatureSparkTypes.transform2N[I1, I2, O](transformFn)

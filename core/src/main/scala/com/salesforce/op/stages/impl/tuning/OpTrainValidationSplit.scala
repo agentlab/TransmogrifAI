@@ -67,8 +67,8 @@ private[op] class OpTrainValidationSplit[M <: Model[_], E <: Estimator[_]]
       splitter = splitter
     ).head
 
-    val trainingDataset = dataset.sparkSession.createDataFrame(training, schema)
-    val validationDataset = dataset.sparkSession.createDataFrame(validation, schema)
+    val trainingDataset = dataset.sparkSession.createDataFrame(training, schema).repartition(parallelism)
+    val validationDataset = dataset.sparkSession.createDataFrame(validation, schema).repartition(parallelism)
 
     // If there is a TS DAG, then run it
     val (newTrain, newTest) = suppressLoggingForFun() {

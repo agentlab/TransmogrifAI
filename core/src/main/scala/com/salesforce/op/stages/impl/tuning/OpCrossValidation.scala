@@ -117,8 +117,8 @@ private[op] class OpCrossValidation[M <: Model[_], E <: Estimator[_]]
       log.info(s"Cross Validation $splitIndex with multiple sets of parameters.")
       Future {
         suppressLoggingForFun() {
-          val training = spark.createDataFrame(trainingRDD, schema)
-          val validation = spark.createDataFrame(validationRDD, schema)
+          val training = spark.createDataFrame(trainingRDD, schema).repartition(parallelism)
+          val validation = spark.createDataFrame(validationRDD, schema).repartition(parallelism)
           val (newTrain, newTest) = theDAG.map((d: StagesDAG) =>
             // If there is a CV DAG, then run it
             applyDAG(
@@ -165,7 +165,7 @@ private[op] class OpCrossValidation[M <: Model[_], E <: Estimator[_]]
     // get param that stores the label column
     val labelCol = evaluator.getParam(ValidatorParamDefaults.LabelCol)
     evaluator.set(labelCol, label)
-
+    log.info(s"[OpCrossValidation.createTrainValidationSplits] dataset: ${dataset.rdd.getNumPartitions}")
     // creating k train/validation data
     if (stratifyCondition) {
       val rddsByClass = prepareStratification(
@@ -174,10 +174,20 @@ private[op] class OpCrossValidation[M <: Model[_], E <: Estimator[_]]
         label = label,
         splitter = splitter
       )
-      stratifyKFolds(rddsByClass)
+      val stratified = stratifyKFolds(rddsByClass)
+      stratified.foreach {
+        case (ds1, ds2) => log.info(s"[OpCrossValidation.createTrainValidationSplits] stratified: " +
+          s"${ds1.getNumPartitions} : ${ds2.getNumPartitions}")
+      }
+      stratified
     } else {
       val rddRow = dataset.toDF().rdd
-      MLUtils.kFold(rddRow, numFolds, seed)
+      val kfolded = MLUtils.kFold(rddRow, numFolds, seed)
+      kfolded.foreach {
+        case (ds1, ds2) => log.info(s"[OpCrossValidation.createTrainValidationSplits] kfolded: " +
+          s"${ds1.getNumPartitions} : ${ds2.getNumPartitions}")
+      }
+      kfolded
     }
   }
 

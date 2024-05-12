@@ -1,4 +1,10 @@
+plugins {
+    id 'library-common-conventions'
+}
+
 dependencies {
+    compileOnly libs.scalatest
+    compileOnly libs.scalacheck
     implementation project(':utils')
     implementation project(':features')
 }

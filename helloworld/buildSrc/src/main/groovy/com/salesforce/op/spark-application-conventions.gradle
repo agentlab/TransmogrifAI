@@ -1,11 +1,21 @@
+plugins {
+    id 'application'
+}
 
-task copyLog4jToSpark(type: Copy, dependsOn: installDist) {
+// The main class for the application plugin and is currently unused. Setting a dummy one.
+application {
+    mainClass.set("please.set.main.class.in.build.gradle")
+}
+
+tasks.register('copyLog4jToSpark', Copy) {
+    dependsOn installDist
     description 'copy <project>/src/main/resources/log4j.properties to SPARK_HOME/conf folder'
     from "$project.projectDir.path/src/main/resources/log4j.properties"
     into "$System.env.SPARK_HOME/conf"
 }
 
-task sparkSubmit(type: Exec, dependsOn: copyLog4jToSpark) {
+tasks.register('sparkSubmit', Exec) {
+    dependsOn copyLog4jToSpark
     description 'build project and run a Spark submit, i.e.: <project>:sparkSubmit -Dmain=MyMainClass -Dargs="arg1 arg2 arg3"'
     def sparkHome = "$System.env.SPARK_HOME"
     def sparkVersion = "$sparkHome-is node determined since SPARK_HOME is not set".split("/").last().split("-").drop(1).head()

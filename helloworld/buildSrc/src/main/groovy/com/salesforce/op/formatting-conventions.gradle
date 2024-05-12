@@ -1,0 +1,10 @@
+plugins {
+  id 'com.github.alisiikh.scalastyle'
+}
+
+scalastyle {
+  scalastyleVersion = libs.versions.scalastyle.get()
+  config = file("${rootProject.projectDir}/gradle/scalastyle-config.xml")
+}
+
+compileScala.dependsOn(scalastyleCheck)

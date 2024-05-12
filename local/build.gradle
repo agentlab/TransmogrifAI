@@ -1,7 +1,19 @@
+plugins {
+    id 'library-common-conventions'
+}
+
 dependencies {
     implementation project(':core')
     testImplementation project(':testkit')
 
     // In-memory file system (needed for MLeap serialization of models)
-    runtimeOnly "com.github.marschall:memoryfilesystem:$memoryFilesystemVersion"
+    runtimeOnly libs.memoryFileSystem
+}
+
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        if (details.requested.group == 'ml.dmlc') {
+            details.useVersion libs.versions.xgboost.get()
+        }
+    }
 }

@@ -1,0 +1,19 @@
+plugins {
+    id 'groovy-gradle-plugin'
+}
+
+repositories {
+    gradlePluginPortal()
+    mavenCentral()
+}
+
+dependencies {
+    implementation(libs.gradleAvroPlugin)
+    implementation(plugin(libs.plugins.scalastyle))
+    implementation(plugin(libs.plugins.scoverage))
+    implementation(plugin(libs.plugins.shadow))
+}
+
+def plugin(Provider<PluginDependency> pluginDependency) {
+    pluginDependency.map { "${it.pluginId}:${it.pluginId}.gradle.plugin:${it.version}" }
+}

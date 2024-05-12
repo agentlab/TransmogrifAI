@@ -1,0 +1,21 @@
+plugins {
+  id 'java'
+  id 'com.commercehub.gradle.plugin.avro-base'
+}
+
+def generateAvro = tasks.register("generateAvro", com.commercehub.gradle.plugin.avro.GenerateAvroJavaTask) {
+    source("src/main/avro")
+    source("src/test/avro")
+    outputDir = file("build/generated-main-avro-java")
+}
+
+tasks.named("compileJava").configure {
+    source(generateAvro)
+}
+
+avro {
+  createSetters = true
+  fieldVisibility = "PUBLIC_DEPRECATED"
+  outputCharacterEncoding = "UTF-8"
+  stringType = "String"
+}

@@ -1,3 +1,37 @@
+plugins {
+    id 'org.scoverage'
+}
+
+dependencies {
+  compileOnly libs.scalatest
+  testImplementation libs.scalatest
+  testImplementation libs.scalacheck
+  testImplementation(libs.spark.testing) { transitive = false }
+  testImplementation libs.junit
+}
+
+sourceSets {
+    scoverage {
+        runtimeClasspath += sourceSets.main.output
+        compileClasspath += sourceSets.main.output
+    }
+    testScoverage {
+        runtimeClasspath += sourceSets.main.output + sourceSets.test.output
+        compileClasspath += sourceSets.main.output + sourceSets.test.output
+    }
+}
+
+scoverage {
+    coverageOutputCobertura = false
+    scoverageVersion = libs.versions.scoverage.get()
+}
+
+if (System.getenv("TEST_FILES") != null) {
+    testScoverage.setIncludes(Arrays.asList(System.getenv("TEST_FILES").split('\n')))
+}
+
+processScoverageResources.dependsOn processResources
+
 // Based on from https://github.com/mendhak/Gradle-Travis-Colored-Output
 tasks.withType(Test) {
 
@@ -24,7 +58,8 @@ tasks.withType(Test) {
         showStandardStreams true
     }
     maxParallelForks = 1
-    failFast = true
+    maxHeapSize = "1500m"
+    failFast = System.getenv('TESTS_FAIL_FAST') == 'true'
 
     beforeSuite { suite ->
         if (suite.name.startsWith("Gradle Test Executor")) return

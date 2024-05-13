@@ -15,7 +15,7 @@ spark = "3.4.2"
 scalatest = "3.0.9"
 scoverage = "2.0.10"
 scalastyle = "1.5.1"
-xgboost = "1.5.2"
+xgboost = "1.7.6"
 
 [libraries]
 akka-slf4j = { module = "com.typesafe.akka:akka-slf4j_2.12", version = "2.5.23" }

@@ -131,11 +131,6 @@ class OpXGBoostClassifier(uid: String = UID[OpXGBoostClassifier])
   def setMissing(value: Float): this.type = set(missing, value)
 
   /**
-   * The maximum time to wait for the job requesting new workers. default: 30 minutes
-   */
-  def setTimeoutRequestWorkers(value: Long): this.type = set(timeoutRequestWorkers, value)
-
-  /**
    * The hdfs folder to load and save checkpoint boosters. default: `empty_string`
    */
   def setCheckpointPath(value: String): this.type = set(checkpointPath, value)
@@ -239,14 +234,6 @@ class OpXGBoostClassifier(uid: String = UID[OpXGBoostClassifier])
    * Maximum number of nodes to be added. Only relevant when grow_policy=lossguide is set.
    */
   def setMaxLeaves(value: Int): this.type = set(maxLeaves, value)
-
-  /**
-   * This is only used for approximate greedy algorithm.
-   * This roughly translated into O(1 / sketch_eps) number of bins. Compared to directly select
-   * number of bins, this comes with theoretical guarantee with sketch accuracy.
-   * [default=0.03] range: (0, 1)
-   */
-  def setSketchEps(value: Double): this.type = set(sketchEps, value)
 
   /**
    * Control the balance of positive and negative weights, useful for unbalanced classes. A typical

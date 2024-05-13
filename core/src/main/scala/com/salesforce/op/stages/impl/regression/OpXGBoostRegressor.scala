@@ -35,7 +35,8 @@ import com.salesforce.op.features.types.{OPVector, Prediction, RealNN}
 import com.salesforce.op.stages.impl.CheckIsResponseValues
 import com.salesforce.op.stages.sparkwrappers.specific.{OpPredictionModel, OpPredictorWrapper}
 import ml.dmlc.xgboost4j.scala.{DMatrix, EvalTrait, ObjectiveTrait}
-import ml.dmlc.xgboost4j.scala.spark.{DataUtils, OpXGBoost, OpXGBoostRegressorParams, TrackerConf, XGBoost, XGBoostRegressionModel, XGBoostRegressor}
+import ml.dmlc.xgboost4j.scala.spark.{OpXGBoost, OpXGBoostRegressorParams, TrackerConf, XGBoost, XGBoostRegressionModel, XGBoostRegressor}
+import ml.dmlc.xgboost4j.scala.spark.util.DataUtils
 import org.apache.spark.ml.linalg.Vector
 import ml.combust.mleap.xgboost.runtime.{XGBoostRegressionModel => MleapXGBoostRegressionModel}
 
@@ -130,11 +131,6 @@ class OpXGBoostRegressor(uid: String = UID[OpXGBoostRegressor])
    * The value treated as missing
    */
   def setMissing(value: Float): this.type = set(missing, value)
-
-  /**
-   * The maximum time to wait for the job requesting new workers. default: 30 minutes
-   */
-  def setTimeoutRequestWorkers(value: Long): this.type = set(timeoutRequestWorkers, value)
 
   /**
    * The hdfs folder to load and save checkpoint boosters. default: `empty_string`
@@ -240,14 +236,6 @@ class OpXGBoostRegressor(uid: String = UID[OpXGBoostRegressor])
    * Maximum number of nodes to be added. Only relevant when grow_policy=lossguide is set.
    */
   def setMaxLeaves(value: Int): this.type = set(maxLeaves, value)
-
-  /**
-   * This is only used for approximate greedy algorithm.
-   * This roughly translated into O(1 / sketch_eps) number of bins. Compared to directly select
-   * number of bins, this comes with theoretical guarantee with sketch accuracy.
-   * [default=0.03] range: (0, 1)
-   */
-  def setSketchEps(value: Double): this.type = set(sketchEps, value)
 
   /**
    * Control the balance of positive and negative weights, useful for unbalanced classes. A typical

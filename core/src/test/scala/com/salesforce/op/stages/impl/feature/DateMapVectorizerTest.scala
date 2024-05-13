@@ -39,11 +39,11 @@ import com.salesforce.op.utils.spark.RichDataset._
 import org.apache.spark.ml.linalg.Vectors
 import org.joda.time.{DateTimeConstants, DateTime => JDateTime}
 import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatestplus.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
-class DateMapVectorizerTest extends FlatSpec with TestSparkContext with AttributeAsserts {
+class DateMapVectorizerTest extends AnyFlatSpec with TestSparkContext with AttributeAsserts {
 
   // Sunday July 12th 1998 at 22:45
   private val defaultDate = new JDateTime(1998, 7, 12, 22, 45, DateTimeUtils.DefaultTimeZone).getMillis

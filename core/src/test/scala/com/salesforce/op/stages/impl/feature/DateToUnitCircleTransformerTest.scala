@@ -40,7 +40,7 @@ import org.apache.spark.ml.linalg.Vectors
 import org.apache.spark.ml.Transformer
 import org.joda.time.{DateTimeZone, DateTime => JDateTime}
 import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
 class DateToUnitCircleTransformerTest extends OpTransformerSpec[OPVector, DateToUnitCircleTransformer[Date]]

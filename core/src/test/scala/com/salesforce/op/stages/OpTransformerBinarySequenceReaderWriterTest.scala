@@ -33,7 +33,7 @@ package com.salesforce.op.stages
 import com.salesforce.op.features.types._
 import com.salesforce.op.stages.base.sequence.BinarySequenceLambdaTransformer
 import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 
 
 @RunWith(classOf[JUnitRunner])

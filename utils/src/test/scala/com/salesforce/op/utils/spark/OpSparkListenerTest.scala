@@ -44,7 +44,6 @@ import org.scalatest.prop.TableDrivenPropertyChecks
 import collection.JavaConverters._
 
 class OpSparkListenerTest extends AnyFlatSpec with TableDrivenPropertyChecks with TestSparkContext {
-
   val ctx = LogManager.getContext(false).asInstanceOf[LoggerContext]
   val config = ctx.getConfiguration()
   val appenderName = "spark-appender"

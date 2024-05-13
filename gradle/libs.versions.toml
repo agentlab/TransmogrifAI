@@ -12,7 +12,8 @@ log4j = "2.19.0"
 lucene = "7.3.0"
 mleap = "0.23.0"
 spark = "3.4.2"
-scalatest = "3.0.9"
+scalatest = "3.2.18"
+scalatestModules = "3.2.18.0"
 scoverage = "2.0.10"
 scalastyle = "1.5.1"
 xgboost = "1.7.6"
@@ -52,6 +53,8 @@ phonenumber = { module = "com.googlecode.libphonenumber:libphonenumber", version
 reflections = { module = "org.reflections:reflections", version = "0.10.2" }
 scalafmt = { module = "com.geirsson:scalafmt-core_2.12", version = "1.5.1" }
 scalatest = { module = "org.scalatest:scalatest_2.12", version.ref = "scalatest" }
+scalatest-junit = { module = "org.scalatestplus:junit-4-13_2.12", version.ref = "scalatestModules" }
+scalatest-scalacheck = { module = "org.scalatestplus:scalacheck-1-17_2.12", version.ref = "scalatestModules" }
 scalacheck = { module = "org.scalacheck:scalacheck_2.12", version = "1.17.0" }
 scala-graph = { module = "org.scala-graph:graph-core_2.12", version = "1.13.1" }
 scopt = { module = "com.github.scopt:scopt_2.12", version = "3.7.1" }

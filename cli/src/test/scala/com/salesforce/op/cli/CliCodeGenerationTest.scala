@@ -35,7 +35,7 @@ import java.io.File
 import java.nio.file.Paths
 
 import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 
 import scala.io.Source
 

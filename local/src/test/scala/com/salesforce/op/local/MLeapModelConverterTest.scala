@@ -36,12 +36,12 @@ import ml.combust.mleap.core.types.ScalarShape
 import ml.combust.mleap.runtime.transformer.feature._
 import org.apache.spark.ml.linalg.{DenseMatrix, Vectors}
 import org.junit.runner.RunWith
-import org.scalatest.PropSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.propspec.AnyPropSpec
+import org.scalatestplus.junit.JUnitRunner
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 
 @RunWith(classOf[JUnitRunner])
-class MLeapModelConverterTest extends PropSpec with ScalaCheckPropertyChecks with TestCommon {
+class MLeapModelConverterTest extends AnyPropSpec with ScalaCheckPropertyChecks with TestCommon {
 
   val mleapModels = Table("mleapModels", // TODO wrap these in mleap transformers
     BinarizerModel(0.0, ScalarShape()),

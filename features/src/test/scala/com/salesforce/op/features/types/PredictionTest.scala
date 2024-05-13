@@ -32,12 +32,12 @@ package com.salesforce.op.features.types
 
 import com.salesforce.op.test.TestCommon
 import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatestplus.junit.JUnitRunner
 
 
 @RunWith(classOf[JUnitRunner])
-class PredictionTest extends FlatSpec with TestCommon {
+class PredictionTest extends AnyFlatSpec with TestCommon {
   import Prediction.Keys._
 
   Spec[Prediction] should "extend FeatureType" in {

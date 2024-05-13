@@ -51,8 +51,8 @@ import org.apache.spark.sql.Encoders
 import org.apache.spark.sql.catalyst.encoders.ExpressionEncoder
 import org.junit.runner.RunWith
 import org.scalacheck.Gen
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatestplus.junit.JUnitRunner
 import org.scalatestplus.scalacheck.Checkers
 
 import scala.concurrent.TimeoutException
@@ -61,7 +61,7 @@ import scala.util.Random
 
 
 @RunWith(classOf[JUnitRunner])
-class RegressionModelSelectorTest extends FlatSpec with TestSparkContext
+class RegressionModelSelectorTest extends AnyFlatSpec with TestSparkContext
   with CompareParamGrid with OpXGBoostQuietLogging with Checkers {
   val seed = 1234L
   val stageNames = "label_prediction"

@@ -36,12 +36,12 @@ import org.apache.spark.ml.linalg.Vectors
 import org.apache.spark.mllib.random.RandomRDDs
 import org.apache.spark.sql.Dataset
 import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatestplus.junit.JUnitRunner
 
 
 @RunWith(classOf[JUnitRunner])
-class DataCutterTest extends FlatSpec with TestSparkContext with SplitterSummaryAsserts {
+class DataCutterTest extends AnyFlatSpec with TestSparkContext with SplitterSummaryAsserts {
   import spark.implicits._
 
   val labels = RandomIntegral.integrals(0, 1000).withProbabilityOfEmpty(0).limit(100000)

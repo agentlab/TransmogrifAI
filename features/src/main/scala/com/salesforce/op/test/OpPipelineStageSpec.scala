@@ -36,7 +36,10 @@ import com.salesforce.op.stages._
 import com.salesforce.op.utils.spark.RichMetadata._
 import org.apache.spark.ml.Estimator
 import org.apache.spark.ml.param.ParamMap
-import org.scalatest._
+import org.scalatest.{Assertions, AppendedClues}
+import org.scalatest.compatible.Assertion
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
 import scala.reflect._
 import scala.reflect.runtime.universe._
@@ -52,7 +55,7 @@ import scala.util.Failure
  */
 abstract class OpPipelineStageSpec[O <: FeatureType : WeakTypeTag : ClassTag,
 StageType <: OpPipelineStage[O] : ClassTag]
-  extends FlatSpec
+  extends AnyFlatSpec
     with FeatureTypeEquality[O]
     with TestSparkContext
     with OpPipelineStageAsserts {

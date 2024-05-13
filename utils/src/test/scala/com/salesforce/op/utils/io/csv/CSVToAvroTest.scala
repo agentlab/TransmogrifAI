@@ -34,11 +34,11 @@ import com.salesforce.op.test.{Passenger, TestSparkContext}
 import org.apache.spark.SparkException
 import org.apache.spark.rdd.RDD
 import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatestplus.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
-class CSVToAvroTest extends FlatSpec with TestSparkContext {
+class CSVToAvroTest extends AnyFlatSpec with TestSparkContext {
   val avroSchema: String = loadFile(s"$resourceDir/PassengerSchemaModifiedDataTypes.avsc")
   val csvReader: CSVInOut = new CSVInOut(CSVOptions(header = true))
   lazy val csvRDD: RDD[Seq[String]] = csvReader.readRDD(s"$resourceDir/PassengerDataModifiedDataTypes.csv")

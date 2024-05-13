@@ -37,7 +37,7 @@ import com.salesforce.op.utils.spark.OpVectorMetadata
 import com.salesforce.op.utils.spark.RichDataset._
 import org.apache.spark.sql.Dataset
 import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 import org.apache.spark.ml.linalg.Vectors
 
 @RunWith(classOf[JUnitRunner])

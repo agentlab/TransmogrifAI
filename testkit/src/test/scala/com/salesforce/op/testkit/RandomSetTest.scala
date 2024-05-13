@@ -33,14 +33,15 @@ package com.salesforce.op.testkit
 import com.salesforce.op.features.types._
 import com.salesforce.op.test.TestCommon
 import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
-import org.scalatest.{Assertions, FlatSpec}
+import org.scalatestplus.junit.JUnitRunner
+import org.scalatest.Assertions
+import org.scalatest.flatspec.AnyFlatSpec
 
 import scala.language.postfixOps
 
 
 @RunWith(classOf[JUnitRunner])
-class RandomSetTest extends FlatSpec with TestCommon with Assertions {
+class RandomSetTest extends AnyFlatSpec with TestCommon with Assertions {
   private val numTries = 10000
   private val rngSeed = 314159214142136L
 

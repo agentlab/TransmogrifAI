@@ -34,7 +34,7 @@ import java.io.{File, FileWriter}
 
 import com.salesforce.op.OpWorkflowRunType
 import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 
 import scala.language.postfixOps
 import scala.sys.process._

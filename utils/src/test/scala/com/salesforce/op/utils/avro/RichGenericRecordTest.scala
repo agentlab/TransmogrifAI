@@ -34,12 +34,13 @@ import com.salesforce.op.test.{TestCommon, TestSparkContext}
 import com.salesforce.op.utils.io.avro.AvroInOut
 import org.apache.avro.generic.GenericRecord
 import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatestplus.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
 
 @RunWith(classOf[JUnitRunner])
-class RichGenericRecordTest extends FlatSpec with Matchers with TestSparkContext with TestCommon {
+class RichGenericRecordTest extends AnyFlatSpec with Matchers with TestSparkContext with TestCommon {
 
   import com.salesforce.op.utils.avro.RichGenericRecord._
 

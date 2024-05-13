@@ -45,7 +45,7 @@ import org.apache.spark.ml.linalg.{Vector, Vectors}
 import org.apache.spark.sql.types.Metadata
 import org.apache.spark.sql.{DataFrame, Row}
 import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 
 case class SanityCheckDataTest
 (

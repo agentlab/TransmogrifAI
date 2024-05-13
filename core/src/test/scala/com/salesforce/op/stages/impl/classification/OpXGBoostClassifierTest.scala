@@ -37,7 +37,7 @@ import com.salesforce.op.test.{OpEstimatorSpec, TestFeatureBuilder}
 import ml.dmlc.xgboost4j.scala.spark.{OpXGBoostQuietLogging, XGBoostClassificationModel, XGBoostClassifier}
 import org.apache.spark.ml.linalg.Vectors
 import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 
 
 @RunWith(classOf[JUnitRunner])

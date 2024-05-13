@@ -37,7 +37,7 @@ import com.salesforce.op.test._
 import org.apache.spark.ml.linalg.Vectors
 import org.apache.spark.ml.regression.{RandomForestRegressionModel, RandomForestRegressor}
 import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
 class OpRandomForestRegressorTest extends OpEstimatorSpec[Prediction,

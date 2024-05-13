@@ -40,14 +40,14 @@ import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.{Dataset, Row, SparkSession}
 import org.joda.time.Duration
 import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatestplus.junit.JUnitRunner
 
 import scala.reflect.runtime.universe._
 
 
 @RunWith(classOf[JUnitRunner])
-class DataReadersTest extends FlatSpec with PassengerSparkFixtureTest with TestCommon {
+class DataReadersTest extends AnyFlatSpec with PassengerSparkFixtureTest with TestCommon {
   def csvWithoutHeaderPath: String = s"$testDataDir/BigPassenger.csv"
 
   def csvWithHeaderPath: String = s"$testDataDir/BigPassengerWithHeader.csv"

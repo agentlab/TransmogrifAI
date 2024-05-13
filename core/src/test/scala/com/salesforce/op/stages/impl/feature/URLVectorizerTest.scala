@@ -40,12 +40,12 @@ import com.salesforce.op.utils.spark.RichDataset._
 import org.apache.spark.ml.linalg.Vectors
 import org.apache.spark.sql.DataFrame
 import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatestplus.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
 class URLVectorizerTest
-  extends FlatSpec with FeatureTestBase with RichTextFeature with RichMapFeature with RichFeature
+  extends AnyFlatSpec with FeatureTestBase with RichTextFeature with RichMapFeature with RichFeature
     with AttributeAsserts {
   val urlKey = "Url1"
   val urlKey2 = "Url2"

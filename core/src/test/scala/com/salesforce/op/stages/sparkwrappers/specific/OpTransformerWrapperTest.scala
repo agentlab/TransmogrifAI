@@ -38,11 +38,11 @@ import org.apache.spark.ml.linalg.{Vector, Vectors}
 import org.apache.spark.sql._
 import org.apache.spark.sql.functions._
 import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatestplus.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
-class OpTransformerWrapperTest extends FlatSpec with TestSparkContext {
+class OpTransformerWrapperTest extends AnyFlatSpec with TestSparkContext {
 
   val (testData, featureVector) = TestFeatureBuilder(
     Seq[MultiPickList](

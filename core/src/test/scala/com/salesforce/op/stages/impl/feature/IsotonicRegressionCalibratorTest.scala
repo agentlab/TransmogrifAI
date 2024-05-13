@@ -40,12 +40,13 @@ import org.apache.spark.ml.Transformer
 import org.apache.spark.ml.regression.{IsotonicRegression, IsotonicRegressionModel}
 import org.apache.spark.sql._
 import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatestplus.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
 
 @RunWith(classOf[JUnitRunner])
-class IsotonicRegressionCalibratorTest extends FlatSpec with TestSparkContext {
+class IsotonicRegressionCalibratorTest extends AnyFlatSpec with TestSparkContext {
 
   val isoExpectedPredictions = Array(1, 2, 2, 2, 6, 16.5, 16.5, 17, 18)
   val isoExpectedModelBoundaries = Array(0, 1, 3, 4, 5, 6, 7, 8)

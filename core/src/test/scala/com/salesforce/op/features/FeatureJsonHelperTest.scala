@@ -36,12 +36,12 @@ import com.salesforce.op.test.{PassengerFeaturesTest, TestCommon}
 import org.apache.spark.ml.attribute.NominalAttribute
 import org.json4s.MappingException
 import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatestplus.junit.JUnitRunner
 
 
 @RunWith(classOf[JUnitRunner])
-class FeatureJsonHelperTest extends FlatSpec with PassengerFeaturesTest with TestCommon {
+class FeatureJsonHelperTest extends AnyFlatSpec with PassengerFeaturesTest with TestCommon {
 
   trait DifferentParents {
     val feature = height + weight

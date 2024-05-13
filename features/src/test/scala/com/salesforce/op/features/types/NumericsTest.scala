@@ -32,12 +32,12 @@ package com.salesforce.op.features.types
 
 import com.salesforce.op.test.TestCommon
 import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatestplus.junit.JUnitRunner
 
 
 @RunWith(classOf[JUnitRunner])
-class NumericsTest extends FlatSpec with TestCommon {
+class NumericsTest extends AnyFlatSpec with TestCommon {
 
   /* Binary tests */
   Spec[Binary] should "extend OPNumeric" in {

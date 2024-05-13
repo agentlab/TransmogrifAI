@@ -4,7 +4,10 @@ plugins {
 
 dependencies {
   compileOnly libs.scalatest
+  compileOnly libs.scalatest.scalacheck
   testImplementation libs.scalatest
+  testImplementation libs.scalatest.junit
+  testImplementation libs.scalatest.scalacheck
   testImplementation libs.scalacheck
   testImplementation(libs.spark.testing) { transitive = false }
   testImplementation libs.junit

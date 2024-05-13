@@ -39,11 +39,11 @@ import org.apache.avro.generic.GenericRecord
 import org.apache.hadoop.fs.{FileSystem, Path}
 import org.apache.spark.rdd.RDD
 import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatestplus.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
-class AvroInOutTest extends FlatSpec with TestSparkContext {
+class AvroInOutTest extends AnyFlatSpec with TestSparkContext {
   val avroSchemaPath = s"$testDataDir/PassengerDataAll.avsc"
   val avroFilePath = s"$testDataDir/PassengerDataAll.avro"
   val avroFileRecordCount = 891

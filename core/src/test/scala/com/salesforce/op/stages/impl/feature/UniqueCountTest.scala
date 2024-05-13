@@ -37,11 +37,11 @@ import com.twitter.algebird.Operators._
 import org.apache.spark.serializer.KryoSerializer
 import org.apache.spark.sql._
 import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatestplus.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
-class UniqueCountTest extends FlatSpec with TestSparkContext with UniqueCountFun {
+class UniqueCountTest extends AnyFlatSpec with TestSparkContext with UniqueCountFun {
   import spark.implicits._
 
   implicit val kryo = new KryoSerializer(spark.sparkContext.getConf)

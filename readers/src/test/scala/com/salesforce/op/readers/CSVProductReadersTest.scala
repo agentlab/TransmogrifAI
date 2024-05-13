@@ -35,8 +35,8 @@ import com.salesforce.op.features.types._
 import com.salesforce.op.test.{TestCommon, TestSparkContext}
 import com.salesforce.op.utils.io.csv.CSVOptions
 import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatestplus.junit.JUnitRunner
 
 
 // need this to be external to (not nested in) CSVProductReaderTest for spark sql to work correctly
@@ -56,7 +56,7 @@ case class PassengerCaseClass
 )
 
 @RunWith(classOf[JUnitRunner])
-class CSVProductReadersTest extends FlatSpec with TestSparkContext with TestCommon {
+class CSVProductReadersTest extends AnyFlatSpec with TestSparkContext with TestCommon {
   def csvWithoutHeaderPath: String = s"$testDataDir/BigPassenger.csv"
 
   def csvWithHeaderPath: String = s"$testDataDir/BigPassengerWithHeader.csv"

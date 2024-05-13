@@ -41,8 +41,8 @@ import org.apache.spark.ml.linalg.Vectors
 import org.apache.spark.sql.DataFrame
 import org.apache.spark.sql.types.Metadata
 import org.junit.runner.RunWith
-import org.scalatest.Matchers
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.matchers.should.Matchers
+import org.scalatestplus.junit.JUnitRunner
 
 
 @RunWith(classOf[JUnitRunner])

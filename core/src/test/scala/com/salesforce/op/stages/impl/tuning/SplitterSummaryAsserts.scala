@@ -31,7 +31,8 @@
 package com.salesforce.op.stages.impl.tuning
 
 import com.salesforce.op.stages.impl.selector.ModelSelectorNames
-import org.scalatest.{Assertion, Matchers}
+import org.scalatest.compatible.Assertion
+import org.scalatest.matchers.should.Matchers
 
 /**
  * Assertion helpers for [[SplitterSummary]] child classes

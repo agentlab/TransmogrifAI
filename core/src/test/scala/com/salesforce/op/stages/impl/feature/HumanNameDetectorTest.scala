@@ -40,7 +40,7 @@ import com.salesforce.op.utils.stages.NameDetectUtils
 import org.apache.spark.sql.DataFrame
 import org.apache.spark.sql.types.Metadata
 import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
 class HumanNameDetectorTest

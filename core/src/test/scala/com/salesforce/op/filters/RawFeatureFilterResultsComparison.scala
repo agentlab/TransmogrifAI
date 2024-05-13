@@ -31,12 +31,13 @@
 package com.salesforce.op.filters
 
 import com.salesforce.op.DoubleEquality
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
 /**
  * Contains utility functions for comparing two RawFeatureFilterResults
  */
-object RawFeatureFilterResultsComparison extends FlatSpec with Matchers with DoubleEquality{
+object RawFeatureFilterResultsComparison extends AnyFlatSpec with Matchers with DoubleEquality{
 
   def compareConfig(c1: RawFeatureFilterConfig, c2: RawFeatureFilterConfig): Unit = {
     c1.minFill shouldBe c2.minFill

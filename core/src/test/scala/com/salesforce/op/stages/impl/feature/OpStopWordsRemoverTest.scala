@@ -36,7 +36,7 @@ import com.salesforce.op.utils.spark.RichDataset._
 import com.salesforce.op.test.{SwTransformerSpec, TestFeatureBuilder}
 import org.apache.spark.ml.feature.StopWordsRemover
 import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 
 
 @RunWith(classOf[JUnitRunner])

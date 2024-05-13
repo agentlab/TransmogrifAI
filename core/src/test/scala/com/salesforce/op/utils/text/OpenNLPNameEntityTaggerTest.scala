@@ -36,11 +36,11 @@ import com.salesforce.op.test.TestCommon
 import com.salesforce.op.utils.text.NameEntityType._
 import opennlp.tools.util.Span
 import org.junit.runner.RunWith
-import org.scalatest._
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatestplus.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
-class OpenNLPNameEntityTaggerTest extends FlatSpec with TestCommon {
+class OpenNLPNameEntityTaggerTest extends AnyFlatSpec with TestCommon {
 
   val nerTagger = new OpenNLPNameEntityTagger()
 

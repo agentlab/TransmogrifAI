@@ -34,11 +34,11 @@ import com.salesforce.op.test.TestSparkContext
 import org.apache.spark.ml.linalg.Vectors
 import org.apache.spark.mllib.random.RandomRDDs
 import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatestplus.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
-class DataSplitterTest extends FlatSpec with TestSparkContext with SplitterSummaryAsserts {
+class DataSplitterTest extends AnyFlatSpec with TestSparkContext with SplitterSummaryAsserts {
   import spark.implicits._
 
   val seed = 1234L

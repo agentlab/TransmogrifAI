@@ -34,12 +34,12 @@ import com.salesforce.op.test.TestCommon
 import com.salesforce.op.utils.spark.RichVector._
 import org.apache.spark.ml.linalg.Vectors
 import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatestplus.junit.JUnitRunner
 
 
 @RunWith(classOf[JUnitRunner])
-class OPVectorTest extends FlatSpec with TestCommon {
+class OPVectorTest extends AnyFlatSpec with TestCommon {
 
   val vectors = Seq(
     Vectors.sparse(4, Array(0, 3), Array(1.0, 1.0)).toOPVector,

@@ -52,13 +52,14 @@ import org.apache.spark.sql.functions.monotonically_increasing_id
 import org.apache.spark.sql.types.StructType
 import org.apache.spark.sql.{DataFrame, Encoder, Row}
 import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
-import org.scalatest.{FunSpec, Ignore, Suite}
+import org.scalatestplus.junit.JUnitRunner
+import org.scalatest.{Ignore, Suite}
+import org.scalatest.funspec.AnyFunSpec
 
 
 @Ignore
 @RunWith(classOf[JUnitRunner])
-class RecordInsightsLOCOTest extends FunSpec with TestSparkContext with RecordInsightsTestDataGenerator {
+class RecordInsightsLOCOTest extends AnyFunSpec with TestSparkContext with RecordInsightsTestDataGenerator {
 
   // scalastyle:off
   val data = Seq( // name, age, height, height_null, isBlueEyed, gender, testFeatNegCor

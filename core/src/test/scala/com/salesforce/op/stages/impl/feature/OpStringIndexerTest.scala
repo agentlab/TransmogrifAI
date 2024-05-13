@@ -34,12 +34,12 @@ import com.salesforce.op.features.types._
 import com.salesforce.op.features.types.Text
 import com.salesforce.op.test.{TestFeatureBuilder, TestSparkContext}
 import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatestplus.junit.JUnitRunner
 import com.salesforce.op.utils.spark.RichDataset._
 
 @RunWith(classOf[JUnitRunner])
-class OpStringIndexerTest extends FlatSpec with TestSparkContext {
+class OpStringIndexerTest extends AnyFlatSpec with TestSparkContext {
 
   val txtData = Seq("a", "b", "c", "a", "a", "c").map(_.toText)
   val (ds, txtF) = TestFeatureBuilder(txtData)

@@ -34,8 +34,9 @@ import com.salesforce.op.cli.gen.AvroField._
 import com.salesforce.op.test.TestCommon
 import org.apache.avro.Schema
 import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
-import org.scalatest.{Assertions, FlatSpec}
+import org.scalatestplus.junit.JUnitRunner
+import org.scalatest.Assertions
+import org.scalatest.flatspec.AnyFlatSpec
 
 import scala.collection.JavaConverters._
 import scala.language.postfixOps
@@ -44,7 +45,7 @@ import scala.language.postfixOps
  * Test for AvroField methods.
  */
 @RunWith(classOf[JUnitRunner])
-class AvroFieldTest extends FlatSpec with TestCommon with Assertions {
+class AvroFieldTest extends AnyFlatSpec with TestCommon with Assertions {
 
   Spec[AvroField] should "do from" in {
     val types = List(

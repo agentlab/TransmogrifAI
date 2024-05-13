@@ -40,12 +40,12 @@ import com.salesforce.op.utils.spark.RichDataset._
 import org.apache.spark.sql
 import org.apache.spark.sql.Row
 import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatestplus.junit.JUnitRunner
 
 
 @RunWith(classOf[JUnitRunner])
-class PhoneNumberParserTest extends FlatSpec with TestSparkContext {
+class PhoneNumberParserTest extends AnyFlatSpec with TestSparkContext {
 
   val userDefParser = new ParsePhoneNumber()
   val namesAndCode = Map("US" -> "United States", "CA" -> "Canada", "ZW" -> "Zimbabwe")

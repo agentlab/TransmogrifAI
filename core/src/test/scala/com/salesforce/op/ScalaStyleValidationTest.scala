@@ -31,11 +31,13 @@
 package com.salesforce.op
 
 import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
-import org.scalatest.{Assertions, FlatSpec, Matchers}
+import org.scalatestplus.junit.JUnitRunner
+import org.scalatest.Assertions
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
 @RunWith(classOf[JUnitRunner])
-class ScalaStyleValidationTest extends FlatSpec with Matchers with Assertions {
+class ScalaStyleValidationTest extends AnyFlatSpec with Matchers with Assertions {
   import scala.Throwable
   private def +(x: Int, y: Int) = x + y
   private def -(x: Int, y: Int) = x - y

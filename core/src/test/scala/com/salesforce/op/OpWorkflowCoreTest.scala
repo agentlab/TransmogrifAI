@@ -42,12 +42,12 @@ import com.salesforce.op.test.{TestFeatureBuilder, TestSparkContext}
 import com.salesforce.op.testkit.{RandomBinary, RandomReal, RandomVector}
 import org.apache.spark.ml.{Estimator, Model}
 import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatestplus.junit.JUnitRunner
 
 
 @RunWith(classOf[JUnitRunner])
-class OpWorkflowCoreTest extends FlatSpec with TestSparkContext {
+class OpWorkflowCoreTest extends AnyFlatSpec with TestSparkContext {
   // Types
   type MS = ModelSelector[_ <: Model[_], _ <: Estimator[_]]
 

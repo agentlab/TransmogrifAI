@@ -37,11 +37,11 @@ import com.salesforce.op.test.TestSparkContext
 import com.salesforce.op.utils.spark.RichDataset._
 import org.apache.spark.ml.linalg.Vectors
 import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatestplus.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
-class Base64VectorizerTest extends FlatSpec with TestSparkContext with Base64TestData with AttributeAsserts {
+class Base64VectorizerTest extends AnyFlatSpec with TestSparkContext with Base64TestData with AttributeAsserts {
 
   "Base64Vectorizer" should "vectorize random binary data" in {
     val vec = randomBase64.vectorize(topK = 10, minSupport = 0, cleanText = true, trackNulls = false)

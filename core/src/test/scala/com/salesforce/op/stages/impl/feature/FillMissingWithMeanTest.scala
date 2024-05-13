@@ -38,14 +38,14 @@ import com.salesforce.op.test.{TestFeatureBuilder, TestSparkContext}
 import com.salesforce.op.utils.spark.RichDataset._
 import org.apache.spark.sql.DataFrame
 import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatestplus.junit.JUnitRunner
 
 import scala.reflect.ClassTag
 
 
 @RunWith(classOf[JUnitRunner])
-class FillMissingWithMeanTest extends FlatSpec with TestSparkContext {
+class FillMissingWithMeanTest extends AnyFlatSpec with TestSparkContext {
   val data = Seq[Real](Real(4.0), Real(2.0), Real.empty, Real(6.0))
   val dataNull = List.fill(7)(Real.empty)
   val binData = Seq[Binary](true.toBinary, false.toBinary, Binary.empty)

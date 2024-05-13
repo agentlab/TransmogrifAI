@@ -30,7 +30,7 @@
 package com.salesforce.op.stages.impl.feature
 
 import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 import com.salesforce.op.features.types._
 import com.salesforce.op.utils.spark.RichDataset._
 

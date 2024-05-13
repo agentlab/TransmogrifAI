@@ -34,12 +34,12 @@ import com.salesforce.op.test.TestCommon
 import org.json4s.jackson.JsonMethods._
 import org.json4s.{DefaultFormats, Extraction, Formats}
 import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatestplus.junit.JUnitRunner
 
 
 @RunWith(classOf[JUnitRunner])
-class SpecialDoubleSerializerTest extends FlatSpec with TestCommon {
+class SpecialDoubleSerializerTest extends AnyFlatSpec with TestCommon {
 
   val data = Map(
     "normal" -> Seq(-1.1, 0.0, 2.3),

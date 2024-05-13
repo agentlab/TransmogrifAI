@@ -34,7 +34,7 @@ package com.salesforce.op.stages.impl.feature
 import com.salesforce.op.features.types.{ArrayDoubleConversions, OPVector, RealNN}
 import com.salesforce.op.test.{OpTransformerSpec, TestFeatureBuilder}
 import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
 class RealNNVectorizerTest extends OpTransformerSpec[OPVector, RealNNVectorizer] {

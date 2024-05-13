@@ -35,7 +35,7 @@ import com.salesforce.op.utils.spark.RichDataset._
 import com.salesforce.op.test.{OpTransformerSpec, TestFeatureBuilder}
 import com.salesforce.op.utils.text.Language
 import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
 class NameEntityRecognizerTest extends OpTransformerSpec[MultiPickListMap, NameEntityRecognizer[Text]] {

@@ -35,12 +35,12 @@ import com.salesforce.op.test.TestSparkContext
 import com.salesforce.op.utils.spark.RichMetadata._
 import org.apache.spark.sql.types.Metadata
 import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatestplus.junit.JUnitRunner
 
 
 @RunWith(classOf[JUnitRunner])
-class SanityCheckerMetadataTest extends FlatSpec with TestSparkContext {
+class SanityCheckerMetadataTest extends AnyFlatSpec with TestSparkContext {
 
   val summary = SanityCheckerSummary(
     correlations = Correlations(Seq("f2", "f3", "f4"), Seq(0.2, 0.3, Double.NaN), Seq(Seq(0.2, 0.3, 0.1),

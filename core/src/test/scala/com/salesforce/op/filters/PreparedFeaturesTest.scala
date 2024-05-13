@@ -41,13 +41,13 @@ import com.twitter.algebird.Tuple2Semigroup
 import org.apache.spark.mllib.stat.Statistics
 import org.apache.spark.sql.DataFrame
 import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatestplus.junit.JUnitRunner
 
 import scala.util.{Failure, Success, Try}
 
 @RunWith(classOf[JUnitRunner])
-class PreparedFeaturesTest extends FlatSpec with PassengerSparkFixtureTest {
+class PreparedFeaturesTest extends AnyFlatSpec with PassengerSparkFixtureTest {
 
   import PreparedFeaturesTestData._
 

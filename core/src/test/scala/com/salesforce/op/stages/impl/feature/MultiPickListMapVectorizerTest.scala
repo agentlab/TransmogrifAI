@@ -40,7 +40,7 @@ import org.apache.spark.ml.linalg.Vectors
 import org.apache.spark.sql.DataFrame
 import org.apache.spark.sql.types.Metadata
 import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 import org.slf4j.LoggerFactory
 
 

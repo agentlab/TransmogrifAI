@@ -42,12 +42,13 @@ import org.json4s.JsonDSL._
 import org.json4s._
 import org.json4s.jackson.JsonMethods.{parse, _}
 import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
-import org.scalatest.{BeforeAndAfterEach, FlatSpec}
+import org.scalatestplus.junit.JUnitRunner
+import org.scalatest.BeforeAndAfterEach
+import org.scalatest.flatspec.AnyFlatSpec
 
 
 @RunWith(classOf[JUnitRunner])
-class SparkStageParamTest extends FlatSpec with TestSparkContext with BeforeAndAfterEach {
+class SparkStageParamTest extends AnyFlatSpec with TestSparkContext with BeforeAndAfterEach {
   import SparkStageParam._
 
   var savePath: String = _

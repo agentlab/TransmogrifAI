@@ -40,11 +40,11 @@ import com.salesforce.op.utils.spark.RichDataset._
 import org.apache.spark.SparkException
 import org.apache.spark.ml.linalg.Vectors
 import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatestplus.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
-class NumericBucketizerTest extends FlatSpec with TestSparkContext with AttributeAsserts {
+class NumericBucketizerTest extends AnyFlatSpec with TestSparkContext with AttributeAsserts {
 
   trait GenericTest {
     val numbers = Seq(Some(10.0), None, Some(3.0), Some(5.0), Some(6.0), None, Some(1.0), Some(0.0))

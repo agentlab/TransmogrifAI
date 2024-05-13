@@ -43,8 +43,8 @@ import com.salesforce.op.utils.spark.RichDataset._
 import org.apache.commons.io.FileUtils
 import org.junit.runner.RunWith
 import org.scalactic.source
-import org.scalatest.AsyncFlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AsyncFlatSpec
+import org.scalatestplus.junit.JUnitRunner
 import org.slf4j.LoggerFactory
 import org.zeroturnaround.zip.ZipUtil
 

@@ -32,15 +32,15 @@ package com.salesforce.op.testkit
 
 import com.salesforce.op.test.TestCommon
 import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatestplus.junit.JUnitRunner
 
 import scala.language.postfixOps
 import scala.util.Random
 
 
 @RunWith(classOf[JUnitRunner])
-class RandomStreamTest extends FlatSpec with TestCommon {
+class RandomStreamTest extends AnyFlatSpec with TestCommon {
 
   Spec[RandomStream[_]] should "apply" in {
     val rnd = new Random
@@ -85,7 +85,7 @@ class RandomStreamTest extends FlatSpec with TestCommon {
     rnd.setSeed(123451)
     val sut = RandomStream of List("R", "G", "B") distributedAs List(0.5, 0.9, 1.0)
     val sample = 0 to 1000 map (_ => sut(rnd)) toList
-    import org.scalatest.Matchers.{between => some}
+    import org.scalatest.matchers.should.Matchers.{between => some}
     some(450, 550, sample) shouldBe "R"
     some(350, 450, sample) shouldBe "G"
     some(80, 120, sample) shouldBe "B"

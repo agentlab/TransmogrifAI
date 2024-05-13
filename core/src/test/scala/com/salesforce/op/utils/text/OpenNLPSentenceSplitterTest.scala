@@ -38,11 +38,11 @@ import com.salesforce.op.utils.text.Language._
 import opennlp.tools.sentdetect.SentenceModel
 import opennlp.tools.tokenize.TokenizerModel
 import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatestplus.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
-class OpenNLPSentenceSplitterTest extends FlatSpec with TestCommon {
+class OpenNLPSentenceSplitterTest extends AnyFlatSpec with TestCommon {
 
   val splitter = new OpenNLPSentenceSplitter()
 

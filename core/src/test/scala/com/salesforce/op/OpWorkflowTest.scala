@@ -52,14 +52,15 @@ import org.apache.spark.sql.types.{DoubleType, Metadata, MetadataBuilder, String
 import org.apache.spark.sql.{Dataset, Row, SparkSession}
 import org.joda.time.DateTime
 import org.junit.runner.RunWith
-import org.scalatest.{Assertion, FlatSpec}
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.Assertion
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatestplus.junit.JUnitRunner
 import org.slf4j.LoggerFactory
 
 import scala.reflect.runtime.universe.TypeTag
 
 @RunWith(classOf[JUnitRunner])
-class OpWorkflowTest extends FlatSpec with PassengerSparkFixtureTest {
+class OpWorkflowTest extends AnyFlatSpec with PassengerSparkFixtureTest {
 
   val log = LoggerFactory.getLogger(this.getClass)
 

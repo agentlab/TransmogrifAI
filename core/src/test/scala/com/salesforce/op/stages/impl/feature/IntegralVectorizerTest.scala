@@ -37,13 +37,15 @@ import com.salesforce.op.test.{TestFeatureBuilder, TestOpVectorMetadataBuilder, 
 import com.salesforce.op.utils.spark.OpVectorMetadata
 import org.apache.spark.ml.linalg.Vectors
 import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
-import org.scalatest.{Assertions, FlatSpec, Matchers}
+import org.scalatestplus.junit.JUnitRunner
+import org.scalatest.Assertions
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 import com.salesforce.op.utils.spark.RichDataset._
 
 
 @RunWith(classOf[JUnitRunner])
-class IntegralVectorizerTest extends FlatSpec with TestSparkContext with AttributeAsserts {
+class IntegralVectorizerTest extends AnyFlatSpec with TestSparkContext with AttributeAsserts {
 
   val (testData, inA, inB, inC, inD) = TestFeatureBuilder("inA", "inB", "inC", "inD",
     Seq(

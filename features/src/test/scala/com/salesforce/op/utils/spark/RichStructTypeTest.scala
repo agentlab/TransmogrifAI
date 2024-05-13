@@ -33,14 +33,14 @@ package com.salesforce.op.utils.spark
 import com.salesforce.op.test.TestSparkContext
 import org.apache.spark.sql.functions._
 import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatestplus.junit.JUnitRunner
 
 import scala.language.postfixOps
 
 
 @RunWith(classOf[JUnitRunner])
-class RichStructTypeTest extends FlatSpec with TestSparkContext {
+class RichStructTypeTest extends AnyFlatSpec with TestSparkContext {
 
   import com.salesforce.op.utils.spark.RichStructType._
 

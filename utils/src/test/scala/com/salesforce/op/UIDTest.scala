@@ -32,11 +32,11 @@ package com.salesforce.op
 
 import com.salesforce.op.test.TestCommon
 import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatestplus.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
-class UIDTest extends FlatSpec with TestCommon {
+class UIDTest extends AnyFlatSpec with TestCommon {
 
   Spec(UID.getClass) should "generate UIDs" in {
     (1 to 100000).map(_ => UID[UIDTest]).toSet.size shouldBe 100000

@@ -34,14 +34,16 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.salesforce.op.test.TestCommon
 import org.junit.runner.RunWith
 import org.scalacheck.Gen
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
-import org.scalatest.{Assertion, PropSpec}
+import org.scalatest.compatible.Assertion
+import org.scalatest.propspec.AnyPropSpec
+
 
 import scala.util.{Failure, Success}
 
 @RunWith(classOf[JUnitRunner])
-class JsonUtilsTest extends PropSpec with ScalaCheckPropertyChecks with TestCommon {
+class JsonUtilsTest extends AnyPropSpec with ScalaCheckPropertyChecks with TestCommon {
 
   val bools = Gen.oneOf(true, false)
   val doubles = Gen.choose(Double.MinValue, Double.MaxValue)

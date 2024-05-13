@@ -37,15 +37,16 @@ import com.salesforce.op.test.PassengerSparkFixtureTest
 import org.apache.spark.ml.param.ParamMap
 import org.apache.spark.ml.Pipeline
 import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
-import org.scalatest.{BeforeAndAfterEach, FlatSpec}
+import org.scalatestplus.junit.JUnitRunner
+import org.scalatest.BeforeAndAfterEach
+import org.scalatest.flatspec.AnyFlatSpec
 
 import scala.reflect.runtime.universe.TypeTag
 
 
 @RunWith(classOf[JUnitRunner])
 class OpPipelineStagesTest
-  extends FlatSpec with PassengerSparkFixtureTest with BeforeAndAfterEach with Serializable {
+  extends AnyFlatSpec with PassengerSparkFixtureTest with BeforeAndAfterEach with Serializable {
 
   import OpPipelineStagesTest._
 

@@ -37,13 +37,13 @@ import org.apache.spark.ml.Transformer
 import org.apache.spark.ml.evaluation.{BinaryClassificationEvaluator, MulticlassClassificationEvaluator, RegressionEvaluator}
 import org.apache.spark.ml.linalg.Vectors
 import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatestplus.junit.JUnitRunner
 import org.scalatest.prop.TableDrivenPropertyChecks._
 
 
 @RunWith(classOf[JUnitRunner])
-class EvaluatorsTest extends FlatSpec with TestSparkContext {
+class EvaluatorsTest extends AnyFlatSpec with TestSparkContext {
 
   val (trainData, trainRawLabel, trainFeatures) = TestFeatureBuilder[RealNN, OPVector](
     Seq(

@@ -39,8 +39,7 @@ import org.apache.spark.ml.param.ParamMap
 import org.apache.spark.sql.Dataset
 import org.apache.spark.sql.types.{DoubleType, MetadataBuilder, StructField, StructType}
 import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 
 
 @RunWith(classOf[JUnitRunner])

@@ -33,8 +33,9 @@ package com.salesforce.op.utils.reflection
 
 import com.salesforce.op.utils.types.TestPrivateType
 import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatestplus.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
 import scala.reflect.runtime.universe._
 import scala.util.Try
@@ -94,7 +95,7 @@ class TestClassVar {
 }
 
 @RunWith(classOf[JUnitRunner])
-class ReflectionUtilsTest extends FlatSpec with Matchers {
+class ReflectionUtilsTest extends AnyFlatSpec with Matchers {
 
   type ListStringAlias = scala.collection.immutable.List[String]
 

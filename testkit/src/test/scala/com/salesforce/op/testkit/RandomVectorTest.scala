@@ -34,13 +34,10 @@ import com.salesforce.op.features.types.{Currency, Percent, Real, RealNN}
 import com.salesforce.op.test.TestCommon
 import com.salesforce.op.testkit.RandomReal._
 import org.apache.spark.ml.linalg._
-import org.junit.runner.RunWith
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 
 // [W-4293013] - more random vectors
 
-@RunWith(classOf[JUnitRunner])
 class RandomVectorTest extends AnyFlatSpec with TestCommon {
   val numTries = 1000000
 

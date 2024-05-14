@@ -36,11 +36,8 @@ import com.salesforce.op.features.types._
 import com.salesforce.op.stages.base.unary.UnaryLambdaTransformer
 import com.salesforce.op.stages.impl.feature.OpStringIndexerNoFilter
 import com.salesforce.op.test.{TestFeatureBuilder, TestSparkContext}
-import org.junit.runner.RunWith
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class PredictionDeIndexerTest extends AnyFlatSpec with TestSparkContext {
 
   val data = Seq(("a", 0.0), ("b", 1.0), ("c", 2.0)).map { case (txt, num) => (txt.toText, num.toRealNN) }

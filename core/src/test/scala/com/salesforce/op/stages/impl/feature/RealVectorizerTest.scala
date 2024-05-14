@@ -37,14 +37,11 @@ import com.salesforce.op.test.{TestFeatureBuilder, TestOpVectorMetadataBuilder, 
 import com.salesforce.op.utils.spark.OpVectorMetadata
 import com.salesforce.op.utils.spark.RichDataset._
 import org.apache.spark.ml.linalg.Vectors
-import org.junit.runner.RunWith
-import org.scalatestplus.junit.JUnitRunner
 import org.scalatest.Assertions
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
 
-@RunWith(classOf[JUnitRunner])
 class RealVectorizerTest extends AnyFlatSpec with TestSparkContext with AttributeAsserts {
 
   val (testData, inA, inB, inC) = TestFeatureBuilder("inA", "inB", "inC",

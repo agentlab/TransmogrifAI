@@ -31,13 +31,10 @@
 package com.salesforce.op.cli.gen
 
 import com.salesforce.op.test.TestCommon
-import org.junit.runner.RunWith
 import org.scalatest.propspec.AnyPropSpec
-import org.scalatestplus.junit.JUnitRunner
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 
 
-@RunWith(classOf[JUnitRunner])
 class FileGeneratorTest extends AnyPropSpec with TestCommon with ScalaCheckPropertyChecks {
 
   private val sourceLeft = "/* COMM */   \t \n  word"

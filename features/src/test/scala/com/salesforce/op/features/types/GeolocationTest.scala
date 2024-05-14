@@ -32,12 +32,9 @@ package com.salesforce.op.features.types
 
 import com.salesforce.op.test.TestCommon
 import org.apache.lucene.spatial3d.geom.{GeoPoint, PlanetModel}
-import org.junit.runner.RunWith
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 
 
-@RunWith(classOf[JUnitRunner])
 class GeolocationTest extends AnyFlatSpec with TestCommon {
   val PaloAlto: (Double, Double) = (37.4419, -122.1430)
 

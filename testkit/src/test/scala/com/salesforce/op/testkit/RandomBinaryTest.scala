@@ -32,14 +32,11 @@ package com.salesforce.op.testkit
 
 import com.salesforce.op.features.types.Binary
 import com.salesforce.op.test.TestCommon
-import org.junit.runner.RunWith
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 
 import scala.language.postfixOps
 
 
-@RunWith(classOf[JUnitRunner])
 class RandomBinaryTest extends AnyFlatSpec with TestCommon {
   val numTries = 1000000
   val rngSeed = 12345

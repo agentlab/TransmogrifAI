@@ -34,14 +34,11 @@ import com.salesforce.op.test.TestCommon
 import enumeratum.{Enum, EnumEntry}
 import org.json4s.jackson.JsonMethods._
 import org.json4s.{DefaultFormats, Extraction}
-import org.junit.runner.RunWith
 import org.scalatest.funspec.AnyFunSpec
-import org.scalatestplus.junit.JUnitRunner
 
 import scala.util.Success
 
 
-@RunWith(classOf[JUnitRunner])
 class EnumEntrySerializerTest extends AnyFunSpec with TestCommon {
 
   implicit val formats = DefaultFormats + EnumEntrySerializer.json4s[TestEnumType](TestEnumType)

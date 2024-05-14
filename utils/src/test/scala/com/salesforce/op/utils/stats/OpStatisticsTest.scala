@@ -35,12 +35,9 @@ import org.apache.spark.mllib.linalg.{DenseMatrix, Vector => OldVector}
 import org.apache.spark.mllib.random.RandomRDDs._
 import org.apache.spark.mllib.stat.Statistics
 import org.apache.spark.rdd.RDD
-import org.junit.runner.RunWith
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.Inspectors._
-import org.scalatestplus.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class OpStatisticsTest extends AnyFlatSpec with TestCommon with TestSparkContext {
   val tol: Double = 0.001
 

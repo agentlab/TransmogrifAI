@@ -35,11 +35,8 @@ import com.salesforce.op.stages.base.binary.BinaryLambdaTransformer
 import com.salesforce.op.test.{OpTransformerSpec, TestFeatureBuilder}
 import com.salesforce.op.utils.spark.RichDataset._
 import com.salesforce.op.utils.tuples.RichTuple._
-import org.junit.runner.RunWith
-import org.scalatestplus.junit.JUnitRunner
 
 
-@RunWith(classOf[JUnitRunner])
 class AliasTransformerTest extends OpTransformerSpec[RealNN, AliasTransformer[RealNN]] {
   val sample = Seq((RealNN(1.0), RealNN(2.0)), (RealNN(4.0), RealNN(4.0)))
   val (inputData, f1, f2) = TestFeatureBuilder(sample)

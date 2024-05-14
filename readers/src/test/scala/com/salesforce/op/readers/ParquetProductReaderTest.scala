@@ -33,9 +33,7 @@ package com.salesforce.op.readers
 import com.salesforce.op.features.FeatureBuilder
 import com.salesforce.op.features.types._
 import com.salesforce.op.test.{TestCommon, TestSparkContext}
-import org.junit.runner.RunWith
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 
 // Need this case class to be external to (not nested in) ParquetProductReaderTest for spark sql to work correctly.
 // Fields in the case class are case-sensitive and should exactly match the parquet column names.
@@ -55,7 +53,6 @@ case class PassengerType
   Embarked: Option[String]
 )
 
-@RunWith(classOf[JUnitRunner])
 class ParquetProductReaderTest extends AnyFlatSpec with TestSparkContext with TestCommon {
   def passengerFilePath: String = s"$testDataDir/PassengerDataAll.parquet"
 

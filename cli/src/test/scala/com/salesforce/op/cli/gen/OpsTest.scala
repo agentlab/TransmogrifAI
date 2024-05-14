@@ -35,8 +35,6 @@ import java.nio.file.Paths
 
 import com.salesforce.op.cli.{AvroSchemaFromFile, CliParameters, GeneratorConfig}
 import com.salesforce.op.test.TestCommon
-import org.junit.runner.RunWith
-import org.scalatestplus.junit.JUnitRunner
 import org.scalatest.Assertions
 import org.scalatest.flatspec.AnyFlatSpec
 
@@ -45,7 +43,6 @@ import scala.io.Source
 /**
  * Test for generator operations
  */
-@RunWith(classOf[JUnitRunner])
 class OpsTest extends AnyFlatSpec with TestCommon with Assertions {
 
   val tempFolder = new File(System.getProperty("java.io.tmpdir"))

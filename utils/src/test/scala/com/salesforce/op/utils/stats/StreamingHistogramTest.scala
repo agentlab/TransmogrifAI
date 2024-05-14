@@ -37,16 +37,13 @@ import com.salesforce.op.test.TestSparkContext
 import com.salesforce.op.utils.stats.RichStreamingHistogram._
 import com.salesforce.op.utils.stats.StreamingHistogram.StreamingHistogramBuilder
 import com.salesforce.op.utils.stats.StreamingHistogramTest._
-import org.apache.log4j.Logger
-import org.junit.runner.RunWith
+import org.apache.logging.log4j.LogManager
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class StreamingHistogramTest extends AnyFlatSpec with TestSparkContext {
 
   val testPadding = 0.5
-  val logger = Logger.getLogger(getClass)
+  val logger = LogManager.getLogger(getClass)
   val histogramSampleSize = 1000
   val mcSampleSize = 1000
   val numResults = 5

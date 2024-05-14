@@ -38,13 +38,10 @@ import com.salesforce.op.utils.json.EnumEntrySerializer
 import com.twitter.algebird.{Moments, MomentsSerializer}
 import org.json4s.DefaultFormats
 import org.json4s.jackson.Serialization
-import org.junit.runner.RunWith
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 
 import scala.util.{Failure, Success}
 
-@RunWith(classOf[JUnitRunner])
 class FeatureDistributionTest extends AnyFlatSpec with PassengerSparkFixtureTest with FiltersTestData {
 
   Spec[FeatureDistribution] should "be correctly created for features" in {

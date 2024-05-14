@@ -33,11 +33,8 @@ package com.salesforce.op.utils.io.csv
 import com.salesforce.op.test.TestSparkContext
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.{AnalysisException, DataFrame}
-import org.junit.runner.RunWith
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class CSVInOutTest extends AnyFlatSpec with TestSparkContext {
   private val csvReader = new CSVInOut(CSVOptions(header = true))
   private val csvFile = s"$testDataDir/PassengerDataAllWithHeader.csv"

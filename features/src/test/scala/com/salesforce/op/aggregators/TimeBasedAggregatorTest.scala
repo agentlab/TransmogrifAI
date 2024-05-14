@@ -35,11 +35,8 @@ import com.salesforce.op.features.types._
 import com.salesforce.op.stages.FeatureGeneratorStage
 import com.salesforce.op.test.TestCommon
 import org.joda.time.Duration
-import org.junit.runner.RunWith
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class TimeBasedAggregatorTest extends AnyFlatSpec with TestCommon {
 
   private val data = Seq(TimeBasedTest(100L, 1.0, "a", Map("a" -> "a")),

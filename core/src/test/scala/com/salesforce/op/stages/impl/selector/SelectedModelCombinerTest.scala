@@ -44,10 +44,7 @@ import org.apache.spark.mllib.random.RandomRDDs.normalVectorRDD
 import org.apache.spark.sql.Dataset
 import com.salesforce.op.utils.spark.RichDataset._
 import com.salesforce.op.utils.spark.RichMetadata._
-import org.junit.runner.RunWith
-import org.scalatestplus.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class SelectedModelCombinerTest extends OpEstimatorSpec[Prediction, SelectedCombinerModel, SelectedModelCombiner]
   with PredictionEquality {
 

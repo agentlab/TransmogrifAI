@@ -33,12 +33,9 @@ package com.salesforce.op.features.types
 import java.util
 
 import com.salesforce.op.test.TestCommon
-import org.junit.runner.RunWith
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 
 
-@RunWith(classOf[JUnitRunner])
 class JavaConversionTest extends AnyFlatSpec with TestCommon {
 
   Spec[JavaConversionTest] should "convert java Map to TextMap" in {

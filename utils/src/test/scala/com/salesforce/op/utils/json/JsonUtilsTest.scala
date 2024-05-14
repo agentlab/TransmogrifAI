@@ -32,9 +32,7 @@ package com.salesforce.op.utils.json
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.salesforce.op.test.TestCommon
-import org.junit.runner.RunWith
 import org.scalacheck.Gen
-import org.scalatestplus.junit.JUnitRunner
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import org.scalatest.compatible.Assertion
 import org.scalatest.propspec.AnyPropSpec
@@ -42,7 +40,6 @@ import org.scalatest.propspec.AnyPropSpec
 
 import scala.util.{Failure, Success}
 
-@RunWith(classOf[JUnitRunner])
 class JsonUtilsTest extends AnyPropSpec with ScalaCheckPropertyChecks with TestCommon {
 
   val bools = Gen.oneOf(true, false)

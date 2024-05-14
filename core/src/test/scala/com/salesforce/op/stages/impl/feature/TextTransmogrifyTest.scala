@@ -38,12 +38,9 @@ import com.salesforce.op.utils.spark.OpVectorMetadata
 import com.salesforce.op.utils.spark.RichDataset._
 import com.salesforce.op.utils.spark.RichStructType._
 import com.salesforce.op.utils.text.TextUtils
-import org.junit.runner.RunWith
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 
 
-@RunWith(classOf[JUnitRunner])
 class TextTransmogrifyTest extends AnyFlatSpec with PassengerSparkFixtureTest with AttributeAsserts {
 
   val cityData: Seq[City] = RandomText.cities.take(10).toList

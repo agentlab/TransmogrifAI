@@ -30,13 +30,10 @@
 
 package com.salesforce.op.utils.numeric
 
-import org.junit.runner.RunWith
-import org.scalatestplus.junit.JUnitRunner
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.propspec.AnyPropSpec
 
-@RunWith(classOf[JUnitRunner])
 class NumberTest extends AnyPropSpec with ScalaCheckPropertyChecks with Matchers {
 
   val specials = Table("specials",

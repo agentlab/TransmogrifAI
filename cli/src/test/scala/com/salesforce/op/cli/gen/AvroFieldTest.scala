@@ -33,8 +33,6 @@ package com.salesforce.op.cli.gen
 import com.salesforce.op.cli.gen.AvroField._
 import com.salesforce.op.test.TestCommon
 import org.apache.avro.Schema
-import org.junit.runner.RunWith
-import org.scalatestplus.junit.JUnitRunner
 import org.scalatest.Assertions
 import org.scalatest.flatspec.AnyFlatSpec
 
@@ -44,7 +42,6 @@ import scala.language.postfixOps
 /**
  * Test for AvroField methods.
  */
-@RunWith(classOf[JUnitRunner])
 class AvroFieldTest extends AnyFlatSpec with TestCommon with Assertions {
 
   Spec[AvroField] should "do from" in {

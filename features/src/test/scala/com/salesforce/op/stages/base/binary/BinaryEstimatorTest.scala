@@ -35,10 +35,7 @@ import com.salesforce.op.features.types._
 import com.salesforce.op.test.{OpEstimatorSpec, TestFeatureBuilder}
 import org.apache.spark.ml.linalg.Vectors
 import org.apache.spark.sql.Dataset
-import org.junit.runner.RunWith
-import org.scalatestplus.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class BinaryEstimatorTest
   extends OpEstimatorSpec[OPVector, BinaryModel[Text, Text, OPVector], BinaryEstimator[Text, Text, OPVector]] {
 

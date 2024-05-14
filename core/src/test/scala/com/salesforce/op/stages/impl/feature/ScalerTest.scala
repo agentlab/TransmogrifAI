@@ -31,11 +31,8 @@
 package com.salesforce.op.stages.impl.feature
 
 import com.salesforce.op.test.TestSparkContext
-import org.junit.runner.RunWith
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class ScalerTest extends AnyFlatSpec with TestSparkContext {
 
   Spec[Scaler] should "error on invalid data" in {

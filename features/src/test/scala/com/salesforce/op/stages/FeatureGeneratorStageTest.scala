@@ -38,17 +38,14 @@ import com.salesforce.op.utils.spark.RichRow._
 import org.apache.spark.sql.Row
 import org.json4s.{DefaultFormats, JValue}
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 import org.json4s.JValue
 import org.json4s.JsonAST.{JInt, JObject}
 import org.json4s.JsonDSL._
-import org.junit.runner.RunWith
 
 import scala.reflect.runtime.universe.WeakTypeTag
 import scala.util.Try
 
 
-@RunWith(classOf[JUnitRunner])
 class FeatureGeneratorStageTest extends AnyFlatSpec with TestSparkContext {
 
   val (ds, features) = TestFeatureBuilder.random()()

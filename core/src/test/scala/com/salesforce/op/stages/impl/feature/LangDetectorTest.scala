@@ -35,11 +35,8 @@ import com.salesforce.op.test.{OpTransformerSpec, TestFeatureBuilder}
 import com.salesforce.op.utils.spark.RichDataset._
 import com.salesforce.op.utils.text.Language
 import org.apache.spark.ml.Transformer
-import org.junit.runner.RunWith
-import org.scalatestplus.junit.JUnitRunner
 
 
-@RunWith(classOf[JUnitRunner])
 class LangDetectorTest extends OpTransformerSpec[RealMap, LangDetector[Text]] {
 
   // scalastyle:off

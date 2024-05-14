@@ -34,10 +34,7 @@ import com.salesforce.op._
 import com.salesforce.op.features.types._
 import com.salesforce.op.test.{OpTransformerSpec, TestFeatureBuilder}
 import com.salesforce.op.utils.spark.RichDataset._
-import org.junit.runner.RunWith
-import org.scalatestplus.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class FilterTextMapTest extends OpTransformerSpec[TextMap, FilterMap[TextMap]] {
   val (inputData, f1) = TestFeatureBuilder[TextMap](
     Seq(

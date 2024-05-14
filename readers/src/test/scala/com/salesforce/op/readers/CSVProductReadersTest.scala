@@ -34,9 +34,7 @@ import com.salesforce.op.features.FeatureBuilder
 import com.salesforce.op.features.types._
 import com.salesforce.op.test.{TestCommon, TestSparkContext}
 import com.salesforce.op.utils.io.csv.CSVOptions
-import org.junit.runner.RunWith
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 
 
 // need this to be external to (not nested in) CSVProductReaderTest for spark sql to work correctly
@@ -55,7 +53,6 @@ case class PassengerCaseClass
   randomFloating: Option[Double]
 )
 
-@RunWith(classOf[JUnitRunner])
 class CSVProductReadersTest extends AnyFlatSpec with TestSparkContext with TestCommon {
   def csvWithoutHeaderPath: String = s"$testDataDir/BigPassenger.csv"
 

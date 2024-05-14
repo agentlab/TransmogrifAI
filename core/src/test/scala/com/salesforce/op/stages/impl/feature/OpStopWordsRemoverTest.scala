@@ -35,11 +35,8 @@ import com.salesforce.op.features.types._
 import com.salesforce.op.utils.spark.RichDataset._
 import com.salesforce.op.test.{SwTransformerSpec, TestFeatureBuilder}
 import org.apache.spark.ml.feature.StopWordsRemover
-import org.junit.runner.RunWith
-import org.scalatestplus.junit.JUnitRunner
 
 
-@RunWith(classOf[JUnitRunner])
 class OpStopWordsRemoverTest extends SwTransformerSpec[TextList, StopWordsRemover, OpStopWordsRemover] {
   val data = Seq(
     "I AM groot", "Groot call me human", "or I will crush you"

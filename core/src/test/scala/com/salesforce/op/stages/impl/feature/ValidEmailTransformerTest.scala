@@ -30,12 +30,9 @@
 
 package com.salesforce.op.stages.impl.feature
 
-import org.junit.runner.RunWith
-import org.scalatestplus.junit.JUnitRunner
 import com.salesforce.op.features.types._
 import com.salesforce.op.test.{OpTransformerSpec, TestFeatureBuilder}
 
-@RunWith(classOf[JUnitRunner])
 class ValidEmailTransformerTest extends OpTransformerSpec[Binary, ValidEmailTransformer] {
 
   val sample = Seq(Email("abc"), Email("a@b"), Email("a@"), Email("@blah"), Email.empty, Email("real@stuff"))

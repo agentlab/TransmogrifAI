@@ -50,11 +50,8 @@ import org.apache.spark.ml.param.ParamMap
 import org.apache.spark.ml.tuning.ParamGridBuilder
 import org.apache.spark.mllib.random.RandomRDDs._
 import org.apache.spark.sql.Dataset
-import org.junit.runner.RunWith
-import org.scalatestplus.junit.JUnitRunner
 import org.slf4j.LoggerFactory
 
-@RunWith(classOf[JUnitRunner])
 class ModelSelectorTest extends OpEstimatorSpec[Prediction, SelectedModel, ModelSelector[_, _]]
   with PredictionEquality with CompareParamGrid {
   import ModelSelectorTest._

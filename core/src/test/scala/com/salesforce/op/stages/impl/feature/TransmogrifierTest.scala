@@ -37,11 +37,8 @@ import com.salesforce.op.test.{PassengerSparkFixtureTest, TestOpVectorMetadataBu
 import com.salesforce.op.utils.spark.RichDataset._
 import com.salesforce.op.utils.spark.RichStructType._
 import com.salesforce.op._
-import org.junit.runner.RunWith
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class TransmogrifierTest extends AnyFlatSpec with PassengerSparkFixtureTest with AttributeAsserts {
 
   val inputFeatures = Array[OPFeature](heightNoWindow, weight, gender)

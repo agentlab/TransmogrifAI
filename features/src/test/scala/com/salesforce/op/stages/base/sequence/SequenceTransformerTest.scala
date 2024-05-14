@@ -32,11 +32,8 @@ package com.salesforce.op.stages.base.sequence
 
 import com.salesforce.op.features.types._
 import com.salesforce.op.test.{OpTransformerSpec, TestFeatureBuilder}
-import org.junit.runner.RunWith
-import org.scalatestplus.junit.JUnitRunner
 
 
-@RunWith(classOf[JUnitRunner])
 class SequenceTransformerTest extends OpTransformerSpec[MultiPickList, SequenceTransformer[Real, MultiPickList]] {
 
   val sample = Seq(

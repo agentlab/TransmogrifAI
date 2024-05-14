@@ -32,12 +32,9 @@ package com.salesforce.op.aggregators
 
 import com.salesforce.op.features.types._
 import com.salesforce.op.test.TestCommon
-import org.junit.runner.RunWith
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 
 
-@RunWith(classOf[JUnitRunner])
 class EventTest extends AnyFlatSpec with TestCommon {
 
   Spec[Event[_]] should "compare" in {

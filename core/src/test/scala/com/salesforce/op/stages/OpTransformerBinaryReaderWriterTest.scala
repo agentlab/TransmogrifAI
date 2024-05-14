@@ -32,11 +32,8 @@ package com.salesforce.op.stages
 
 import com.salesforce.op.features.types._
 import com.salesforce.op.stages.base.binary.BinaryLambdaTransformer
-import org.junit.runner.RunWith
-import org.scalatestplus.junit.JUnitRunner
 
 
-@RunWith(classOf[JUnitRunner])
 class OpTransformerBinaryReaderWriterTest extends OpPipelineStageReaderWriterTest {
   override val expectedFeaturesLength = 2
   override val hasOutputName = false

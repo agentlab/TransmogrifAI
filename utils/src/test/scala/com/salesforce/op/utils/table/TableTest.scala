@@ -32,13 +32,10 @@ package com.salesforce.op.utils.table
 
 import com.salesforce.op.test.TestCommon
 import com.salesforce.op.utils.table.Alignment._
-import org.junit.runner.RunWith
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 
 case class Transaction(date: Long, amount: Double, source: String, status: String)
 
-@RunWith(classOf[JUnitRunner])
 class TableTest extends AnyFlatSpec with TestCommon {
 
   // scalastyle:off indentation

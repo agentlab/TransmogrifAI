@@ -32,11 +32,8 @@ package com.salesforce.op.stages.impl.feature
 
 import com.salesforce.op.features.types._
 import com.salesforce.op.test.{OpTransformerSpec, TestFeatureBuilder}
-import org.junit.runner.RunWith
-import org.scalatestplus.junit.JUnitRunner
 
 
-@RunWith(classOf[JUnitRunner])
 class RoundDigitsTransformerTest extends OpTransformerSpec[Real, RoundDigitsTransformer[Real]] {
   val sample = Seq(Real(1.4231092), Real(4.3231), Real.empty, Real(-1.0), Real(2.03728181))
   val (inputData, f1) = TestFeatureBuilder(sample)

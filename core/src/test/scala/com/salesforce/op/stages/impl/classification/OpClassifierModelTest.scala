@@ -38,13 +38,10 @@ import ml.dmlc.xgboost4j.scala.spark.{OpXGBoost, OpXGBoostQuietLogging, XGBoostC
 import org.apache.spark.ml.classification._
 import org.apache.spark.ml.linalg.Vector
 import org.apache.spark.sql.DataFrame
-import org.junit.runner.RunWith
 import org.scalactic.Equality
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 
 
-@RunWith(classOf[JUnitRunner])
 class OpClassifierModelTest extends AnyFlatSpec with TestSparkContext with OpXGBoostQuietLogging {
 
   private val label = RandomIntegral.integrals(0, 2).limit(1000)

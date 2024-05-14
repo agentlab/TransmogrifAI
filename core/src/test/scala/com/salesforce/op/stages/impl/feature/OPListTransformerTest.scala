@@ -35,11 +35,8 @@ import com.salesforce.op.UID
 import com.salesforce.op.features.types._
 import com.salesforce.op.stages.base.unary.UnaryTransformer
 import com.salesforce.op.test.{OpTransformerSpec, TestFeatureBuilder}
-import org.junit.runner.RunWith
-import org.scalatestplus.junit.JUnitRunner
 
 
-@RunWith(classOf[JUnitRunner])
 class OPListTransformerTest
   extends OpTransformerSpec[TextList, OPListTransformer[Text, Text, TextList, TextList]] {
 

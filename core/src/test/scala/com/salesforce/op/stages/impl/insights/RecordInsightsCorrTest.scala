@@ -38,12 +38,9 @@ import com.salesforce.op.testkit.{RandomReal, RandomVector}
 import com.salesforce.op.utils.spark.{OpVectorColumnHistory, OpVectorColumnMetadata, OpVectorMetadata}
 import org.apache.spark.sql.DataFrame
 import org.apache.spark.sql.types.StructType
-import org.junit.runner.RunWith
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 import com.salesforce.op.utils.spark.RichDataset._
 
-@RunWith(classOf[JUnitRunner])
 class RecordInsightsCorrTest extends AnyFlatSpec with TestSparkContext {
 
   Spec[RecordInsightsCorr] should "set parameters correctly" in {

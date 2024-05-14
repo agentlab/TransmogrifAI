@@ -37,11 +37,8 @@ import com.salesforce.op.test._
 import com.salesforce.op.utils.spark.{OpVectorColumnMetadata, OpVectorMetadata}
 import com.salesforce.op.utils.spark.RichDataset._
 import org.apache.spark.ml.linalg.Vectors
-import org.junit.runner.RunWith
-import org.scalatestplus.junit.JUnitRunner
 
 
-@RunWith(classOf[JUnitRunner])
 class TextMapLenEstimatorTest
   extends OpEstimatorSpec[OPVector, SequenceModel[TextMap, OPVector], TextMapLenEstimator[TextMap]]
     with TestSparkContext with AttributeAsserts {

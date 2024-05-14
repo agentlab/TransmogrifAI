@@ -32,11 +32,8 @@ package com.salesforce.op.stages.base.ternary
 
 import com.salesforce.op.features.types._
 import com.salesforce.op.test._
-import org.junit.runner.RunWith
-import org.scalatestplus.junit.JUnitRunner
 
 
-@RunWith(classOf[JUnitRunner])
 class TernaryTransformerTest extends OpTransformerSpec[Real, TernaryTransformer[Real, Integral, Binary, Real]] {
 
   val sample = Seq(

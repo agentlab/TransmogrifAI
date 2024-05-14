@@ -38,11 +38,8 @@ import com.salesforce.op.utils.spark.OpVectorMetadata
 import com.salesforce.op.utils.spark.RichDataset._
 import org.apache.spark.ml.linalg.Vectors
 import org.joda.time.{DateTimeConstants, DateTime => JDateTime}
-import org.junit.runner.RunWith
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class DateMapVectorizerTest extends AnyFlatSpec with TestSparkContext with AttributeAsserts {
 
   // Sunday July 12th 1998 at 22:45

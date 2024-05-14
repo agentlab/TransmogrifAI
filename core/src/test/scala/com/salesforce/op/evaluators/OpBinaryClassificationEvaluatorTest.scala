@@ -42,13 +42,10 @@ import org.apache.spark.ml.tuning.ParamGridBuilder
 import org.apache.spark.mllib.evaluation.MulticlassMetrics
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.Row
-import org.junit.runner.RunWith
 import org.scalatest.Assertion
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 
 
-@RunWith(classOf[JUnitRunner])
 class OpBinaryClassificationEvaluatorTest extends AnyFlatSpec with TestSparkContext {
   val numRecs = 400 // Number or records to use in threshold metrics tests
 

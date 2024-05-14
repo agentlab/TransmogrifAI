@@ -37,12 +37,9 @@ import com.salesforce.op.test.{OpEstimatorSpec, TestFeatureBuilder, TestOpVector
 import com.salesforce.op.utils.spark.RichDataset._
 import com.salesforce.op.utils.spark.{OpVectorColumnMetadata, OpVectorMetadata}
 import org.apache.spark.ml.linalg.Vectors
-import org.junit.runner.RunWith
-import org.scalatestplus.junit.JUnitRunner
 import org.slf4j.LoggerFactory
 
 
-@RunWith(classOf[JUnitRunner])
 class TextMapPivotVectorizerTest
   extends OpEstimatorSpec[OPVector, SequenceModel[TextMap, OPVector], TextMapPivotVectorizer[TextMap]]
     with TestSparkContext with AttributeAsserts {

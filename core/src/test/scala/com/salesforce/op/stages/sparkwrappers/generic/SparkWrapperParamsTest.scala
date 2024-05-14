@@ -35,12 +35,9 @@ import com.salesforce.op.features.types._
 import com.salesforce.op.test.PassengerFeaturesTest.HeightToRealNNExtract
 import com.salesforce.op.test.{Passenger, TestCommon, TestSparkContext}
 import org.apache.spark.ml.feature.{StandardScaler, StandardScalerModel}
-import org.junit.runner.RunWith
-import org.scalatestplus.junit.JUnitRunner
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.flatspec.AnyFlatSpec
 
-@RunWith(classOf[JUnitRunner])
 class SparkWrapperParamsTest extends AnyFlatSpec with BeforeAndAfterEach with TestSparkContext {
 
   private def estimator(sparkMlStageIn: Option[StandardScaler] = None) = {

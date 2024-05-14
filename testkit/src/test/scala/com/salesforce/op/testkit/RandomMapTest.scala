@@ -36,15 +36,12 @@ import com.salesforce.op.features.types._
 import com.salesforce.op.test.TestCommon
 import com.salesforce.op.testkit.RandomList.{NormalGeolocation, UniformGeolocation}
 import com.salesforce.op.testkit.RandomMap._
-import org.junit.runner.RunWith
-import org.scalatestplus.junit.JUnitRunner
 import org.scalatest.Assertions
 import org.scalatest.flatspec.AnyFlatSpec
 
 import scala.language.postfixOps
 
 
-@RunWith(classOf[JUnitRunner])
 class RandomMapTest extends AnyFlatSpec with TestCommon with Assertions {
   private val numTries = 10000
   private val rngSeed = 314159271828L

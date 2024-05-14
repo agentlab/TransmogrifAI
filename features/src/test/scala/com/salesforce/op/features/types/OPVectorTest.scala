@@ -33,12 +33,9 @@ package com.salesforce.op.features.types
 import com.salesforce.op.test.TestCommon
 import com.salesforce.op.utils.spark.RichVector._
 import org.apache.spark.ml.linalg.Vectors
-import org.junit.runner.RunWith
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 
 
-@RunWith(classOf[JUnitRunner])
 class OPVectorTest extends AnyFlatSpec with TestCommon {
 
   val vectors = Seq(

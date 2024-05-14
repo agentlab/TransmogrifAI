@@ -39,11 +39,8 @@ import com.salesforce.op.utils.spark.RichDataset._
 import org.apache.spark.ml.linalg.Vector
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.Row
-import org.junit.runner.RunWith
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class OpValidatorTest extends AnyFlatSpec with TestSparkContext with SplitterSummaryAsserts {
   // Random Data
   val count = 1000

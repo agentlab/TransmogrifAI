@@ -31,12 +31,9 @@
 package com.salesforce.op.utils.tuples
 
 import com.salesforce.op.test.TestCommon
-import org.junit.runner.RunWith
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 import com.salesforce.op.utils.tuples.RichTuple._
 
-@RunWith(classOf[JUnitRunner])
 class RichTupleTest extends AnyFlatSpec with TestCommon {
   Spec(RichTuple.getClass) should "map a function to provided elements in tuples" in {
     val res = (Some(1), Some(2)).map((x, y) => x + y)

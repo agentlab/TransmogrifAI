@@ -33,12 +33,9 @@ package com.salesforce.op.utils.spark
 import com.salesforce.op.test.TestSparkContext
 import com.salesforce.op.utils.spark.SequenceAggregators.{SeqMapDouble, SeqMapLong}
 import org.apache.spark.sql.Row
-import org.junit.runner.RunWith
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 
 
-@RunWith(classOf[JUnitRunner])
 class SequenceAggregatorsTest extends AnyFlatSpec with TestSparkContext {
   import spark.implicits._
   val meanSeqMapDouble = SequenceAggregators.MeanSeqMapDouble(2)

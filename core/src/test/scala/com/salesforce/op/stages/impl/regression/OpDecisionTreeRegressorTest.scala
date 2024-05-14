@@ -36,10 +36,7 @@ import com.salesforce.op.stages.sparkwrappers.specific.{OpPredictorWrapper, OpPr
 import com.salesforce.op.test._
 import org.apache.spark.ml.linalg.Vectors
 import org.apache.spark.ml.regression.{DecisionTreeRegressionModel, DecisionTreeRegressor}
-import org.junit.runner.RunWith
-import org.scalatestplus.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class OpDecisionTreeRegressorTest extends OpEstimatorSpec[Prediction,
   OpPredictorWrapperModel[DecisionTreeRegressionModel],
   OpPredictorWrapper[DecisionTreeRegressor, DecisionTreeRegressionModel]] with PredictionEquality {

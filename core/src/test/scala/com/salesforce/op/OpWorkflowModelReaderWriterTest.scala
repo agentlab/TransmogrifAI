@@ -47,8 +47,6 @@ import org.apache.spark.sql.Row
 import org.joda.time.DateTime
 import org.json4s.jackson.JsonMethods._
 import org.json4s.{DefaultFormats, Formats, JArray, JValue}
-import org.junit.runner.RunWith
-import org.scalatestplus.junit.JUnitRunner
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.flatspec.AnyFlatSpec
 import org.slf4j.LoggerFactory
@@ -56,7 +54,6 @@ import org.slf4j.LoggerFactory
 import scala.collection.JavaConverters._
 
 
-@RunWith(classOf[JUnitRunner])
 class OpWorkflowModelReaderWriterTest
   extends AnyFlatSpec with UIDReset with PassengerSparkFixtureTest with BeforeAndAfterEach {
 

@@ -33,11 +33,8 @@ package com.salesforce.op.stages.impl.feature
 import com.salesforce.op.features.types._
 import com.salesforce.op.test.{OpTransformerSpec, TestFeatureBuilder}
 import com.salesforce.op.utils.spark.RichDataset._
-import org.junit.runner.RunWith
-import org.scalatestplus.junit.JUnitRunner
 
 
-@RunWith(classOf[JUnitRunner])
 class FilterIntegralMapTest extends OpTransformerSpec[IntegralMap, FilterMap[IntegralMap]] {
 
   val (inputData, f1Int) = TestFeatureBuilder[IntegralMap](

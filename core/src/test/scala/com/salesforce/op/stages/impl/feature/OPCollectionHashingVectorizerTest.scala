@@ -36,11 +36,8 @@ import com.salesforce.op.test.{OpTransformerSpec, TestFeatureBuilder, TestOpVect
 import com.salesforce.op.utils.spark.OpVectorMetadata
 import com.salesforce.op.utils.spark.RichDataset._
 import org.apache.spark.sql.Dataset
-import org.junit.runner.RunWith
-import org.scalatestplus.junit.JUnitRunner
 import org.apache.spark.ml.linalg.Vectors
 
-@RunWith(classOf[JUnitRunner])
 class OPCollectionHashingVectorizerTest extends OpTransformerSpec[OPVector, OPCollectionHashingVectorizer[TextList]]
   with AttributeAsserts {
 

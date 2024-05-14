@@ -31,9 +31,7 @@
 package com.salesforce.op.features.types
 
 import com.salesforce.op.test.TestCommon
-import org.junit.runner.RunWith
 import org.scalactic.source
-import org.scalatestplus.junit.JUnitRunner
 import org.scalatest.prop.TableFor1
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import org.scalatest.compatible.Assertion
@@ -44,7 +42,6 @@ import scala.concurrent.duration._
 import scala.util.{Failure, Success, Try}
 
 
-@RunWith(classOf[JUnitRunner])
 class FeatureTypeFactoryTest
   extends AnyPropSpec with ScalaCheckPropertyChecks with TestCommon with ConcurrentCheck with FeatureTypeAsserts {
 

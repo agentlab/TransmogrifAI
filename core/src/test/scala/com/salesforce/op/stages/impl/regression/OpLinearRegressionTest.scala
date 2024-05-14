@@ -37,10 +37,7 @@ import com.salesforce.op.stages.sparkwrappers.specific.{OpPredictorWrapper, OpPr
 import com.salesforce.op.test._
 import org.apache.spark.ml.linalg.Vectors
 import org.apache.spark.ml.regression.{LinearRegression, LinearRegressionModel}
-import org.junit.runner.RunWith
-import org.scalatestplus.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class OpLinearRegressionTest extends OpEstimatorSpec[Prediction, OpPredictorWrapperModel[LinearRegressionModel],
   OpPredictorWrapper[LinearRegression, LinearRegressionModel]] with PredictionEquality {
 

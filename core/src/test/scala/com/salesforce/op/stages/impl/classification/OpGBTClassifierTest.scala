@@ -36,11 +36,8 @@ import com.salesforce.op.stages.sparkwrappers.specific.{OpPredictorWrapper, OpPr
 import com.salesforce.op.test.{OpEstimatorSpec, TestFeatureBuilder}
 import org.apache.spark.ml.classification.{GBTClassificationModel, GBTClassifier}
 import org.apache.spark.ml.linalg.Vectors
-import org.junit.runner.RunWith
-import org.scalatestplus.junit.JUnitRunner
 
 
-@RunWith(classOf[JUnitRunner])
 class OpGBTClassifierTest extends OpEstimatorSpec[Prediction, OpPredictorWrapperModel[GBTClassificationModel],
   OpPredictorWrapper[GBTClassifier, GBTClassificationModel]] with PredictionEquality {
 

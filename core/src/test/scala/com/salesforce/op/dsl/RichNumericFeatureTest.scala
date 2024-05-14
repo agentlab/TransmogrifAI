@@ -32,13 +32,10 @@ package com.salesforce.op.dsl
 
 import com.salesforce.op.features.types._
 import com.salesforce.op.test.FeatureTestBase
-import org.junit.runner.RunWith
 import org.scalacheck.Gen
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 import com.salesforce.op.utils.numeric.Number
 
-@RunWith(classOf[JUnitRunner])
 class RichNumericFeatureTest extends AnyFlatSpec with FeatureTestBase with RichNumericFeature {
 
   // Value generators

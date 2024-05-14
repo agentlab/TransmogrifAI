@@ -36,11 +36,8 @@ import com.salesforce.op.stages.sparkwrappers.specific.{OpPredictorWrapper, OpPr
 import com.salesforce.op.test._
 import ml.dmlc.xgboost4j.scala.spark.{OpXGBoostQuietLogging, XGBoostRegressionModel, XGBoostRegressor}
 import org.apache.spark.ml.linalg.Vectors
-import org.junit.runner.RunWith
-import org.scalatestplus.junit.JUnitRunner
 
 
-@RunWith(classOf[JUnitRunner])
 class OpXGBoostRegressorTest extends OpEstimatorSpec[Prediction, OpPredictorWrapperModel[XGBoostRegressionModel],
   OpPredictorWrapper[XGBoostRegressor, XGBoostRegressionModel]]
   with PredictionEquality with OpXGBoostQuietLogging {

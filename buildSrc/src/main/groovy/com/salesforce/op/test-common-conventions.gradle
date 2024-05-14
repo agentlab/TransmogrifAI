@@ -10,7 +10,17 @@ dependencies {
   testImplementation libs.scalatest.scalacheck
   testImplementation libs.scalacheck
   testImplementation(libs.spark.testing) { transitive = false }
-  testImplementation libs.junit
+  testImplementation libs.junit.platform.launcher
+  testRuntimeOnly libs.junit.platform.engine
+}
+
+test {
+    useJUnitPlatform {
+        includeEngines 'scalatest'
+        testLogging {
+            events("passed", "skipped", "failed", "standard_error")
+        }
+    }
 }
 
 sourceSets {

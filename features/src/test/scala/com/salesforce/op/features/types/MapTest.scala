@@ -32,8 +32,6 @@ package com.salesforce.op.features.types
 
 import com.salesforce.op.test.TestCommon
 import com.salesforce.op.testkit.RandomMap
-import org.junit.runner.RunWith
-import org.scalatestplus.junit.JUnitRunner
 import org.scalatest.Assertions
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
@@ -41,7 +39,6 @@ import org.scalatest.matchers.should.Matchers
 import scala.reflect.runtime.universe._
 
 
-@RunWith(classOf[JUnitRunner])
 class MapTest extends AnyFlatSpec with TestCommon {
 
   /* TextMap tests */

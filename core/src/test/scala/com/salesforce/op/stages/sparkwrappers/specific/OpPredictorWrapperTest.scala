@@ -35,13 +35,10 @@ import com.salesforce.op.stages.sparkwrappers.generic.SparkWrapperParams
 import com.salesforce.op.test.{PrestigeData, TestFeatureBuilder, TestSparkContext}
 import org.apache.spark.ml.linalg.Vectors
 import org.apache.spark.ml.regression.{LinearRegression, LinearRegressionModel}
-import org.junit.runner.RunWith
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 import org.slf4j.LoggerFactory
 
 
-@RunWith(classOf[JUnitRunner])
 class OpPredictorWrapperTest extends AnyFlatSpec with TestSparkContext with PrestigeData {
 
   val log = LoggerFactory.getLogger(this.getClass)

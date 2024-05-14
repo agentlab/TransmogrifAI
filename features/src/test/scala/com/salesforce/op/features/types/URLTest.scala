@@ -31,12 +31,9 @@
 package com.salesforce.op.features.types
 
 import com.salesforce.op.test.TestCommon
-import org.junit.runner.RunWith
 import org.scalatest.propspec.AnyPropSpec
-import org.scalatestplus.junit.JUnitRunner
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 
-@RunWith(classOf[JUnitRunner])
 class URLTest extends AnyPropSpec with ScalaCheckPropertyChecks with TestCommon {
 
   val badOnes = Table("bad ones",

@@ -44,8 +44,6 @@ import com.salesforce.op.stages.ColumnMetadata._
 import org.apache.spark.ml.linalg.{Vector, Vectors}
 import org.apache.spark.sql.types.Metadata
 import org.apache.spark.sql.{DataFrame, Row}
-import org.junit.runner.RunWith
-import org.scalatestplus.junit.JUnitRunner
 
 case class SanityCheckDataTest
 (
@@ -67,7 +65,6 @@ case class TextRawData
   textMap: Map[String, String]
 )
 
-@RunWith(classOf[JUnitRunner])
 class SanityCheckerTest extends OpEstimatorSpec[OPVector, BinaryModel[RealNN, OPVector, OPVector],
   BinaryEstimator[RealNN, OPVector, OPVector]] {
 

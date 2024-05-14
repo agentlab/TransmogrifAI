@@ -34,11 +34,8 @@ package com.salesforce.op.stages.impl.feature
 import com.salesforce.op.UID
 import com.salesforce.op.features.types._
 import com.salesforce.op.test.{OpTransformerSpec, TestFeatureBuilder}
-import org.junit.runner.RunWith
-import org.scalatestplus.junit.JUnitRunner
 
 
-@RunWith(classOf[JUnitRunner])
 class OPSetTransformerTest
   extends OpTransformerSpec[MultiPickList, OPSetTransformer[Text, Text, MultiPickList, MultiPickList]] {
 

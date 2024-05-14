@@ -32,12 +32,9 @@ package com.salesforce.op.utils.date
 
 import com.salesforce.op.test.TestCommon
 import org.joda.time.{DateTime, DateTimeZone}
-import org.junit.runner.RunWith
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 
 
-@RunWith(classOf[JUnitRunner])
 class DateTimeUtilsTest extends AnyFlatSpec with TestCommon {
 
   val dateStr = "2017-03-29T14:00:07.000Z"

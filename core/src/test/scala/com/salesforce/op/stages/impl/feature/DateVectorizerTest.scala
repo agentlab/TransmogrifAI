@@ -38,12 +38,9 @@ import com.salesforce.op.utils.spark.OpVectorMetadata
 import com.salesforce.op.utils.spark.RichDataset._
 import org.apache.spark.ml.linalg.Vectors
 import org.joda.time.{DateTime, DateTimeConstants, DateTimeZone}
-import org.junit.runner.RunWith
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 
 
-@RunWith(classOf[JUnitRunner])
 class DateVectorizerTest extends AnyFlatSpec with TestSparkContext with AttributeAsserts {
   require(DateTimeUtils.DefaultTimeZone == DateTimeZone.UTC)
 

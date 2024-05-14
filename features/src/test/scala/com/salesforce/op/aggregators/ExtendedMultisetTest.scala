@@ -32,11 +32,8 @@ package com.salesforce.op.aggregators
 
 import com.salesforce.op.aggregators.{ExtendedMultiset => SUT}
 import com.salesforce.op.test.TestCommon
-import org.junit.runner.RunWith
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class ExtendedMultisetTest extends AnyFlatSpec with TestCommon {
 
   Spec[ExtendedMultiset] should "add" in {

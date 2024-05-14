@@ -29,12 +29,9 @@
  */
 package com.salesforce.op.stages.impl.feature
 
-import org.junit.runner.RunWith
-import org.scalatestplus.junit.JUnitRunner
 import com.salesforce.op.features.types._
 import com.salesforce.op.utils.spark.RichDataset._
 
-@RunWith(classOf[JUnitRunner])
 class TopNLabelJoinerTest extends MultiLabelJoinerBaseTest[TopNLabelJoiner] {
   val transformer = new TopNLabelJoiner(topN = 2).setInput(classIndexFeature, probVecFeature)
 

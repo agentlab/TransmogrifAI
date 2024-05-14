@@ -36,11 +36,8 @@ import com.salesforce.op.test.{OpTransformerSpec, TestFeatureBuilder, TestOpVect
 import com.salesforce.op.utils.spark.OpVectorMetadata
 import com.salesforce.op.utils.spark.RichDataset._
 import org.apache.spark.ml.linalg.Vectors
-import org.junit.runner.RunWith
-import org.scalatestplus.junit.JUnitRunner
 
 
-@RunWith(classOf[JUnitRunner])
 class BinaryVectorizerTest extends OpTransformerSpec[OPVector, BinaryVectorizer] with AttributeAsserts {
 
   val (inputData, f1, f2) = TestFeatureBuilder(

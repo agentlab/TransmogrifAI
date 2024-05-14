@@ -31,11 +31,8 @@
 package com.salesforce.op.stages.impl.feature
 
 import com.salesforce.op.test.TestSparkContext
-import org.junit.runner.RunWith
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class LinearScalerTest extends AnyFlatSpec with TestSparkContext {
 
   Spec[LinearScaler] should "Error on construction of a non-invertible transformation" in {

@@ -36,13 +36,10 @@ import com.salesforce.op.test.TestCommon
 import com.salesforce.op.utils.tuples.RichTuple._
 import com.twitter.algebird._
 import org.apache.spark.ml.linalg.Vectors
-import org.junit.runner.RunWith
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 
 import scala.reflect.runtime.universe._
 
-@RunWith(classOf[JUnitRunner])
 class MonoidAggregatorDefaultsTest extends AnyFlatSpec with TestCommon {
 
   import MonoidAggregatorDefaults._

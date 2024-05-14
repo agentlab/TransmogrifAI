@@ -34,12 +34,9 @@ import com.salesforce.op.features.{FeatureLike, FeatureSparkTypes}
 import com.salesforce.op.features.types._
 import com.salesforce.op.utils.spark.RichRow._
 import org.apache.spark.sql.DataFrame
-import org.junit.runner.RunWith
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 
 
-@RunWith(classOf[JUnitRunner])
 class TestFeatureBuilderTest extends AnyFlatSpec with TestSparkContext with FeatureAsserts {
 
   Spec(TestFeatureBuilder.getClass)  should "create a dataset with one feature" in {

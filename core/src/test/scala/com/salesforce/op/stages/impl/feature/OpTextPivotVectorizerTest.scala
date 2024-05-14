@@ -34,11 +34,8 @@ import com.salesforce.op.features.types._
 import com.salesforce.op.stages.base.sequence.SequenceModel
 import com.salesforce.op.test.{OpEstimatorSpec, TestFeatureBuilder}
 import org.apache.spark.ml.linalg.Vectors
-import org.junit.runner.RunWith
-import org.scalatestplus.junit.JUnitRunner
 
 
-@RunWith(classOf[JUnitRunner])
 class OpTextPivotVectorizerTest
   extends OpEstimatorSpec[OPVector, SequenceModel[Text, OPVector], OpTextPivotVectorizer[Text]] {
 

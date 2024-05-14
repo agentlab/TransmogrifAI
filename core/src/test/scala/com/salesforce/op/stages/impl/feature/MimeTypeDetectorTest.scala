@@ -39,11 +39,8 @@ import com.salesforce.op.test.{OpTransformerSpec, TestFeatureBuilder, TestSparkC
 import com.salesforce.op.testkit.RandomText
 import com.salesforce.op.utils.spark.RichDataset._
 import org.apache.commons.io.IOUtils
-import org.junit.runner.RunWith
-import org.scalatestplus.junit.JUnitRunner
 
 
-@RunWith(classOf[JUnitRunner])
 class MimeTypeDetectorTest extends OpTransformerSpec[Text, MimeTypeDetector] with Base64TestData {
   val inputData = randomData
   val transformer = new MimeTypeDetector().setInput(randomBase64)

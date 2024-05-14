@@ -33,11 +33,8 @@ package com.salesforce.op
 import com.salesforce.op.FeatureHistory.{OriginFeatureKey, StagesKey}
 import com.salesforce.op.test.TestCommon
 import org.apache.spark.sql.types.MetadataBuilder
-import org.junit.runner.RunWith
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class FeatureHistoryTest extends AnyFlatSpec with TestCommon {
 
   val feature1 = "feature1"

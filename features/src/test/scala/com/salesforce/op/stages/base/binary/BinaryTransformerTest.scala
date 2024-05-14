@@ -32,11 +32,8 @@ package com.salesforce.op.stages.base.binary
 
 import com.salesforce.op.features.types.{Real, _}
 import com.salesforce.op.test.{OpTransformerSpec, TestFeatureBuilder}
-import org.junit.runner.RunWith
-import org.scalatestplus.junit.JUnitRunner
 
 
-@RunWith(classOf[JUnitRunner])
 class BinaryTransformerTest extends OpTransformerSpec[Real, BinaryTransformer[Real, RealNN, Real]] {
 
   val sample = Seq(Real(1.0) -> RealNN(0.0), Real(2.0) -> RealNN(2.0), Real.empty -> RealNN(1.0))

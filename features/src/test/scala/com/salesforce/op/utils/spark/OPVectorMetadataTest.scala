@@ -34,15 +34,12 @@ import com.salesforce.op.{FeatureHistory, GenderDetectionResults, SensitiveFeatu
 import com.salesforce.op.features.types.{DateTime, Email, FeatureType, OPMap, PickList, Prediction, Real, RealMap, TextAreaMap}
 import com.salesforce.op.test.TestCommon
 import org.apache.spark.sql.types.Metadata
-import org.junit.runner.RunWith
 import org.scalacheck.Gen
 import org.scalacheck.Gen.alphaNumChar
 import org.scalatest.propspec.AnyPropSpec
-import org.scalatestplus.junit.JUnitRunner
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 
 
-@RunWith(classOf[JUnitRunner])
 class OPVectorMetadataTest extends AnyPropSpec with TestCommon with ScalaCheckPropertyChecks {
 
   type OpVectorColumnTuple = (Seq[String], Seq[String], Option[String], Option[String], Option[String], Int)

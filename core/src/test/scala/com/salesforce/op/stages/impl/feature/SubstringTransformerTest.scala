@@ -30,12 +30,9 @@
 
 package com.salesforce.op.stages.impl.feature
 
-import org.junit.runner.RunWith
-import org.scalatestplus.junit.JUnitRunner
 import com.salesforce.op.features.types._
 import com.salesforce.op.test.{OpTransformerSpec, TestFeatureBuilder}
 
-@RunWith(classOf[JUnitRunner])
 class SubstringTransformerTest extends OpTransformerSpec[Binary, SubstringTransformer[Text, Text]] {
 
   val sample = Seq((Text("a"), Text("abc")), (Text("abc"), Text("a")), (Text("no"), Text("YesNO")),

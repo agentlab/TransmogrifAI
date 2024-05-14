@@ -39,11 +39,8 @@ import com.salesforce.op.testkit.RandomText
 import com.salesforce.op.utils.spark.RichDataset._
 import org.apache.spark.ml.linalg.Vectors
 import org.apache.spark.sql.DataFrame
-import org.junit.runner.RunWith
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class URLVectorizerTest
   extends AnyFlatSpec with FeatureTestBase with RichTextFeature with RichMapFeature with RichFeature
     with AttributeAsserts {

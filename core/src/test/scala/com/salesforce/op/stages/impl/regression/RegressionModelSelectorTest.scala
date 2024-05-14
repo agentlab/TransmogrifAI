@@ -49,10 +49,8 @@ import org.apache.spark.ml.param.{ParamMap, ParamPair}
 import org.apache.spark.ml.tuning.ParamGridBuilder
 import org.apache.spark.sql.Encoders
 import org.apache.spark.sql.catalyst.encoders.ExpressionEncoder
-import org.junit.runner.RunWith
 import org.scalacheck.Gen
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 import org.scalatestplus.scalacheck.Checkers
 
 import scala.concurrent.TimeoutException
@@ -60,7 +58,6 @@ import scala.concurrent.duration.Duration
 import scala.util.Random
 
 
-@RunWith(classOf[JUnitRunner])
 class RegressionModelSelectorTest extends AnyFlatSpec with TestSparkContext
   with CompareParamGrid with OpXGBoostQuietLogging with Checkers {
   val seed = 1234L

@@ -41,10 +41,8 @@ import com.salesforce.op.test.{PassengerSparkFixtureTest, TestSparkStreamingCont
 import com.salesforce.op.utils.spark.AppMetrics
 import com.salesforce.op.utils.spark.RichDataset._
 import org.apache.commons.io.FileUtils
-import org.junit.runner.RunWith
 import org.scalactic.source
 import org.scalatest.flatspec.AsyncFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 import org.slf4j.LoggerFactory
 import org.zeroturnaround.zip.ZipUtil
 
@@ -54,7 +52,6 @@ import scala.reflect.ClassTag
 import scala.util.Try
 
 
-@RunWith(classOf[JUnitRunner])
 class OpWorkflowRunnerTest extends AsyncFlatSpec with PassengerSparkFixtureTest with TestSparkStreamingContext {
 
   val log = LoggerFactory.getLogger(this.getClass)

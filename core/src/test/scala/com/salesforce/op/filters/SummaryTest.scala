@@ -31,11 +31,8 @@
 package com.salesforce.op.filters
 
 import com.salesforce.op.test.TestCommon
-import org.junit.runner.RunWith
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class SummaryTest extends AnyFlatSpec with TestCommon {
   Spec[Summary] should "be correctly created from a sequence of features" in {
     val f1 = Left(Seq("a", "b", "c"))

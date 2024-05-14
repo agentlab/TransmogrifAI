@@ -32,14 +32,11 @@ package com.salesforce.op.features.types
 
 import com.salesforce.op.test.TestCommon
 import org.apache.lucene.spatial3d.geom.{GeoPoint, PlanetModel}
-import org.junit.runner.RunWith
-import org.scalatestplus.junit.JUnitRunner
 import org.scalatest.Assertions
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
 
-@RunWith(classOf[JUnitRunner])
 class ListTest extends AnyFlatSpec with TestCommon {
 
   /* TextList tests */

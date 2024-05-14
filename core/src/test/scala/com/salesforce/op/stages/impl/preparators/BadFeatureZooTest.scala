@@ -41,13 +41,10 @@ import com.salesforce.op.testkit._
 import com.salesforce.op.utils.spark.OpVectorMetadata
 import com.salesforce.op.utils.spark.RichMetadata._
 import org.apache.spark.sql.types.Metadata
-import org.junit.runner.RunWith
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
-import org.apache.log4j.Level
+import org.apache.logging.log4j.Level
 import org.apache.spark.internal.Logging
 
-@RunWith(classOf[JUnitRunner])
 class BadFeatureZooTest extends AnyFlatSpec with TestSparkContext with Logging {
 
   // loggingLevel(Level.INFO)

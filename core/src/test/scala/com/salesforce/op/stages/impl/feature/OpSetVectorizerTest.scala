@@ -41,12 +41,9 @@ import com.salesforce.op.utils.spark.RichDataset._
 import org.apache.spark.ml.linalg.Vectors
 import org.apache.spark.ml.{Estimator, Transformer}
 import org.apache.spark.sql.Dataset
-import org.junit.runner.RunWith
-import org.scalatestplus.junit.JUnitRunner
 import org.slf4j.LoggerFactory
 
 
-@RunWith(classOf[JUnitRunner])
 class OpSetVectorizerTest extends
   OpEstimatorSpec[OPVector, SequenceModel[MultiPickList, OPVector], OpSetVectorizer[MultiPickList]]
   with AttributeAsserts {

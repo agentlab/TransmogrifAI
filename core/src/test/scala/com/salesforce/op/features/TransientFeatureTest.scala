@@ -37,15 +37,12 @@ import com.salesforce.op.features.types._
 import com.salesforce.op.test._
 import org.json4s.jackson.JsonMethods.parse
 import org.json4s.{DefaultFormats, JObject}
-import org.junit.runner.RunWith
-import org.scalatestplus.junit.JUnitRunner
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
 import scala.util.Failure
 
 
-@RunWith(classOf[JUnitRunner])
 class TransientFeatureTest extends AnyFlatSpec with PassengerFeaturesTest with TestCommon {
 
   implicit val formats = DefaultFormats

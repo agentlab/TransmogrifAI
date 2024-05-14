@@ -35,12 +35,9 @@ import ml.combust.mleap.core.feature._
 import ml.combust.mleap.core.types.ScalarShape
 import ml.combust.mleap.runtime.transformer.feature._
 import org.apache.spark.ml.linalg.{DenseMatrix, Vectors}
-import org.junit.runner.RunWith
 import org.scalatest.propspec.AnyPropSpec
-import org.scalatestplus.junit.JUnitRunner
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 
-@RunWith(classOf[JUnitRunner])
 class MLeapModelConverterTest extends AnyPropSpec with ScalaCheckPropertyChecks with TestCommon {
 
   val mleapModels = Table("mleapModels", // TODO wrap these in mleap transformers

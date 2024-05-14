@@ -33,14 +33,11 @@ package com.salesforce.op.readers
 import com.salesforce.op.test.PassengerSparkFixtureTest
 import org.apache.avro.Schema
 import org.apache.avro.generic.GenericRecord
-import org.junit.runner.RunWith
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 
 import scala.collection.JavaConverters._
 
 
-@RunWith(classOf[JUnitRunner])
 class CSVAutoReadersTest extends AnyFlatSpec with PassengerSparkFixtureTest {
 
   private val expectedSchema = new Schema.Parser().parse(resourceFile(name = "PassengerAuto.avsc"))

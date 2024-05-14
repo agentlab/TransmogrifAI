@@ -32,12 +32,9 @@ package com.salesforce.op.evaluators
 
 import com.salesforce.op.test.TestSparkContext
 import org.apache.spark.mllib.evaluation.ExtendedBinaryClassificationMetrics
-import org.junit.runner.RunWith
 import org.scalatest.Assertions
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class ExtendedBinaryClassificationMetricsTest extends AnyFlatSpec with TestSparkContext {
   val numRecs = 400 // Number or records to use in threshold metrics tests
   val numBins = 100 // Number of bins for threshold metrics

@@ -37,10 +37,7 @@ import com.salesforce.op.utils.date.DateTimeUtils
 import com.salesforce.op.utils.spark.RichDataset._
 import org.apache.spark.ml.Transformer
 import org.joda.time.{DateTime => JDateTime}
-import org.junit.runner.RunWith
-import org.scalatestplus.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class TimePeriodMapTransformerTest extends OpTransformerSpec[IntegralMap, TimePeriodMapTransformer[DateMap]] {
 
   val names: Seq[String] = Seq("n1", "n2", "n3", "n4")

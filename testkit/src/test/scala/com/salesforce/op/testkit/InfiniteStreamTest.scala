@@ -31,14 +31,11 @@
 package com.salesforce.op.testkit
 
 import com.salesforce.op.test.TestCommon
-import org.junit.runner.RunWith
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 
 import scala.language.postfixOps
 
 
-@RunWith(classOf[JUnitRunner])
 class InfiniteStreamTest extends AnyFlatSpec with TestCommon {
 
   Spec[InfiniteStream[_]] should "map" in {

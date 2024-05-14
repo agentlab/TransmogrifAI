@@ -34,12 +34,9 @@ import java.nio.charset.Charset
 
 import com.salesforce.op.test.TestCommon
 import org.apache.commons.io.IOUtils
-import org.junit.runner.RunWith
 import org.scalatest.propspec.AnyPropSpec
-import org.scalatestplus.junit.JUnitRunner
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 
-@RunWith(classOf[JUnitRunner])
 class Base64Test extends AnyPropSpec with ScalaCheckPropertyChecks with TestCommon {
 
   property("handle empty") {

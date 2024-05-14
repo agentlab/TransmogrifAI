@@ -31,15 +31,12 @@
 package com.salesforce.op.testkit
 
 import com.salesforce.op.test.TestCommon
-import org.junit.runner.RunWith
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 
 import scala.language.postfixOps
 import scala.util.Random
 
 
-@RunWith(classOf[JUnitRunner])
 class RandomStreamTest extends AnyFlatSpec with TestCommon {
 
   Spec[RandomStream[_]] should "apply" in {

@@ -32,12 +32,9 @@ package com.salesforce.op.stages.impl.feature
 import com.salesforce.op.features.types._
 import com.salesforce.op.test.{OpTransformerSpec, TestFeatureBuilder}
 import org.apache.spark.ml.linalg.Vectors
-import org.junit.runner.RunWith
-import org.scalatestplus.junit.JUnitRunner
 
 import scala.reflect.ClassTag
 
-@RunWith(classOf[JUnitRunner])
 class MultiLabelJoinerTest extends MultiLabelJoinerBaseTest[MultiLabelJoiner] {
   val transformer = new MultiLabelJoiner().setInput(classIndexFeature, probVecFeature)
 

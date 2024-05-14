@@ -33,11 +33,8 @@ package com.salesforce.op.stages.impl.selector
 import com.salesforce.op.evaluators._
 import com.salesforce.op.stages.impl.tuning.DataBalancerSummary
 import com.salesforce.op.test.TestSparkContext
-import org.junit.runner.RunWith
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class ModelSelectorSummaryTest extends AnyFlatSpec with TestSparkContext {
 
   Spec[ModelSelectorSummary] should "be correctly converted to and from metadata" in {

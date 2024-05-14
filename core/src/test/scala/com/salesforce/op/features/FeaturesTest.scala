@@ -33,15 +33,12 @@ package com.salesforce.op.features
 import com.salesforce.op._
 import com.salesforce.op.features.types._
 import com.salesforce.op.test.{PassengerFeaturesTest, _}
-import org.junit.runner.RunWith
 import org.scalatest.wordspec.AnyWordSpec
-import org.scalatestplus.junit.JUnitRunner
 
 import scala.util.{Failure, Success}
 
 
 // scalastyle:off indentation
-@RunWith(classOf[JUnitRunner])
 class FeaturesTest extends AnyWordSpec with PassengerFeaturesTest with TestCommon {
 
   Spec[Feature[_]] when {

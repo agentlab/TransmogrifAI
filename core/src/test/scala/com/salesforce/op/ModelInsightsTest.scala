@@ -50,14 +50,11 @@ import org.apache.spark.ml.param.ParamMap
 import org.apache.spark.ml.tuning.ParamGridBuilder
 import org.apache.spark.sql.DataFrame
 import org.apache.spark.sql.functions._
-import org.junit.runner.RunWith
 import com.twitter.algebird.Moments
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 
 import scala.util.{Failure, Success}
 
-@RunWith(classOf[JUnitRunner])
 class ModelInsightsTest
   extends AnyFlatSpec with PassengerSparkFixtureTest with DoubleEquality with OpXGBoostQuietLogging {
 

@@ -41,15 +41,12 @@ import org.apache.spark.sql.functions._
 import org.apache.spark.sql.types._
 import org.apache.spark.sql.{DataFrame, Dataset}
 import org.joda.time.DateTime
-import org.junit.runner.RunWith
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 import org.slf4j.LoggerFactory
 
 import scala.language.postfixOps
 
 
-@RunWith(classOf[JUnitRunner])
 class RichDatasetTest extends AnyFlatSpec with TestSparkContext {
   import com.salesforce.op.utils.spark.RichDataType._
   import com.salesforce.op.utils.spark.RichDataset._

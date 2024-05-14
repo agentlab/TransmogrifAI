@@ -51,14 +51,11 @@ import org.apache.spark.sql.catalyst.encoders.ExpressionEncoder
 import org.apache.spark.sql.functions.monotonically_increasing_id
 import org.apache.spark.sql.types.StructType
 import org.apache.spark.sql.{DataFrame, Encoder, Row}
-import org.junit.runner.RunWith
-import org.scalatestplus.junit.JUnitRunner
 import org.scalatest.{Ignore, Suite}
 import org.scalatest.funspec.AnyFunSpec
 
 
 @Ignore
-@RunWith(classOf[JUnitRunner])
 class RecordInsightsLOCOTest extends AnyFunSpec with TestSparkContext with RecordInsightsTestDataGenerator {
 
   // scalastyle:off

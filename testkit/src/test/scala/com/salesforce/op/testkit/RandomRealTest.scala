@@ -33,11 +33,8 @@ package com.salesforce.op.testkit
 import com.salesforce.op.features.types.{Currency, Percent, Real, RealNN}
 import com.salesforce.op.test.TestCommon
 import com.salesforce.op.testkit.RandomReal._
-import org.junit.runner.RunWith
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class RandomRealTest extends AnyFlatSpec with TestCommon {
   val numTries = 1000000
 

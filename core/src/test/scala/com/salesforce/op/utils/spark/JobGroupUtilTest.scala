@@ -30,12 +30,9 @@
 
 package com.salesforce.op.utils.spark
 
-import org.junit.runner.RunWith
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.junit.JUnitRunner
 import com.salesforce.op.test.{TestCommon, TestSparkContext}
 
-@RunWith(classOf[JUnitRunner])
 class JobGroupUtilTest extends AnyFlatSpec with TestCommon with TestSparkContext {
 
   Spec(JobGroupUtil.getClass) should "be able to set a job group ID around a code block" in {

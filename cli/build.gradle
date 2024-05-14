@@ -83,7 +83,7 @@ tasks.register('copyTemplates', Copy) {
             scalaVersionFull: libs.versions.scala.get(),
             scalaVersion: libs.versions.scalaLang.get(),
             scalaTestVersion: libs.versions.scalatest.get(),
-            junitVersion: libs.versions.junit.get(),
+            junitPlatformVersion: libs.versions.junitPlatform.get(),
             sparkVersion: libs.versions.spark.get(),
             avroVersion: libs.versions.avro.get(),
             collectionsVersion: libs.versions.collections.get(),

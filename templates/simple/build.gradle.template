@@ -35,7 +35,7 @@ mainClassName = "com.salesforce.app.Simple" /* << MAIN_CLASS */
 
 ext {
     scalaVersion = '$scalaVersion'
-    junitVersion = '$junitVersion'
+    junitPlatformVersion = '$junitPlatformVersion'
     sparkVersion = '$sparkVersion'
     scalaTestVersion = '$scalaTestVersion'
     transmogrifaiVersion = '$transmogrifaiVersion'
@@ -70,7 +70,10 @@ dependencies {
 
     // Test
     testCompile "org.scalatest:scalatest_%%:$scalaTestVersion"
-    testCompile "junit:junit:$junitVersion"
+    testImplementation "org.scalatest:scalatest_%%:$scalaTestVersion"
+    testImplementation "org.junit.platform:junit-platform-launcher:$junitPlatformVersion"
+    testRuntimeOnly "org.junit.platform:junit-platform-engine:$junitPlatformVersion"
+    testRuntimeOnly "org.scalatestplus:junit-5-10_%%:$scalaTestVersion.0"
 
     // Avro
     compileOnly("org.apache.avro:avro:$avroVersion") { exclude group: 'org.mortbay.jetty', module: 'servlet-api' }

@@ -3,13 +3,13 @@ scalaLang = "2.12"
 scala = "2.12.17"
 algebird = "0.13.10"
 avro = "1.11.1"
-chill = "0.9.3"
+chill = "0.10.0"
 collections = "3.2.2"
 jackson = "2.12.2"
-jodaTime = "2.12.5"
+jodaTime = "2.12.7"
 log4j = "2.19.0"
 junitPlatform = "1.10.2"
-lucene = "7.3.0"
+lucene = "8.11.3"
 mleap = "0.23.0"
 spark = "3.4.2"
 scalatest = "3.2.18"
@@ -28,8 +28,8 @@ avro-core = { module = "org.apache.avro:avro", version.ref = "avro" }
 avro-mapred = { module = "org.apache.avro:avro-mapred", version.ref = "avro" }
 chill-avro = { module = "com.twitter:chill-avro_2.12", version.ref = "chill" }
 chill-algebird = { module = "com.twitter:chill-algebird_2.12", version.ref = "chill" }
-commons-io = { module = "commons-io:commons-io", version = "2.13.0" }
-commons-validator = { module = "commons-validator:commons-validator", version = "1.7" }
+commons-io = { module = "commons-io:commons-io", version = "2.16.1" }
+commons-validator = { module = "commons-validator:commons-validator", version = "1.8.0" }
 enumeratum = { module = "com.beachape:enumeratum_2.12", version = "1.4.18" }
 jackson-dataformat-yaml = { module = "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml", version.ref = "jackson" }
 jackson-scala = { module = "com.fasterxml.jackson.module:jackson-module-scala_2.12", version = "jackson" }
@@ -37,7 +37,7 @@ jodaTime = { module = "joda-time:joda-time", version.ref = "jodaTime" }
 json4s = { module = "org.json4s:json4s-ext_2.12", version = "3.7.0-M11" }
 junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher", version.ref = "junitPlatform" }
 junit-platform-engine = { module = "org.junit.platform:junit-platform-engine", version.ref = "junitPlatform" }
-lucene-spacial3d = { module = "org.apache.lucene:lucene-spatial3d", version.ref = "lucene" }
+lucene-spatial3d = { module = "org.apache.lucene:lucene-spatial3d", version.ref = "lucene" }
 lucene-analyzers-common = { module = "org.apache.lucene:lucene-analyzers-common", version.ref = "lucene" }
 lucene-analyzers-kuromoji = { module = "org.apache.lucene:lucene-analyzers-kuromoji", version.ref = "lucene" }
 lucene-analyzers-opennlp = { module = "org.apache.lucene:lucene-analyzers-opennlp", version.ref = "lucene" }
@@ -60,7 +60,7 @@ scalacheck = { module = "org.scalacheck:scalacheck_2.12", version = "1.17.0" }
 scala-graph = { module = "org.scala-graph:graph-core_2.12", version = "1.13.1" }
 scopt = { module = "com.github.scopt:scopt_2.12", version = "3.7.1" }
 shapeless = { module = "com.chuusai:shapeless_2.12", version = "2.3.10" }
-sourcecode = { module = "com.lihaoyi:sourcecode_2.12", version = "0.3.0" }
+sourcecode = { module = "com.lihaoyi:sourcecode_2.12", version = "0.4.1" }
 spark-avro = { module = "org.apache.spark:spark-avro_2.12", version.ref = "spark" }
 spark-core = { module = "org.apache.spark:spark-core_2.12", version.ref = "spark" }
 spark-sql = { module = "org.apache.spark:spark-sql_2.12", version.ref = "spark" }
@@ -69,6 +69,7 @@ spark-testing = { module = "com.holdenkarau:spark-testing-base_2.12", version = 
 tika = { module = "org.apache.tika:tika-core", version = "2.4.1" }
 xgboost4j-core = { module = "ml.dmlc:xgboost4j_2.12", version.ref = "xgboost" }
 xgboost4j-spark = { module = "ml.dmlc:xgboost4j-spark_2.12", version.ref = "xgboost" }
+zip = { module = "org.zeroturnaround:zt-zip", version = "1.17" }
 
 [bundles]
 avro = ["avro-core", "avro-mapred"]

@@ -13,7 +13,7 @@ dependencies {
   api(libs.chill.avro) { exclude group: "org.apache.avro", module: "avro" }
   api libs.spark.avro
   api libs.chill.algebird
-  api libs.lucene.spacial3d
+  api libs.lucene.spatial3d
   api libs.enumeratum
   api libs.jodaTime
 

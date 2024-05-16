@@ -31,13 +31,12 @@
 package com.salesforce.op.features.types
 
 import com.salesforce.op.test.TestCommon
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
-import org.scalatest.{Assertions, FlatSpec, Matchers}
+import org.scalatest.Assertions
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
 
-@RunWith(classOf[JUnitRunner])
-class TextTest extends FlatSpec with TestCommon {
+class TextTest extends AnyFlatSpec with TestCommon {
 
   /* Text tests */
   Spec[Text] should "extend FeatureType" in {

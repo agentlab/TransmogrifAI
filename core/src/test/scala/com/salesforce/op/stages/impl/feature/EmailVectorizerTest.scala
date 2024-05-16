@@ -39,13 +39,10 @@ import com.salesforce.op.testkit.RandomText
 import com.salesforce.op.utils.spark.RichDataset._
 import org.apache.spark.ml.linalg.Vectors
 import org.apache.spark.sql.DataFrame
-import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
 
-@RunWith(classOf[JUnitRunner])
 class EmailVectorizerTest
-  extends FlatSpec with FeatureTestBase with RichMapFeature with RichFeature with RichTextFeature
+  extends AnyFlatSpec with FeatureTestBase with RichMapFeature with RichFeature with RichTextFeature
     with AttributeAsserts {
   val emailKey = "Email1"
   val emailKey2 = "Email2"

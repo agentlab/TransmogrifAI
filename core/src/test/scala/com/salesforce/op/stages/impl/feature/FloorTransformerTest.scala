@@ -32,10 +32,7 @@ package com.salesforce.op.stages.impl.feature
 
 import com.salesforce.op.features.types._
 import com.salesforce.op.test.{OpTransformerSpec, TestFeatureBuilder}
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class FloorTransformerTest extends OpTransformerSpec[Integral, FloorTransformer[Real]] {
   val sample = Seq(Real(-1.3), Real(-4.9), Real.empty, Real(5.1), Real(-5.1), Real(0.1), Real(2.5), Real(0.4))
   val (inputData, f1) = TestFeatureBuilder(sample)

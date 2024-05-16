@@ -36,7 +36,8 @@ import com.salesforce.op.utils.spark.RichDataset.RichDataset
 import org.apache.spark.ml.{Estimator, Transformer}
 import org.apache.spark.sql.Dataset
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
-import org.scalatest.{Assertion, Suite}
+import org.scalatest.Suite
+import org.scalatest.compatible.Assertion
 
 import scala.reflect.ClassTag
 import scala.reflect.runtime.universe.TypeTag

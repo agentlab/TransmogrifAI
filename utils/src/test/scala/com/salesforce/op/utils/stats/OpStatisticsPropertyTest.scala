@@ -32,14 +32,11 @@ package com.salesforce.op.utils.stats
 
 import com.salesforce.op.test.TestCommon
 import org.apache.spark.mllib.linalg.DenseMatrix
-import org.junit.runner.RunWith
 import org.scalacheck.Gen
-import org.scalatest.PropSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.propspec.AnyPropSpec
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 
-@RunWith(classOf[JUnitRunner])
-class OpStatisticsPropertyTest extends PropSpec with TestCommon with ScalaCheckPropertyChecks {
+class OpStatisticsPropertyTest extends AnyPropSpec with TestCommon with ScalaCheckPropertyChecks {
 
   val genInt = Gen.posNum[Int]
   private def genArray(n: Int) = Gen.containerOfN[Array, Int](n, genInt)

@@ -33,8 +33,6 @@ package com.salesforce.op.cli
 import java.io.{File, FileWriter}
 
 import com.salesforce.op.OpWorkflowRunType
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 
 import scala.language.postfixOps
 import scala.sys.process._
@@ -42,7 +40,6 @@ import scala.sys.process._
 /**
  * End to end test: gen, build and spark submit
  */
-@RunWith(classOf[JUnitRunner])
 class CliFullCycleTest extends CliTestBase {
 
   Spec[CliExec] should "do full cycle with avcs present" in {

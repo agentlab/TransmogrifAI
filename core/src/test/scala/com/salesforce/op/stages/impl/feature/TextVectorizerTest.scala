@@ -34,13 +34,10 @@ import com.salesforce.op._
 import com.salesforce.op.features.types._
 import com.salesforce.op.test.{TestFeatureBuilder, TestSparkContext}
 import com.salesforce.op.utils.spark.RichDataset._
-import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
 
 
-@RunWith(classOf[JUnitRunner])
-class TextVectorizerTest extends FlatSpec with TestSparkContext with AttributeAsserts {
+class TextVectorizerTest extends AnyFlatSpec with TestSparkContext with AttributeAsserts {
   // scalastyle:off
   lazy val (data, f1, f2) = TestFeatureBuilder(
     Seq[(Text, Text)](

@@ -35,12 +35,9 @@ import com.salesforce.op.features.types._
 import com.salesforce.op.test.{OpTransformerSpec, TestFeatureBuilder}
 import com.salesforce.op.utils.spark.RichDataset._
 import org.apache.spark.SparkException
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 
 import scala.util.{Failure, Success}
 
-@RunWith(classOf[JUnitRunner])
 class DescalerTransformerTest extends OpTransformerSpec[Real, DescalerTransformer[Real, Real, Real]] {
   val (testData, f1) = TestFeatureBuilder(Seq(4.0, 1.0, 0.0).map(_.toReal))
   val scalerMetadata = ScalerMetadata(ScalingType.Linear, LinearScalerArgs(slope = 2.0, intercept = 3.0)).toMetadata()

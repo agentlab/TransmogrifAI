@@ -50,13 +50,10 @@ import org.apache.spark.mllib.random.RandomRDDs._
 import org.apache.spark.sql.Encoders
 import org.apache.spark.sql.catalyst.encoders.ExpressionEncoder
 import org.apache.spark.sql.functions._
-import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
 import org.slf4j.LoggerFactory
 
-@RunWith(classOf[JUnitRunner])
-class BinaryClassificationModelSelectorTest extends FlatSpec with TestSparkContext
+class BinaryClassificationModelSelectorTest extends AnyFlatSpec with TestSparkContext
   with CompareParamGrid with OpXGBoostQuietLogging {
 
   val log = LoggerFactory.getLogger(this.getClass)

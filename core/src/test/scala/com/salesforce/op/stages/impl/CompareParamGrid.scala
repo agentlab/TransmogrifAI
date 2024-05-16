@@ -31,7 +31,8 @@
 package com.salesforce.op.stages.impl
 
 import org.apache.spark.ml.param.ParamMap
-import org.scalatest.{Assertions, Matchers}
+import org.scalatest.Assertions
+import org.scalatest.matchers.should.Matchers
 
 
 trait CompareParamGrid extends Matchers with Assertions {

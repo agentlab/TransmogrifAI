@@ -31,12 +31,9 @@
 package com.salesforce.op.utils.text
 
 import com.salesforce.op.test.TestCommon
-import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
 
-@RunWith(classOf[JUnitRunner])
-class TextUtilsTest extends FlatSpec with TestCommon {
+class TextUtilsTest extends AnyFlatSpec with TestCommon {
   Spec(TextUtils.getClass) should "concat strings" in {
     TextUtils.concat("Left", "Right", ",") shouldBe "Left,Right"
   }

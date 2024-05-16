@@ -34,14 +34,12 @@ import com.salesforce.op.features.types.FeatureType
 import com.salesforce.op.test.{TestCommon, TestSparkContext}
 import org.apache.spark.ml.linalg.SQLDataTypes.VectorType
 import org.apache.spark.sql.types._
-import org.junit.runner.RunWith
-import org.scalatest.{Assertion, FlatSpec}
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.compatible.Assertion
+import org.scalatest.flatspec.AnyFlatSpec
 
 import scala.reflect.runtime.universe._
 
-@RunWith(classOf[JUnitRunner])
-class FeatureSparkTypeTest extends FlatSpec with TestCommon {
+class FeatureSparkTypeTest extends AnyFlatSpec with TestCommon {
   val primitiveTypes = Seq(
     (DoubleType, weakTypeTag[types.Real], DoubleType),
     (FloatType, weakTypeTag[types.Real], DoubleType),

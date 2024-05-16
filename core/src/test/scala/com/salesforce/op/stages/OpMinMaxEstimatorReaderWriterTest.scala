@@ -34,11 +34,8 @@ import com.salesforce.op._
 import com.salesforce.op.features.types._
 import com.salesforce.op.stages.base.unary.{UnaryEstimator, UnaryModel}
 import org.apache.spark.sql.Dataset
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 
 
-@RunWith(classOf[JUnitRunner])
 class OpMinMaxEstimatorReaderWriterTest extends OpPipelineStageReaderWriterTest {
   private val minMax = new MinMaxNormEstimator().setInput(weight).setMetadata(meta)
 

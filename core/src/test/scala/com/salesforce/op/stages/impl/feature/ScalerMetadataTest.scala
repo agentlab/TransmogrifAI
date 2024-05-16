@@ -31,16 +31,13 @@
 package com.salesforce.op.stages.impl.feature
 
 import com.salesforce.op.test.TestSparkContext
-import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
 import com.salesforce.op.utils.json.JsonUtils
 import org.apache.spark.sql.types.MetadataBuilder
 
 import scala.util.{Failure, Success}
 
-@RunWith(classOf[JUnitRunner])
-class ScalerMetadataTest extends FlatSpec with TestSparkContext {
+class ScalerMetadataTest extends AnyFlatSpec with TestSparkContext {
   val linearArgs = LinearScalerArgs(slope = 2.0, intercept = 1.0)
 
   Spec[ScalerMetadata] should "properly construct ScalerMetadata for a LinearScaler" in {

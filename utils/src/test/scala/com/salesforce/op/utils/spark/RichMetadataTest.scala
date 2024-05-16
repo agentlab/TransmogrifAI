@@ -34,13 +34,10 @@ import com.salesforce.op.test.TestCommon
 import org.apache.spark.sql.types.{MetadataBuilder, MetadataWrapper}
 import org.json4s.DefaultFormats
 import org.json4s.jackson.Serialization
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
-import org.scalatest.FlatSpec
+import org.scalatest.flatspec.AnyFlatSpec
 
 
-@RunWith(classOf[JUnitRunner])
-class RichMetadataTest extends FlatSpec with TestCommon {
+class RichMetadataTest extends AnyFlatSpec with TestCommon {
 
   import com.salesforce.op.utils.spark.RichMetadata._
 

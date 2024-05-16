@@ -31,20 +31,19 @@
 package com.salesforce.op.features.types
 
 import com.salesforce.op.test.TestCommon
-import org.junit.runner.RunWith
 import org.scalactic.source
-import org.scalatest.junit.JUnitRunner
 import org.scalatest.prop.TableFor1
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
-import org.scalatest.{Assertion, Matchers, PropSpec}
+import org.scalatest.compatible.Assertion
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.propspec.AnyPropSpec
 
 import scala.concurrent.duration._
 import scala.util.{Failure, Success, Try}
 
 
-@RunWith(classOf[JUnitRunner])
 class FeatureTypeFactoryTest
-  extends PropSpec with ScalaCheckPropertyChecks with TestCommon with ConcurrentCheck with FeatureTypeAsserts {
+  extends AnyPropSpec with ScalaCheckPropertyChecks with TestCommon with ConcurrentCheck with FeatureTypeAsserts {
 
   val featureTypeFactories: TableFor1[FeatureTypeFactory[_ <: FeatureType]] = Table("ft",
     // Vector

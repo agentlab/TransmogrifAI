@@ -30,7 +30,7 @@
 
 package com.salesforce.op.features.types
 
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 import org.scalatest.prop.TableFor1
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 

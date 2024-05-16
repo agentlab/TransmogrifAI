@@ -39,12 +39,9 @@ import com.salesforce.op.utils.spark.{OpVectorColumnMetadata, OpVectorMetadata}
 import org.apache.spark.ml.linalg.Vectors
 import org.apache.spark.sql.DataFrame
 import org.apache.spark.sql.types.Metadata
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 import org.slf4j.LoggerFactory
 
 
-@RunWith(classOf[JUnitRunner])
 class MultiPickListMapVectorizerTest
   extends OpEstimatorSpec[OPVector,
     SequenceModel[MultiPickListMap, OPVector],

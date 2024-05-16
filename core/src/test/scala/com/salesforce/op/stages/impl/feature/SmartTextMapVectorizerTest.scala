@@ -39,17 +39,14 @@ import com.salesforce.op.test.{OpEstimatorSpec, TestFeatureBuilder}
 import com.salesforce.op.testkit.RandomText
 import com.salesforce.op.utils.spark.RichDataset._
 import com.salesforce.op.utils.stages.{NameDetectUtils, SensitiveFeatureMode}
-import org.apache.log4j.Level
+import org.apache.logging.log4j.Level
 import com.salesforce.op.utils.spark.{OpVectorColumnMetadata, OpVectorMetadata}
 import org.apache.spark.ml.linalg.Vectors
 import org.apache.spark.sql.{DataFrame, Encoder}
-import org.junit.runner.RunWith
 import org.scalatest.Assertion
-import org.scalatest.junit.JUnitRunner
 
 import scala.util.Random
 
-@RunWith(classOf[JUnitRunner])
 class SmartTextMapVectorizerTest
   extends OpEstimatorSpec[OPVector, SequenceModel[TextMap, OPVector], SmartTextMapVectorizer[TextMap]]
     with AttributeAsserts {

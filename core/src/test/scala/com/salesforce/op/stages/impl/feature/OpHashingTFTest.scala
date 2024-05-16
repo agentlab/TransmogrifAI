@@ -39,11 +39,8 @@ import org.apache.spark.ml.Transformer
 import org.apache.spark.ml.feature.HashingTF
 import org.apache.spark.ml.linalg.Vectors
 import org.apache.spark.sql.DataFrame
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 
 
-@RunWith(classOf[JUnitRunner])
 class OpHashingTFTest extends SwTransformerSpec[OPVector, HashingTF, OpHashingTF] {
 
   // scalastyle:off

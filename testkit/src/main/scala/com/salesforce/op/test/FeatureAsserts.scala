@@ -36,7 +36,7 @@ import com.salesforce.op.features.types.FeatureType
 import com.salesforce.op.stages.FeatureGeneratorStage
 import com.twitter.algebird.MonoidAggregator
 import org.joda.time.Duration
-import org.scalatest.Matchers
+import org.scalatest.matchers.should.Matchers
 
 import scala.reflect.runtime.universe.WeakTypeTag
 

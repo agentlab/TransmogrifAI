@@ -39,10 +39,7 @@ import org.apache.spark.ml.linalg.Vectors
 import com.salesforce.op.utils.spark.RichDataset._
 import com.salesforce.op.utils.spark.RichMetadata._
 import org.joda.time.{DateTime => JDateTime}
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class DateMapToUnitCircleVectorizerTest extends OpEstimatorSpec[OPVector, SequenceModel[DateMap, OPVector],
   DateMapToUnitCircleVectorizer[DateMap]] with AttributeAsserts {
 

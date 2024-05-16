@@ -42,17 +42,15 @@ import com.salesforce.op.utils.spark.RichDataset._
 import com.salesforce.op.utils.spark.{OpVectorMetadata, _}
 import org.apache.spark.ml.linalg.Vectors
 import org.apache.spark.sql.SparkSession
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 import org.slf4j.LoggerFactory
 
 import scala.collection.Traversable
 import scala.reflect.runtime.universe._
 
 
-@RunWith(classOf[JUnitRunner])
-class OPMapVectorizerTest extends FlatSpec with TestSparkContext with AttributeAsserts {
+class OPMapVectorizerTest extends AnyFlatSpec with TestSparkContext with AttributeAsserts {
 
   import OPMapVectorizerTestHelper._
 

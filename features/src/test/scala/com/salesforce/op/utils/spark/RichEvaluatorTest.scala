@@ -32,13 +32,10 @@ package com.salesforce.op.utils.spark
 
 import com.salesforce.op.test.TestSparkContext
 import org.apache.spark.ml.evaluation.{BinaryClassificationEvaluator, Evaluator}
-import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
 
 
-@RunWith(classOf[JUnitRunner])
-class RichEvaluatorTest extends FlatSpec with TestSparkContext {
+class RichEvaluatorTest extends AnyFlatSpec with TestSparkContext {
 
   import com.salesforce.op.utils.spark.RichEvaluator._
   import spark.implicits._

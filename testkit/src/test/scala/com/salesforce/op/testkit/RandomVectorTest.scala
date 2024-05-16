@@ -34,14 +34,11 @@ import com.salesforce.op.features.types.{Currency, Percent, Real, RealNN}
 import com.salesforce.op.test.TestCommon
 import com.salesforce.op.testkit.RandomReal._
 import org.apache.spark.ml.linalg._
-import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
 
 // [W-4293013] - more random vectors
 
-@RunWith(classOf[JUnitRunner])
-class RandomVectorTest extends FlatSpec with TestCommon {
+class RandomVectorTest extends AnyFlatSpec with TestCommon {
   val numTries = 1000000
 
   Spec[RandomVector] should "produce dense vectors" in {

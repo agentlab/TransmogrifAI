@@ -50,13 +50,10 @@ import org.apache.spark.ml.PipelineStage
 import org.apache.spark.ml.linalg.Vector
 import org.apache.spark.ml.tuning.ParamGridBuilder
 import org.apache.spark.sql.DataFrame
-import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
 import org.slf4j.LoggerFactory
 
-@RunWith(classOf[JUnitRunner])
-class OpWorkflowCVTest extends FlatSpec with PassengerSparkFixtureTest {
+class OpWorkflowCVTest extends AnyFlatSpec with PassengerSparkFixtureTest {
 
   val log = LoggerFactory.getLogger(this.getClass)
 

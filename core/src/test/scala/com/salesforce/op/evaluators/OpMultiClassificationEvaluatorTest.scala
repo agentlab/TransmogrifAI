@@ -34,12 +34,9 @@ import com.salesforce.op.features.types._
 import com.salesforce.op.test.{TestFeatureBuilder, TestSparkContext}
 import com.salesforce.op.testkit.{RandomIntegral, RandomReal, RandomText, RandomVector}
 import org.apache.spark.ml.linalg.Vectors
-import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
 
-@RunWith(classOf[JUnitRunner])
-class OpMultiClassificationEvaluatorTest extends FlatSpec with TestSparkContext {
+class OpMultiClassificationEvaluatorTest extends AnyFlatSpec with TestSparkContext {
 
   // loggingLevel(Level.INFO)
 

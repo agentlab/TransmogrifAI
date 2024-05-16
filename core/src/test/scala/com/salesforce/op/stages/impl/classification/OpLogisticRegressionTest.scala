@@ -36,11 +36,8 @@ import com.salesforce.op.stages.sparkwrappers.specific.{OpPredictorWrapper, OpPr
 import com.salesforce.op.test.{OpEstimatorSpec, TestFeatureBuilder}
 import org.apache.spark.ml.classification.{LogisticRegression, LogisticRegressionModel}
 import org.apache.spark.ml.linalg.Vectors
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 
 
-@RunWith(classOf[JUnitRunner])
 class OpLogisticRegressionTest extends OpEstimatorSpec[Prediction, OpPredictorWrapperModel[LogisticRegressionModel],
   OpPredictorWrapper[LogisticRegression, LogisticRegressionModel]] with PredictionEquality {
 

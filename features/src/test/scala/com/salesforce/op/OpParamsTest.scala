@@ -31,16 +31,13 @@
 package com.salesforce.op
 
 import com.salesforce.op.test._
-import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
 import org.slf4j.LoggerFactory
 
 import scala.util.Failure
 
 
-@RunWith(classOf[JUnitRunner])
-class OpParamsTest extends FlatSpec with TestCommon {
+class OpParamsTest extends AnyFlatSpec with TestCommon {
 
   val log = LoggerFactory.getLogger(this.getClass)
 

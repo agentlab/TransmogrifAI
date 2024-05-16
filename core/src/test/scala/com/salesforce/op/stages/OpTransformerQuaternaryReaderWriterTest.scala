@@ -32,11 +32,8 @@ package com.salesforce.op.stages
 
 import com.salesforce.op.features.types._
 import com.salesforce.op.stages.base.quaternary.QuaternaryLambdaTransformer
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 
 
-@RunWith(classOf[JUnitRunner])
 class OpTransformerQuaternaryReaderWriterTest extends OpPipelineStageReaderWriterTest {
   override val expectedFeaturesLength = 4
   override val hasOutputName = false

@@ -38,12 +38,11 @@ import org.apache.spark.ml.linalg.Vectors
 import org.apache.spark.ml.param.ParamMap
 import org.apache.spark.ml.tuning.ParamGridBuilder
 import org.apache.spark.sql.functions.{abs, avg}
-import org.junit.runner.RunWith
-import org.scalatest.{AppendedClues, Assertion, FunSpec}
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.AppendedClues
+import org.scalatest.compatible.Assertion
+import org.scalatest.funspec.AnyFunSpec
 
-@RunWith(classOf[JUnitRunner])
-class OpRegressionEvaluatorTest extends FunSpec with AppendedClues with TestSparkContext {
+class OpRegressionEvaluatorTest extends AnyFunSpec with AppendedClues with TestSparkContext {
 
   import spark.implicits._
 

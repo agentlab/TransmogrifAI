@@ -35,10 +35,7 @@ import com.salesforce.op.features.types._
 import com.salesforce.op.test.{OpTransformerSpec, TestFeatureBuilder}
 import com.salesforce.op.utils.spark.RichDataset._
 import org.apache.spark.ml.Transformer
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class TextNGramSimilarityTest extends OpTransformerSpec[RealNN, TextNGramSimilarity[Text]]{
   val(inputData, f1, f2) = TestFeatureBuilder(
     Seq[(Text, Text)](

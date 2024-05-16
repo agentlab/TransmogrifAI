@@ -34,11 +34,8 @@ import com.salesforce.op.UID
 import com.salesforce.op.features.types._
 import com.salesforce.op.test.{OpEstimatorSpec, TestFeatureBuilder}
 import org.apache.spark.sql.Dataset
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 
 
-@RunWith(classOf[JUnitRunner])
 class QuaternaryEstimatorTest
   extends OpEstimatorSpec[Real,
     QuaternaryModel[Real, TextMap, BinaryMap, MultiPickList, Real],

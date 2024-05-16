@@ -35,14 +35,13 @@ import com.salesforce.op.features.types._
 import com.salesforce.op.test.{TestFeatureBuilder, TestSparkContext}
 import com.salesforce.op.utils.spark.RichDataset._
 import org.apache.spark.ml.linalg.Vectors
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
-import org.scalatest.{Assertions, FlatSpec, Matchers}
+import org.scalatest.Assertions
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 import org.scalactic.TolerantNumerics
 
 
-@RunWith(classOf[JUnitRunner])
-class OpWord2VecTest extends FlatSpec with TestSparkContext {
+class OpWord2VecTest extends AnyFlatSpec with TestSparkContext {
 
   val data = Seq(
     "I I I like like Spark".split(" "),

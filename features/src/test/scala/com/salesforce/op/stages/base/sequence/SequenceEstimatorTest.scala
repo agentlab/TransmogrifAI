@@ -36,11 +36,8 @@ import com.salesforce.op.test.{OpEstimatorSpec, TestFeatureBuilder}
 import com.salesforce.op.utils.spark.SequenceAggregators
 import org.apache.spark.ml.linalg.Vectors
 import org.apache.spark.sql.Dataset
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 
 
-@RunWith(classOf[JUnitRunner])
 class SequenceEstimatorTest
   extends OpEstimatorSpec[OPVector, SequenceModel[DateList, OPVector], SequenceEstimator[DateList, OPVector]] {
 

@@ -35,13 +35,10 @@ import com.salesforce.op.features.types._
 import com.salesforce.op.stages.base.unary.UnaryLambdaTransformer
 import com.salesforce.op.test.{TestFeatureBuilder, _}
 import com.salesforce.op.utils.spark.RichDataset._
-import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
 
 
-@RunWith(classOf[JUnitRunner])
-class EmailParserTest extends FlatSpec with TestCommon with TestSparkContext {
+class EmailParserTest extends AnyFlatSpec with TestCommon with TestSparkContext {
 
   val (df, email) = TestFeatureBuilder("email", Seq(
     Email("test@example.com"),

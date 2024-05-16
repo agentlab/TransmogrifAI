@@ -52,15 +52,12 @@ import org.apache.spark.mllib.random.RandomRDDs._
 import org.apache.spark.sql.catalyst.encoders.ExpressionEncoder
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.{DataFrame, Encoders}
-import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import org.slf4j.LoggerFactory
 
 
-@RunWith(classOf[JUnitRunner])
-class MultiClassificationModelSelectorTest extends FlatSpec with TestSparkContext
+class MultiClassificationModelSelectorTest extends AnyFlatSpec with TestSparkContext
   with CompareParamGrid with OpXGBoostQuietLogging with ScalaCheckPropertyChecks {
 
   val log = LoggerFactory.getLogger(this.getClass)

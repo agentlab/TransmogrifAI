@@ -35,17 +35,15 @@ import java.nio.file.Paths
 
 import com.salesforce.op.cli.{AvroSchemaFromFile, CliParameters, GeneratorConfig}
 import com.salesforce.op.test.TestCommon
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
-import org.scalatest.{Assertions, FlatSpec}
+import org.scalatest.Assertions
+import org.scalatest.flatspec.AnyFlatSpec
 
 import scala.io.Source
 
 /**
  * Test for generator operations
  */
-@RunWith(classOf[JUnitRunner])
-class OpsTest extends FlatSpec with TestCommon with Assertions {
+class OpsTest extends AnyFlatSpec with TestCommon with Assertions {
 
   val tempFolder = new File(System.getProperty("java.io.tmpdir"))
   val projectFolder = new File(tempFolder, "cli_test")

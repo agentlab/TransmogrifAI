@@ -35,13 +35,11 @@ import com.salesforce.op.features.FeatureLike
 import com.salesforce.op.features.types._
 import com.salesforce.op.test.PassengerFeaturesTest
 import org.apache.spark.ml.{Estimator, Transformer}
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.flatspec.AnyFlatSpec
 
 
-@RunWith(classOf[JUnitRunner])
-class TransformersTest extends FlatSpec with Matchers with PassengerFeaturesTest {
+class TransformersTest extends AnyFlatSpec with Matchers with PassengerFeaturesTest {
 
   "Transformers" should "allow division between numerics and nullable numerics variations" in {
     val ageHeight: FeatureLike[Real] = age / height

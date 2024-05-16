@@ -37,11 +37,8 @@ import com.salesforce.op.test.{SwTransformerSpec, TestFeatureBuilder}
 import com.salesforce.op.utils.spark.RichDataset._
 import org.apache.spark.ml.Transformer
 import org.apache.spark.ml.feature.NGram
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 
 
-@RunWith(classOf[JUnitRunner])
 class OpNGramTest extends SwTransformerSpec[TextList, NGram, OpNGram] {
   val data = Seq("a b c d e f g").map(_.split(" ").toSeq.toTextList)
   val (inputData, textListFeature) = TestFeatureBuilder(data)

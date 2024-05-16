@@ -39,13 +39,10 @@ import com.salesforce.op.test.{FeatureTestBase, TestFeatureBuilder}
 import com.salesforce.op.utils.spark.RichDataset._
 import com.salesforce.op.testkit.{RandomIntegral, RandomReal}
 import org.apache.spark.ml.linalg.Vectors
-import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
 
 
-@RunWith(classOf[JUnitRunner])
-class NumericVectorizerTest extends FlatSpec with FeatureTestBase with AttributeAsserts {
+class NumericVectorizerTest extends AnyFlatSpec with FeatureTestBase with AttributeAsserts {
 
   val ageData: Seq[Real] = RandomReal.uniform[Real](maxValue = 80.0).limit(100)
   val heightData: Seq[Real] = RandomReal.normal[Real](mean = 65.0, sigma = 8).limit(100)

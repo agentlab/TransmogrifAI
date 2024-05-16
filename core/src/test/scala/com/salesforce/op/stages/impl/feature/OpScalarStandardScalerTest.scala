@@ -40,14 +40,10 @@ import org.apache.spark.ml.linalg.{Vector, Vectors}
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.functions.{sum, udf}
 import org.apache.spark.sql.{DataFrame, Dataset, SparkSession}
-import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
 
 import scala.util.{Failure, Success}
 
 
-@RunWith(classOf[JUnitRunner])
 class OpScalarStandardScalerTest extends OpEstimatorSpec[RealNN, UnaryModel[RealNN, RealNN], OpScalarStandardScaler] {
 
   import spark.implicits._

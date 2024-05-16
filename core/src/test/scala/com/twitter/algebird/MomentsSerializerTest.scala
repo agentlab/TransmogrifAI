@@ -1,14 +1,12 @@
 package com.twitter.algebird
 
+import com.salesforce.op.test.TestCommon
 import org.json4s.{DefaultFormats, Formats}
 import org.json4s.jackson.Serialization
-import org.junit.runner.RunWith
-import org.scalatest.Matchers._
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
-@RunWith(classOf[JUnitRunner])
-class MomentsSerializerTest extends FlatSpec {
+class MomentsSerializerTest extends AnyFlatSpec with TestCommon {
   val moments = Moments(0L, 1.0, 2.0, 3.0, 4.0)
   val momentsApply1 = Moments(0L)
   val momentsApply2 = Moments(0L, 1L, 2L, 3L, 4L)

@@ -34,14 +34,11 @@ import com.salesforce.op.features.types._
 import com.salesforce.op.test.{PrestigeData, TestFeatureBuilder, _}
 import org.apache.spark.ml.feature.{MinMaxScaler, MinMaxScalerModel}
 import org.apache.spark.ml.linalg.Vectors
-import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
 import org.slf4j.LoggerFactory
 
 
-@RunWith(classOf[JUnitRunner])
-class OpEstimatorWrapperTest extends FlatSpec with TestSparkContext with PrestigeData {
+class OpEstimatorWrapperTest extends AnyFlatSpec with TestSparkContext with PrestigeData {
 
   val log = LoggerFactory.getLogger(this.getClass)
 

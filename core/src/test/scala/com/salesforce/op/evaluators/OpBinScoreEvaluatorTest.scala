@@ -33,12 +33,9 @@ package com.salesforce.op.evaluators
 import com.salesforce.op.features.types.Prediction
 import com.salesforce.op.features.types._
 import com.salesforce.op.test.{TestFeatureBuilder, TestSparkContext}
-import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
 
-@RunWith(classOf[JUnitRunner])
-class OpBinScoreEvaluatorTest extends FlatSpec with TestSparkContext {
+class OpBinScoreEvaluatorTest extends AnyFlatSpec with TestSparkContext {
 
   val (dataset, prediction, label) = TestFeatureBuilder(
     Seq (

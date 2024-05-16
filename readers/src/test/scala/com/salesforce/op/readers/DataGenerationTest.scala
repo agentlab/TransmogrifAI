@@ -35,13 +35,10 @@ import com.salesforce.op.features.types._
 import com.salesforce.op.test._
 import com.salesforce.op.utils.spark.RichDataset._
 import org.apache.spark.sql.Row
-import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
 
 
-@RunWith(classOf[JUnitRunner])
-class DataGenerationTest extends FlatSpec with PassengerSparkFixtureTest {
+class DataGenerationTest extends AnyFlatSpec with PassengerSparkFixtureTest {
 
   private def column(data: Array[Row])(i: Int): Array[Any] = data map (_.get(i))
 

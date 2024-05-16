@@ -35,14 +35,13 @@ import com.salesforce.op.features.Feature
 import com.salesforce.op.test.{TestFeatureBuilder, TestSparkContext}
 import com.salesforce.op.utils.spark.RichDataset._
 import org.apache.spark.ml.linalg.{DenseVector, Vectors}
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
-import org.scalatest.{Assertions, FlatSpec, Matchers}
+import org.scalatest.Assertions
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 import com.salesforce.op.utils.spark.RichDataset._
 
 
-@RunWith(classOf[JUnitRunner])
-class GeolocationVectorizerTest extends FlatSpec with TestSparkContext with AttributeAsserts {
+class GeolocationVectorizerTest extends AnyFlatSpec with TestSparkContext with AttributeAsserts {
 
   val (testData, inA, inB, inC, inD) = TestFeatureBuilder("inA", "inB", "inC", "inD",
     Seq[(Geolocation, Geolocation, Geolocation, Geolocation)](

@@ -32,13 +32,10 @@ package com.salesforce.op.aggregators
 
 import com.salesforce.op.features.types._
 import com.salesforce.op.test.TestCommon
-import org.junit.runner.RunWith
-import org.scalatest._
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
 
 
-@RunWith(classOf[JUnitRunner])
-class EventTest extends FlatSpec with TestCommon {
+class EventTest extends AnyFlatSpec with TestCommon {
 
   Spec[Event[_]] should "compare" in {
     val sut1 = Event[Integral](123, Integral(42), isResponse = false)

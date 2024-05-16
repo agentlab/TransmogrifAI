@@ -32,11 +32,9 @@ package com.salesforce.op.features.types
 
 import com.salesforce.op.test.TestCommon
 import org.apache.spark.ml.linalg.Vectors
-import org.junit.runner.RunWith
 import org.scalacheck.Gen
 import org.scalacheck.Arbitrary._
-import org.scalatest.PropSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.propspec.AnyPropSpec
 import org.scalatest.prop.TableFor1
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 
@@ -45,9 +43,8 @@ import scala.collection.mutable.{WrappedArray => MWrappedArray}
 import scala.concurrent.duration._
 
 
-@RunWith(classOf[JUnitRunner])
 class FeatureTypeSparkConverterTest
-  extends PropSpec with ScalaCheckPropertyChecks with TestCommon with ConcurrentCheck with FeatureTypeAsserts {
+  extends AnyPropSpec with ScalaCheckPropertyChecks with TestCommon with ConcurrentCheck with FeatureTypeAsserts {
 
   val featureTypeConverters: TableFor1[FeatureTypeSparkConverter[_ <: FeatureType]] = Table("ftc",
     FeatureTypeSparkConverter.featureTypeSparkConverters.values.toSeq: _*

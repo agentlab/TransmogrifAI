@@ -35,13 +35,10 @@ import org.apache.spark.mllib.linalg.{DenseMatrix, Vector => OldVector}
 import org.apache.spark.mllib.random.RandomRDDs._
 import org.apache.spark.mllib.stat.Statistics
 import org.apache.spark.rdd.RDD
-import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
+import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.Inspectors._
-import org.scalatest.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
-class OpStatisticsTest extends FlatSpec with TestCommon with TestSparkContext {
+class OpStatisticsTest extends AnyFlatSpec with TestCommon with TestSparkContext {
   val tol: Double = 0.001
 
   Spec(OpStatistics.getClass) should "correctly calculate Cramer's V for a 2x2 matrix" in {

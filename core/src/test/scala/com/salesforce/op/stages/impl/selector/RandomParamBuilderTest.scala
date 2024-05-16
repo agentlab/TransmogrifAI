@@ -32,13 +32,10 @@ package com.salesforce.op.stages.impl.selector
 
 import com.salesforce.op.stages.impl.classification.{OpLogisticRegression, OpRandomForestClassifier, OpXGBoostClassifier}
 import com.salesforce.op.test.TestSparkContext
-import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
 
 
-@RunWith(classOf[JUnitRunner])
-class RandomParamBuilderTest extends FlatSpec with TestSparkContext {
+class RandomParamBuilderTest extends AnyFlatSpec with TestSparkContext {
 
   private val lr = new OpLogisticRegression()
   private val rf = new OpRandomForestClassifier()

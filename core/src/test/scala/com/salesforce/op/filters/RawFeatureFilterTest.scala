@@ -43,15 +43,13 @@ import com.salesforce.op.{OpParams, OpWorkflow}
 import com.twitter.algebird.Operators._
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.{Dataset, Row, SparkSession}
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
-import org.scalatest.{Assertion, FlatSpec}
+import org.scalatest.Assertion
+import org.scalatest.flatspec.AnyFlatSpec
 
 import scala.reflect.runtime.universe.TypeTag
 import scala.util.{Failure, Success}
 
-@RunWith(classOf[JUnitRunner])
-class RawFeatureFilterTest extends FlatSpec with PassengerSparkFixtureTest with FiltersTestData {
+class RawFeatureFilterTest extends AnyFlatSpec with PassengerSparkFixtureTest with FiltersTestData {
 
   // loggingLevel(Level.INFO)
 

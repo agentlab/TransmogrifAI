@@ -37,13 +37,12 @@ import com.salesforce.op.utils.spark.RichDataset._
 import org.apache.spark.ml.feature.IDF
 import org.apache.spark.ml.linalg.{DenseVector, SparseVector, Vector, Vectors}
 import org.apache.spark.ml.{Estimator, Transformer}
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
-import org.scalatest.{Assertions, FlatSpec, Matchers}
+import org.scalatest.Assertions
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
 
-@RunWith(classOf[JUnitRunner])
-class IDFTest extends FlatSpec with TestSparkContext {
+class IDFTest extends AnyFlatSpec with TestSparkContext {
 
   val data = Seq(
     Vectors.sparse(4, Array(1, 3), Array(1.0, 2.0)),

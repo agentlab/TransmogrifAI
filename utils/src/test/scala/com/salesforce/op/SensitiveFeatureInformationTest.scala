@@ -32,12 +32,9 @@ package com.salesforce.op
 
 import com.salesforce.op.test.TestCommon
 import org.apache.spark.sql.types.MetadataBuilder
-import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
 
-@RunWith(classOf[JUnitRunner])
-class SensitiveFeatureInformationTest extends FlatSpec with TestCommon {
+class SensitiveFeatureInformationTest extends AnyFlatSpec with TestCommon {
 
   val probName = 1.0
   val genderDetectResults: Seq[GenderDetectionResults] = Seq(

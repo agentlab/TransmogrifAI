@@ -35,12 +35,9 @@ import com.salesforce.op.features.types._
 import com.salesforce.op.test.{OpTransformerSpec, TestFeatureBuilder}
 import com.salesforce.op.utils.spark.RichDataset._
 import org.apache.spark.SparkException
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 
 import scala.util.{Failure, Success}
 
-@RunWith(classOf[JUnitRunner])
 class PredictionDescalerTransformerTest extends OpTransformerSpec[Real, PredictionDescaler[Real, Real]] {
   val predictionData = Seq(-1.0, 0.0, 1.0, 2.0).map(Prediction(_))
   val featureData = Seq(0.0, 1.0, 2.0, 3.0).map(_.toReal)

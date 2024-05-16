@@ -33,7 +33,7 @@ package com.salesforce.op.test
 import language.postfixOps
 import org.apache.spark.sql.DataFrame
 import org.scalatest.Assertion
-import org.scalatest.Matchers._
+import org.scalatest.matchers.should.Matchers._
 
 /**
  * Convenient matchers for spark functionality.

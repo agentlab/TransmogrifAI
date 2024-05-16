@@ -7,12 +7,13 @@ chill = "0.9.3"
 collections = "3.2.2"
 jackson = "2.12.2"
 jodaTime = "2.12.5"
-junit = "4.13.2"
 log4j = "2.19.0"
+junitPlatform = "1.10.2"
 lucene = "7.3.0"
 mleap = "0.23.0"
 spark = "3.4.2"
-scalatest = "3.0.9"
+scalatest = "3.2.18"
+scalatestModules = "3.2.18.0"
 scoverage = "2.0.10"
 scalastyle = "1.5.1"
 xgboost = "1.7.6"
@@ -34,7 +35,8 @@ jackson-dataformat-yaml = { module = "com.fasterxml.jackson.dataformat:jackson-d
 jackson-scala = { module = "com.fasterxml.jackson.module:jackson-module-scala_2.12", version = "jackson" }
 jodaTime = { module = "joda-time:joda-time", version.ref = "jodaTime" }
 json4s = { module = "org.json4s:json4s-ext_2.12", version = "3.7.0-M11" }
-junit = { module = "junit:junit", version.ref = "junit" }
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher", version.ref = "junitPlatform" }
+junit-platform-engine = { module = "org.junit.platform:junit-platform-engine", version.ref = "junitPlatform" }
 lucene-spacial3d = { module = "org.apache.lucene:lucene-spatial3d", version.ref = "lucene" }
 lucene-analyzers-common = { module = "org.apache.lucene:lucene-analyzers-common", version.ref = "lucene" }
 lucene-analyzers-kuromoji = { module = "org.apache.lucene:lucene-analyzers-kuromoji", version.ref = "lucene" }
@@ -52,6 +54,8 @@ phonenumber = { module = "com.googlecode.libphonenumber:libphonenumber", version
 reflections = { module = "org.reflections:reflections", version = "0.10.2" }
 scalafmt = { module = "com.geirsson:scalafmt-core_2.12", version = "1.5.1" }
 scalatest = { module = "org.scalatest:scalatest_2.12", version.ref = "scalatest" }
+scalatest-junit = { module = "org.scalatestplus:junit-5-10_2.12", version.ref = "scalatestModules" }
+scalatest-scalacheck = { module = "org.scalatestplus:scalacheck-1-17_2.12", version.ref = "scalatestModules" }
 scalacheck = { module = "org.scalacheck:scalacheck_2.12", version = "1.17.0" }
 scala-graph = { module = "org.scala-graph:graph-core_2.12", version = "1.13.1" }
 scopt = { module = "com.github.scopt:scopt_2.12", version = "3.7.1" }

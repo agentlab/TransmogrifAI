@@ -32,13 +32,10 @@ package com.salesforce.op.features.types
 
 import com.salesforce.op.test.TestCommon
 import org.apache.lucene.spatial3d.geom.{GeoPoint, PlanetModel}
-import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
 
 
-@RunWith(classOf[JUnitRunner])
-class GeolocationTest extends FlatSpec with TestCommon {
+class GeolocationTest extends AnyFlatSpec with TestCommon {
   val PaloAlto: (Double, Double) = (37.4419, -122.1430)
 
   Spec[Geolocation] should "extend OPList[Double]" in {

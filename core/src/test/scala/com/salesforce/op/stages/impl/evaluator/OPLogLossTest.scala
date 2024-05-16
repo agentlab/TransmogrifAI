@@ -33,13 +33,10 @@ package com.salesforce.op.stages.impl.evaluator
 import com.salesforce.op.features.types._
 import com.salesforce.op.test.{TestFeatureBuilder, TestSparkContext}
 import org.apache.spark.ml.linalg.Vectors
-import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
 
 
-@RunWith(classOf[JUnitRunner])
-class OPLogLossTest extends FlatSpec with TestSparkContext {
+class OPLogLossTest extends AnyFlatSpec with TestSparkContext {
 
   val (ds, rawLabel, pred) = TestFeatureBuilder[RealNN, Prediction](
     Seq(

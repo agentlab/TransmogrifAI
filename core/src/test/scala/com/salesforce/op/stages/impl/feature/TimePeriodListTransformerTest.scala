@@ -37,10 +37,7 @@ import com.salesforce.op.utils.date.DateTimeUtils
 import com.salesforce.op.utils.spark.RichDataset._
 import org.apache.spark.ml.Transformer
 import org.joda.time.{DateTime => JDateTime}
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class TimePeriodListTransformerTest extends OpTransformerSpec[OPVector, TimePeriodListTransformer[DateList]] {
 
   val dateList: DateList = Seq[Long](

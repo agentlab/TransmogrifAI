@@ -37,13 +37,12 @@ import com.salesforce.op.test.{TestFeatureBuilder, TestOpVectorMetadataBuilder, 
 import com.salesforce.op.utils.spark.OpVectorMetadata
 import com.salesforce.op.utils.spark.RichDataset._
 import org.apache.spark.ml.linalg.Vectors
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
-import org.scalatest.{Assertions, FlatSpec, Matchers}
+import org.scalatest.Assertions
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
 
-@RunWith(classOf[JUnitRunner])
-class OpCountVectorizerTest extends FlatSpec with TestSparkContext {
+class OpCountVectorizerTest extends AnyFlatSpec with TestSparkContext {
 
   val data = Seq[(Real, TextList)](
     (Real(0), Seq("a", "b", "c").toTextList),

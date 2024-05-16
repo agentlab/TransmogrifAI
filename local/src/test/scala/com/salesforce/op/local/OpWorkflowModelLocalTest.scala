@@ -49,13 +49,10 @@ import org.apache.spark.ml.param.ParamMap
 import org.apache.spark.ml.tuning.ParamGridBuilder
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.functions._
-import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
 import org.slf4j.LoggerFactory
 
-@RunWith(classOf[JUnitRunner])
-class OpWorkflowModelLocalTest extends FlatSpec with TestSparkContext with TempDirectoryTest with TestCommon {
+class OpWorkflowModelLocalTest extends AnyFlatSpec with TestSparkContext with TempDirectoryTest with TestCommon {
   val log = LoggerFactory.getLogger(this.getClass)
   val numRecords = 500
 

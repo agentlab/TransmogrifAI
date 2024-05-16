@@ -32,15 +32,14 @@ package com.salesforce.op.features.types
 
 import com.salesforce.op.test.TestCommon
 import com.salesforce.op.testkit.RandomMap
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
-import org.scalatest.{Assertions, FlatSpec, Matchers}
+import org.scalatest.Assertions
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
 import scala.reflect.runtime.universe._
 
 
-@RunWith(classOf[JUnitRunner])
-class MapTest extends FlatSpec with TestCommon {
+class MapTest extends AnyFlatSpec with TestCommon {
 
   /* TextMap tests */
   Spec[TextMap] should "extend correct base classes and have a working shortcut" in {

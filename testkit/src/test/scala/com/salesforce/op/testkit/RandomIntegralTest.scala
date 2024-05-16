@@ -34,14 +34,12 @@ import java.text.SimpleDateFormat
 
 import com.salesforce.op.features.types._
 import com.salesforce.op.test.TestCommon
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
-import org.scalatest.{Assertions, FlatSpec}
+import org.scalatest.Assertions
+import org.scalatest.flatspec.AnyFlatSpec
 
 import scala.language.postfixOps
 
-@RunWith(classOf[JUnitRunner])
-class RandomIntegralTest extends FlatSpec with TestCommon with Assertions {
+class RandomIntegralTest extends AnyFlatSpec with TestCommon with Assertions {
   private val numTries = 10000
   private val rngSeed = 314159214142135L
 

@@ -33,16 +33,13 @@ package com.salesforce.op.features
 import com.salesforce.op._
 import com.salesforce.op.features.types._
 import com.salesforce.op.test.{PassengerFeaturesTest, _}
-import org.junit.runner.RunWith
-import org.scalatest.WordSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.wordspec.AnyWordSpec
 
 import scala.util.{Failure, Success}
 
 
 // scalastyle:off indentation
-@RunWith(classOf[JUnitRunner])
-class FeaturesTest extends WordSpec with PassengerFeaturesTest with TestCommon {
+class FeaturesTest extends AnyWordSpec with PassengerFeaturesTest with TestCommon {
 
   Spec[Feature[_]] when {
     // will not test all edge cases of equals method. That would be too many combinations

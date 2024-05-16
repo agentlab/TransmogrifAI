@@ -34,12 +34,9 @@ import com.salesforce.op.features.types._
 import com.salesforce.op.stages.base.unary.UnaryLambdaTransformer
 import com.salesforce.op.test.{TestFeatureBuilder, TestSparkContext}
 import com.salesforce.op.utils.spark.RichDataset._
-import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
 
-@RunWith(classOf[JUnitRunner])
-class OPCollectionTransformerTest extends FlatSpec with TestSparkContext {
+class OPCollectionTransformerTest extends AnyFlatSpec with TestSparkContext {
 
   lazy val (dataEmailMap, top) = TestFeatureBuilder("name",
     Seq(

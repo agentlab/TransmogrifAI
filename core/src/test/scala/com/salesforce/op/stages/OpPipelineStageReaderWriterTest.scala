@@ -41,13 +41,13 @@ import org.apache.spark.sql.types.{DataType, Metadata, MetadataBuilder}
 import org.json4s.JsonAST.JValue
 import org.json4s.jackson.JsonMethods.{compact, parse, pretty, render}
 import org.json4s.{JArray, JObject}
-import org.scalatest.FlatSpec
+import org.scalatest.flatspec.AnyFlatSpec
 import org.slf4j.LoggerFactory
 
 
 // TODO: consider adding a read/write test for a spark wrapped stage as well
 private[stages] abstract class OpPipelineStageReaderWriterTest
-  extends FlatSpec with PassengerSparkFixtureTest {
+  extends AnyFlatSpec with PassengerSparkFixtureTest {
 
   val meta = new MetadataBuilder().putString("foo", "bar").build()
   val expectedFeaturesLength = 1

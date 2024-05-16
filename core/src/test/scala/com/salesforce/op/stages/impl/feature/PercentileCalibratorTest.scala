@@ -42,13 +42,9 @@ import org.apache.spark.mllib.linalg.Vectors
 import org.apache.spark.mllib.stat.Statistics
 import org.apache.spark.sql._
 import org.apache.spark.sql.functions._
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
-import org.scalatest.FlatSpec
 
 import scala.util.Random
 
-@RunWith(classOf[JUnitRunner])
 class PercentileCalibratorTest extends OpEstimatorSpec[RealNN, UnaryModel[RealNN, RealNN], PercentileCalibrator] {
 
   import spark.implicits._

@@ -34,13 +34,11 @@ import com.salesforce.op.test.TestSparkContext
 import org.apache.spark.ml.linalg.Vectors
 import org.apache.spark.mllib.random.RandomRDDs
 import org.apache.spark.sql.{Dataset, Row}
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
-import org.scalatest.{Assertion, FlatSpec}
+import org.scalatest.Assertion
+import org.scalatest.flatspec.AnyFlatSpec
 
 
-@RunWith(classOf[JUnitRunner])
-class DataBalancerTest extends FlatSpec with TestSparkContext with SplitterSummaryAsserts {
+class DataBalancerTest extends AnyFlatSpec with TestSparkContext with SplitterSummaryAsserts {
   import spark.implicits._
 
   val seed = 1234L

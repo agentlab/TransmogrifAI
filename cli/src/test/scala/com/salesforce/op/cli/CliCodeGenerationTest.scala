@@ -34,15 +34,11 @@ import language.postfixOps
 import java.io.File
 import java.nio.file.Paths
 
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
-
 import scala.io.Source
 
 /**
  * Test for generator operations
  */
-@RunWith(classOf[JUnitRunner])
 class CliCodeGenerationTest extends CliTestBase {
 
   Spec[CliExec] should "crash when running with bad avcs (the prototype one)" in {

@@ -37,15 +37,12 @@ import com.salesforce.op.test.TestSparkContext
 import org.apache.hadoop.io.compress.DefaultCodec
 import org.apache.hadoop.mapred.JobConf
 import org.joda.time.DateTime
-import org.junit.runner.RunWith
 import org.scalacheck.Arbitrary
-import org.scalatest.PropSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.propspec.AnyPropSpec
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 
 
-@RunWith(classOf[JUnitRunner])
-class RichRDDTest extends PropSpec with ScalaCheckPropertyChecks with TestSparkContext {
+class RichRDDTest extends AnyPropSpec with ScalaCheckPropertyChecks with TestSparkContext {
   import com.salesforce.op.utils.spark.RichRDD._
 
   val data = RDDGenerator.genRDD[(Int, Int)](sc)(Arbitrary.arbitrary[(Int, Int)])

@@ -33,7 +33,8 @@ package com.salesforce.op.stages.impl.feature
 import com.salesforce.op.features.types.OPVector
 import org.apache.spark.ml.attribute.AttributeGroup
 import org.apache.spark.sql.types.StructField
-import org.scalatest.{Assertion, Matchers}
+import org.scalatest.compatible.Assertion
+import org.scalatest.matchers.should.Matchers
 
 trait AttributeAsserts {
   self: Matchers =>

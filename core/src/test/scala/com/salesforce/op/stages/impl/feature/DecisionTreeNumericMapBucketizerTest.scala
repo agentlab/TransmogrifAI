@@ -39,12 +39,9 @@ import com.salesforce.op.utils.spark.OpVectorMetadata
 import com.salesforce.op.utils.spark.RichDataset._
 import org.apache.spark.ml.linalg.Vectors
 import org.apache.spark.sql.DataFrame
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 
 
 
-@RunWith(classOf[JUnitRunner])
 class DecisionTreeNumericMapBucketizerTest extends OpEstimatorSpec[OPVector,
   BinaryModel[RealNN, RealMap, OPVector], DecisionTreeNumericMapBucketizer[Double, RealMap]]
   with DecisionTreeNumericBucketizerAsserts with AttributeAsserts

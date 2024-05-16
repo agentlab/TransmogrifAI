@@ -39,12 +39,9 @@ import com.salesforce.op.stages.ColumnMetadata._
 import com.salesforce.op.utils.spark.{OpVectorColumnMetadata, OpVectorMetadata}
 import com.salesforce.op.utils.spark.RichDataset._
 import org.apache.spark.ml.linalg.{Vector, Vectors}
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 import org.apache.spark.sql.functions._
 
 
-@RunWith(classOf[JUnitRunner])
 class DropIndicesByTransformerTest extends OpTransformerSpec[OPVector, DropIndicesByTransformer] with AttributeAsserts {
   val (inputData, transformer) = {
     val vecData = Seq(

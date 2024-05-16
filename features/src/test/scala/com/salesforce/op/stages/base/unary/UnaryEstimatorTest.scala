@@ -38,12 +38,8 @@ import com.salesforce.op.utils.spark.RichDataset._
 import org.apache.spark.ml.param.ParamMap
 import org.apache.spark.sql.Dataset
 import org.apache.spark.sql.types.{DoubleType, MetadataBuilder, StructField, StructType}
-import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
 
 
-@RunWith(classOf[JUnitRunner])
 class UnaryEstimatorTest extends OpEstimatorSpec[Real, UnaryModel[Real, Real], UnaryEstimator[Real, Real]] {
 
   /**

@@ -50,15 +50,13 @@ import org.apache.spark.ml.param.ParamMap
 import org.apache.spark.ml.tuning.ParamGridBuilder
 import org.apache.spark.sql.DataFrame
 import org.apache.spark.sql.functions._
-import org.junit.runner.RunWith
 import com.twitter.algebird.Moments
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
 
 import scala.util.{Failure, Success}
 
-@RunWith(classOf[JUnitRunner])
-class ModelInsightsTest extends FlatSpec with PassengerSparkFixtureTest with DoubleEquality with OpXGBoostQuietLogging {
+class ModelInsightsTest
+  extends AnyFlatSpec with PassengerSparkFixtureTest with DoubleEquality with OpXGBoostQuietLogging {
 
   private val density = weight / height
   private val generVec = genderPL.vectorize(topK = 10, minSupport = 1, cleanText = true)

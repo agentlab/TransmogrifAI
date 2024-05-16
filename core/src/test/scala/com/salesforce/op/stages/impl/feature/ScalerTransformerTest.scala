@@ -34,12 +34,9 @@ import com.salesforce.op.features.FeatureLike
 import com.salesforce.op.features.types._
 import com.salesforce.op.test.{OpTransformerSpec, TestFeatureBuilder}
 import com.salesforce.op.utils.spark.RichDataset._
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 
 import scala.util.{Failure, Success}
 
-@RunWith(classOf[JUnitRunner])
 class  ScalerTransformerTest extends OpTransformerSpec[Real, ScalerTransformer[Real, Real]] {
   val (inputData, f1) = TestFeatureBuilder(Seq(4.0, 1.0, 0.0).toReal)
 

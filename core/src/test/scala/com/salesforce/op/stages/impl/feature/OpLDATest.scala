@@ -36,13 +36,12 @@ import com.salesforce.op.test.{TestFeatureBuilder, TestSparkContext}
 import com.salesforce.op.utils.spark.RichDataset._
 import org.apache.spark.ml.clustering.LDA
 import org.apache.spark.ml.linalg.{Vector, Vectors}
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
-import org.scalatest.{Assertions, FlatSpec, Matchers}
+import org.scalatest.Assertions
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
 
-@RunWith(classOf[JUnitRunner])
-class OpLDATest extends FlatSpec with TestSparkContext {
+class OpLDATest extends AnyFlatSpec with TestSparkContext {
 
   val inputData = Seq(
     (0.0, Vectors.sparse(11, Array(0, 1, 2, 4, 5, 6, 7, 10), Array(1.0, 2.0, 6.0, 2.0, 3.0, 1.0, 1.0, 3.0))),

@@ -33,11 +33,8 @@ package com.salesforce.op.stages.impl.feature
 import com.salesforce.op._
 import com.salesforce.op.features.types._
 import com.salesforce.op.test.{OpTransformerSpec, TestFeatureBuilder}
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 
 
-@RunWith(classOf[JUnitRunner])
 class JaccardSimilarityTest extends OpTransformerSpec[RealNN, JaccardSimilarity] {
 
   val (inputData, f1, f2) = TestFeatureBuilder(

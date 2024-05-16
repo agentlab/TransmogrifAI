@@ -36,7 +36,8 @@ import java.nio.file.Paths
 import com.salesforce.op.OpWorkflowRunType
 import com.salesforce.op.test.TestCommon
 import org.scalactic.source
-import org.scalatest.{Assertion, Assertions, BeforeAndAfter, FlatSpec}
+import org.scalatest.{Assertion, Assertions, BeforeAndAfter}
+import org.scalatest.flatspec.AnyFlatSpec
 import org.slf4j.{Logger, LoggerFactory}
 
 import scala.io.Source
@@ -45,7 +46,7 @@ import scala.language.postfixOps
 /**
  * Test for generator operations
  */
-class CliTestBase extends FlatSpec with TestCommon with Assertions with BeforeAndAfter {
+class CliTestBase extends AnyFlatSpec with TestCommon with Assertions with BeforeAndAfter {
   CommandParser.AUTO_ENABLED = true
 
   protected val ProjectName = "CliGeneratedTestProject"

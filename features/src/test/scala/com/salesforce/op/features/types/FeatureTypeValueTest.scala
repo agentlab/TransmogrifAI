@@ -36,18 +36,16 @@ import com.twitter.algebird.Monoid
 import com.twitter.algebird.Operators._
 import org.apache.lucene.geo.GeoUtils
 import org.apache.spark.ml.linalg.DenseVector
-import org.junit.runner.RunWith
 import org.scalacheck.Gen
-import org.scalatest.junit.JUnitRunner
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
-import org.scalatest.{Assertion, PropSpec}
+import org.scalatest.compatible.Assertion
+import org.scalatest.propspec.AnyPropSpec
 
 import scala.reflect.runtime.universe.TypeTag
 import scala.util.Try
 
 
-@RunWith(classOf[JUnitRunner])
-class FeatureTypeValueTest extends PropSpec with ScalaCheckPropertyChecks with TestCommon {
+class FeatureTypeValueTest extends AnyPropSpec with ScalaCheckPropertyChecks with TestCommon {
 
   // Value generation
   private final val binaryGen = Gen.oneOf(false, true)

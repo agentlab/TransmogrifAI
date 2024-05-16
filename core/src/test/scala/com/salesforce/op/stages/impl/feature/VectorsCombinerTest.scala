@@ -40,11 +40,8 @@ import com.salesforce.op.utils.spark.RichMetadata._
 import org.apache.spark.ml.attribute.MetadataHelper
 import org.apache.spark.ml.linalg.Vectors
 import org.apache.spark.sql.types.Metadata
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 
 
-@RunWith(classOf[JUnitRunner])
 class VectorsCombinerTest
   extends OpEstimatorSpec[OPVector, SequenceModel[OPVector, OPVector], VectorsCombiner]
     with PassengerSparkFixtureTest {

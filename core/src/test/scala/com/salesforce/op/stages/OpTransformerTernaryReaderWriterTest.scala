@@ -32,11 +32,8 @@ package com.salesforce.op.stages
 
 import com.salesforce.op.features.types._
 import com.salesforce.op.stages.base.ternary.TernaryLambdaTransformer
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 
 
-@RunWith(classOf[JUnitRunner])
 class OpTransformerTernaryReaderWriterTest extends OpPipelineStageReaderWriterTest {
   override val expectedFeaturesLength = 3
   override val hasOutputName = false

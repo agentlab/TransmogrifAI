@@ -40,11 +40,8 @@ import com.salesforce.op.utils.spark.RichDataset._
 import org.apache.spark.ml.attribute.AttributeGroup
 import org.apache.spark.ml.linalg.Vectors
 import org.joda.time.{DateTime, DateTimeConstants}
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 
 
-@RunWith(classOf[JUnitRunner])
 class DateListVectorizerTest extends OpTransformerSpec[OPVector, DateListVectorizer[DateList]] with AttributeAsserts {
 
   // Sunday July 12th 1998 at 22:45

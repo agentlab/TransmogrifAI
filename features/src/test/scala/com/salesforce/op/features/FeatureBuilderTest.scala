@@ -37,15 +37,12 @@ import com.salesforce.op.features.types._
 import com.salesforce.op.test.{FeatureAsserts, Passenger, TestSparkContext}
 import org.apache.spark.sql.{DataFrame, Row}
 import org.joda.time.Duration
-import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
 
 
 case class FeatureBuilderContainerTest(s: String, l: Long, d: Double)
 
-@RunWith(classOf[JUnitRunner])
-class FeatureBuilderTest extends FlatSpec with TestSparkContext with FeatureAsserts {
+class FeatureBuilderTest extends AnyFlatSpec with TestSparkContext with FeatureAsserts {
   private val name = "feature"
   private val passenger =
     Passenger.newBuilder()

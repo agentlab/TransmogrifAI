@@ -36,10 +36,7 @@ import com.salesforce.op.stages.sparkwrappers.specific.{OpPredictorWrapper, OpPr
 import com.salesforce.op.test._
 import org.apache.spark.ml.linalg.Vectors
 import org.apache.spark.ml.regression.{GBTRegressionModel, GBTRegressor}
-import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
 
-@RunWith(classOf[JUnitRunner])
 class OpGBTRegressorTest extends OpEstimatorSpec[Prediction, OpPredictorWrapperModel[GBTRegressionModel],
   OpPredictorWrapper[GBTRegressor, GBTRegressionModel]] with PredictionEquality {
 

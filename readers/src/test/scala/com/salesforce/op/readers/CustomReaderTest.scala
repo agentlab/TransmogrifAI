@@ -36,13 +36,10 @@ import com.salesforce.op.utils.spark.RichDataset
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.types.MetadataBuilder
 import org.apache.spark.sql.{Dataset, Row, SparkSession}
-import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatest.flatspec.AnyFlatSpec
 import com.salesforce.op.features.types._
 
-@RunWith(classOf[JUnitRunner])
-class CustomReaderTest extends FlatSpec with TestCommon with TestSparkContext {
+class CustomReaderTest extends AnyFlatSpec with TestCommon with TestSparkContext {
 
   Spec[CustomReader[_]] should "work with a dataframe and create metadata when added to the features" in {
     val (ds, f1, f2, f3) = TestFeatureBuilder(Seq(

@@ -47,6 +47,7 @@ import org.apache.spark.internal.Logging
 import org.apache.spark.ml.param._
 import org.apache.spark.sql.{Encoder, Encoders, SparkSession}
 
+import scala.collection.immutable.IndexedSeq
 import scala.io.Source
 import scala.util.Try
 import scala.util.matching.Regex
@@ -388,7 +389,7 @@ private[op] case object NameDetectStats {
 
 private[op] sealed class SensitiveFeatureMode extends EnumEntry with Serializable
 object SensitiveFeatureMode extends Enum[SensitiveFeatureMode] {
-  val values: Seq[SensitiveFeatureMode] = findValues
+  val values: IndexedSeq[SensitiveFeatureMode] = findValues
 
   case object Off extends SensitiveFeatureMode
   case object DetectOnly extends SensitiveFeatureMode

@@ -32,6 +32,8 @@ package com.salesforce.op.stages.impl.feature
 
 import enumeratum._
 
+import scala.collection.immutable.IndexedSeq
+
 
 /**
  * Hash space strategy
@@ -39,7 +41,7 @@ import enumeratum._
 sealed trait HashSpaceStrategy extends EnumEntry with Serializable
 
 object HashSpaceStrategy extends Enum[HashSpaceStrategy] {
-  val values: Seq[HashSpaceStrategy] = findValues
+  val values: IndexedSeq[HashSpaceStrategy] = findValues
 
   /**
    * Use shared hash space

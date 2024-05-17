@@ -30,7 +30,7 @@ chill-avro = { module = "com.twitter:chill-avro_2.12", version.ref = "chill" }
 chill-algebird = { module = "com.twitter:chill-algebird_2.12", version.ref = "chill" }
 commons-io = { module = "commons-io:commons-io", version = "2.16.1" }
 commons-validator = { module = "commons-validator:commons-validator", version = "1.8.0" }
-enumeratum = { module = "com.beachape:enumeratum_2.12", version = "1.4.18" }
+enumeratum = { module = "com.beachape:enumeratum_2.12", version = "1.7.3" }
 jackson-dataformat-yaml = { module = "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml", version.ref = "jackson" }
 jackson-scala = { module = "com.fasterxml.jackson.module:jackson-module-scala_2.12", version = "jackson" }
 jodaTime = { module = "joda-time:joda-time", version.ref = "jodaTime" }

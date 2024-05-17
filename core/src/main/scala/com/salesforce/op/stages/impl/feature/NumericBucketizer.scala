@@ -41,6 +41,7 @@ import org.apache.spark.ml.linalg.{Vector, Vectors}
 import org.apache.spark.ml.param._
 
 import scala.annotation.tailrec
+import scala.collection.immutable.IndexedSeq
 import scala.reflect.runtime.universe.TypeTag
 
 /**
@@ -296,7 +297,7 @@ object NumericBucketizer {
 sealed abstract class Inclusion extends EnumEntry with Serializable
 
 object Inclusion extends Enum[Inclusion] {
-  val values: Seq[Inclusion] = findValues
+  val values: IndexedSeq[Inclusion] = findValues
   case object Left extends Inclusion
   case object Right extends Inclusion
 }

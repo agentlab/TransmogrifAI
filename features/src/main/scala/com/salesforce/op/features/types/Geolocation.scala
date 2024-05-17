@@ -36,6 +36,7 @@ import enumeratum.values.{IntEnum, IntEnumEntry}
 import org.apache.lucene.spatial3d.geom.{GeoPoint, PlanetModel}
 import Geolocation._
 
+import scala.collection.immutable.IndexedSeq
 import scala.util.Try
 
 /**
@@ -140,11 +141,8 @@ sealed abstract class GeolocationAccuracy
 }
 
 case object GeolocationAccuracy extends IntEnum[GeolocationAccuracy] {
-  val values: List[GeolocationAccuracy] = findValues.toList sortBy(_.rangeInMiles)
+  val values: IndexedSeq[GeolocationAccuracy] = findValues
 
-
-  // No match for the address was found
-  case object Unknown extends GeolocationAccuracy(0, name = "Unknown", rangeInMiles = EquatorInMiles / 2)
   // In the same building
   case object Address extends GeolocationAccuracy(1, name = "Address", rangeInMiles = 0.005)
   // Near the address
@@ -165,6 +163,8 @@ case object GeolocationAccuracy extends IntEnum[GeolocationAccuracy] {
   case object County extends GeolocationAccuracy(9, name = "County", rangeInMiles = 40.0)
   // Center of the state
   case object State extends GeolocationAccuracy(10, name = "State", rangeInMiles = 150.0)
+  // No match for the address was found
+  case object Unknown extends GeolocationAccuracy(0, name = "Unknown", rangeInMiles = EquatorInMiles / 2)
 
   /**
    * Convert units of Earth Radius into miles

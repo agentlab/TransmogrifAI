@@ -35,6 +35,8 @@ import com.salesforce.op.utils.spark.RichMetadata._
 import enumeratum.{Enum, EnumEntry}
 import org.apache.spark.sql.types.Metadata
 
+import scala.collection.immutable.IndexedSeq
+
 
 /**
  * Trait for all different kinds of evaluation metrics
@@ -174,7 +176,7 @@ sealed abstract class RegressionEvalMetric
  * Regression Metrics
  */
 object RegressionEvalMetrics extends Enum[RegressionEvalMetric] {
-  val values: Seq[RegressionEvalMetric] = findValues
+  val values: IndexedSeq[RegressionEvalMetric] = findValues
   case object RootMeanSquaredError extends RegressionEvalMetric("rmse", "root mean square error", false)
   case object MeanSquaredError extends RegressionEvalMetric("mse", "mean square error", false)
   case object R2 extends RegressionEvalMetric("r2", "r2", true)
@@ -196,7 +198,7 @@ sealed abstract class ForecastEvalMetric
 
 
 object ForecastEvalMetrics extends Enum[ForecastEvalMetric] {
-  val values: Seq[ForecastEvalMetric] = findValues
+  val values: IndexedSeq[ForecastEvalMetric] = findValues
   case object SMAPE extends ForecastEvalMetric("smape", "symmetric mean absolute percentage error", false)
   case object MASE extends ForecastEvalMetric("mase", "mean absolute scaled error", false)
   case object SeasonalError extends ForecastEvalMetric("seasonalError", "seasonal error", false)
@@ -217,7 +219,7 @@ sealed abstract class OpEvaluatorNames
  * Contains evaluator names used in logging
  */
 object OpEvaluatorNames extends Enum[OpEvaluatorNames] {
-  val values: Seq[OpEvaluatorNames] = findValues
+  val values: IndexedSeq[OpEvaluatorNames] = findValues
   case object Binary extends OpEvaluatorNames("binEval", "binary evaluation metrics", true)
   case object BinScore extends OpEvaluatorNames("binScoreEval", "bin score evaluation metrics", false)
   case object Multi extends OpEvaluatorNames("multiEval", "multiclass evaluation metrics", true)

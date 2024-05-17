@@ -44,6 +44,7 @@ import com.twitter.algebird.Operators._
 import com.salesforce.op.features.types._
 import com.salesforce.op.stages.impl.CheckIsResponseValues
 
+import scala.collection.immutable.IndexedSeq
 import scala.util.Try
 
 /**
@@ -168,7 +169,7 @@ sealed abstract class NormType(val name: String) extends EnumEntry with Serializ
 }
 
 object NormType extends Enum[NormType] {
-  val values: Seq[NormType] = findValues
+  val values: IndexedSeq[NormType] = findValues
   /**
    * MinMax scaling: x - min / (max - min)
    */

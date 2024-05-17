@@ -38,12 +38,13 @@ import com.salesforce.op.utils.reflection.ReflectionUtils.reflectMethod
 import enumeratum.{Enum, EnumEntry}
 import org.apache.spark.ml.classification.{OpRandomForestClassifierParams, RandomForestClassificationModel, RandomForestClassifier}
 
+import scala.collection.immutable.IndexedSeq
 import scala.reflect.runtime.universe.TypeTag
 
 sealed abstract class Impurity(val sparkName: String) extends EnumEntry with Serializable
 
 object Impurity extends Enum[Impurity] {
-  val values: Seq[Impurity] = findValues
+  val values: IndexedSeq[Impurity] = findValues
 
   case object Entropy extends Impurity("entropy")
   case object Gini extends Impurity("gini")

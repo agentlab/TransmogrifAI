@@ -39,6 +39,8 @@ import org.apache.logging.log4j.{Level, LogManager}
 import org.apache.logging.log4j.core.config.Configurator
 import org.apache.spark.ml.linalg.{DenseVector, SparseVector, Vector, Vectors}
 
+import scala.collection.immutable.IndexedSeq
+
 /**
  * Hack to access [[XGBoostClassifierParams]]
  */
@@ -124,7 +126,7 @@ case object OpXGBoost {
 sealed abstract class ImportanceType(val name: String) extends EnumEntry with Serializable
 
 object ImportanceType extends Enum[ImportanceType] {
-  val values: Seq[ImportanceType] = findValues
+  val values: IndexedSeq[ImportanceType] = findValues
 
   /**
    * The average gain across all splits the feature is used in.

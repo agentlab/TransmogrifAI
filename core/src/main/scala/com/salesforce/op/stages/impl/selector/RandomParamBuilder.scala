@@ -35,12 +35,13 @@ import enumeratum._
 import org.apache.spark.ml.param._
 
 import scala.util.Random
+import scala.collection.immutable.IndexedSeq
 import scala.collection.mutable
 
 sealed abstract class Distribution extends EnumEntry with Serializable
 
 private object Distribution extends Enum[Distribution] {
-  val values: Seq[Distribution] = findValues
+  val values: IndexedSeq[Distribution] = findValues
   case object Uniform extends Distribution
   case object Subset extends Distribution
   case object Exponential extends Distribution

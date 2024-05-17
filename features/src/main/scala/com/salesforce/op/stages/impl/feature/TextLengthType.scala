@@ -32,6 +32,8 @@ package com.salesforce.op.stages.impl.feature
 
 import enumeratum._
 
+import scala.collection.immutable.IndexedSeq
+
 
 /**
  * Method for computing text lengths
@@ -39,7 +41,7 @@ import enumeratum._
 sealed trait TextLengthType extends EnumEntry with Serializable
 
 object TextLengthType extends Enum[TextLengthType] {
-  val values: Seq[TextLengthType] = findValues
+  val values: IndexedSeq[TextLengthType] = findValues
 
   /**
    * Use the full entry length for the length distribution in TextStats

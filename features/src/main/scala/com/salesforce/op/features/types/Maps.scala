@@ -32,6 +32,8 @@ package com.salesforce.op.features.types
 
 import org.apache.spark.ml.linalg.Vector
 
+import scala.collection.immutable.IndexedSeq
+
 /**
  * Map of text values
  *
@@ -297,7 +299,7 @@ object NameStats {
   import enumeratum._
   sealed class Key extends EnumEntry
   case object Key extends Enum[Key] {
-    val values: Seq[Key] = findValues
+    val values: IndexedSeq[Key] = findValues
     case object OriginalValue extends Key
     case object IsName        extends Key
     case object FirstName     extends Key
@@ -306,7 +308,7 @@ object NameStats {
   }
   sealed class GenderValue extends EnumEntry
   case object GenderValue extends Enum[GenderValue] {
-    val values: Seq[GenderValue] = findValues
+    override def values: IndexedSeq[GenderValue] = findValues
     case object Male              extends GenderValue
     case object Female            extends GenderValue
     case object GenderNA          extends GenderValue

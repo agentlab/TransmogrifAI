@@ -34,6 +34,7 @@ import enumeratum.{Enum, EnumEntry}
 import org.json4s.CustomSerializer
 import org.json4s.JsonAST.JString
 
+import scala.collection.immutable.IndexedSeq
 import scala.util.Try
 import scala.util.matching.Regex
 
@@ -46,7 +47,7 @@ import scala.util.matching.Regex
  */
 sealed class GenderDetectStrategy extends EnumEntry
 case object GenderDetectStrategy extends Enum[GenderDetectStrategy] {
-  val values: Seq[GenderDetectStrategy] = findValues
+  val values: IndexedSeq[GenderDetectStrategy] = findValues
   val delimiter = " WITH VALUE "
   val ByIndexString = "ByIndex"
   val ByLastString = "ByLast"

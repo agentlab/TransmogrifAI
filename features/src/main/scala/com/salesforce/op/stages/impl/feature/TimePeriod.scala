@@ -36,6 +36,8 @@ import java.time.{Instant, LocalDateTime, ZoneId}
 import com.salesforce.op.utils.date.DateTimeUtils
 import enumeratum.{Enum, EnumEntry}
 
+import scala.collection.immutable.IndexedSeq
+
 case class TimePeriodVal(value: Int, min: Int, max: Int)
 
 sealed abstract class TimePeriod(extractFn: LocalDateTime => TimePeriodVal) extends EnumEntry with Serializable {
@@ -50,7 +52,7 @@ sealed abstract class TimePeriod(extractFn: LocalDateTime => TimePeriodVal) exte
 object TimePeriod extends Enum[TimePeriod] {
   @transient val weekFields = WeekFields.of(java.time.DayOfWeek.MONDAY, 1)
 
-  val values: Seq[TimePeriod] = findValues
+  val values: IndexedSeq[TimePeriod] = findValues
   case object DayOfMonth extends TimePeriod(dt => TimePeriodVal(dt.getDayOfMonth, 1, 31))
   case object DayOfWeek extends TimePeriod(dt => TimePeriodVal(dt.getDayOfWeek.getValue, 1, 7))
   case object DayOfYear extends TimePeriod(dt => TimePeriodVal(dt.getDayOfYear, 1, 366))

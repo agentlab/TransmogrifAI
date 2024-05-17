@@ -50,6 +50,7 @@ import org.apache.spark.mllib.stat.Statistics
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.Dataset
 
+import scala.collection.immutable.IndexedSeq
 import scala.collection.mutable.ArrayBuffer
 import scala.math.min
 import scala.reflect.runtime.universe._
@@ -608,7 +609,7 @@ object SanityChecker {
 sealed abstract class CorrelationType(val sparkName: String) extends EnumEntry with Serializable
 
 object CorrelationType extends Enum[CorrelationType] {
-  val values: Seq[CorrelationType] = findValues
+  val values: IndexedSeq[CorrelationType] = findValues
   /**
    * Compute with Pearson correlation
    *
@@ -637,7 +638,7 @@ object CorrelationType extends Enum[CorrelationType] {
 sealed trait CorrelationExclusion extends EnumEntry with Serializable
 
 object CorrelationExclusion extends Enum[CorrelationExclusion] {
-  val values: Seq[CorrelationExclusion] = findValues
+  val values: IndexedSeq[CorrelationExclusion] = findValues
 
   /**
    * Don't exclude any feature vector columns from the correlation calculation
@@ -657,7 +658,7 @@ object CorrelationExclusion extends Enum[CorrelationExclusion] {
 sealed trait CorrelationLevel extends EnumEntry with Serializable
 
 object CorrelationLevel extends Enum[CorrelationLevel] {
-  val values: Seq[CorrelationLevel] = findValues
+  val values: IndexedSeq[CorrelationLevel] = findValues
 
   /**
    * Feature-feature correlations are off

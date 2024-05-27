@@ -138,25 +138,17 @@ private[op] case object FitStagesUtil {
    * Transform the data using the specified Spark transformers.
    * Applying all the transformers one by one as [[org.apache.spark.ml.Pipeline]] does.
    *
-   * ATTENTION: This method applies transformers sequentially (as [[org.apache.spark.ml.Pipeline]] does)
-   * and usually results in slower run times with large amount of transformations due to Catalyst crashes,
-   * therefore always remember to set 'persistEveryKStages' to break up Catalyst.
-   *
    * @param transformers        spark transformers to apply
-   * @param persistEveryKStages how often to break up Catalyst by persisting the data,
-   *                            to turn off set to Int.MaxValue (not recommended)
    * @return Dataframe transformed data
    */
   def applySparkTransformations(
-    data: Dataset[Row], transformers: Array[Transformer], persistEveryKStages: Int,
-    nextLayersFeatures: Option[Array[String]] = None
+    data: Dataset[Row], transformers: Array[Transformer], nextLayersFeatures: Option[Array[String]] = None
   )(implicit spark: SparkSession): Dataset[Row] = {
     log.info("Applying {} Spark stage(s): {}", transformers.length, transformers.map(_.uid).mkString(","))
     // Apply all the transformers one by one as [[org.apache.spark.ml.Pipeline]] does
     val transformedData: DataFrame =
       transformers.zipWithIndex.foldLeft(data) { case (df, (stage, i)) =>
-        val persist = i > 0 && i % persistEveryKStages == 0
-        log.info(s"Applying Spark stage: ${stage.uid}{}", if (persist) " (persisted)" else "")
+        log.info(s"Applying Spark stage: ${stage.uid}")
         val newDF = stage.transform(df)
         newDF
       }
@@ -169,7 +161,6 @@ private[op] case object FitStagesUtil {
           .filterNot(value.contains)
         transformedData.drop(featuresToDrop: _*)
     }
-
     cleanedTransformedData
   }
 
@@ -177,11 +168,8 @@ private[op] case object FitStagesUtil {
   def applyTransformations(
     data: Dataset[Row],
     stages: Array[OpPipelineStage[_ <: FeatureType]],
-    persistEveryKStages: Int,
     nextLayersFeatures: Option[Array[String]] = None
   )(implicit spark: SparkSession): Dataset[Row] = {
-    log.info(s"Applying transformations with persisting every ${persistEveryKStages} stage(s)")
-
     val opTransformers = stages.collect {
       case s: OPStage with OpTransformer if !s.isInstanceOf[SanityCheckerModel] => s
     }
@@ -200,7 +188,7 @@ private[op] case object FitStagesUtil {
 
     val opTransformed = applyOpTransformations(opTransformers, data, nlfs)
     val sparkTransformed = applySparkTransformations(opTransformed, sparkTransformers.map(_.asInstanceOf[Transformer]),
-        persistEveryKStages, nextLayersFeatures)
+      nextLayersFeatures)
     sparkTransformed
   }
 
@@ -306,7 +294,6 @@ private[op] case object FitStagesUtil {
    * @param train                training dataset
    * @param test                 test dataset
    * @param hasTest              whether the test dataset is empty or not
-   * @param persistEveryKStages  frequency of persisting stages
    * @param fittedTransformers   list of already fitted transformers
    * @param spark                Spark session
    * @return Fitted and Transformed train/test before the last estimator with fitted transformers
@@ -316,7 +303,6 @@ private[op] case object FitStagesUtil {
     train: Dataset[Row],
     test: Dataset[Row],
     hasTest: Boolean,
-    persistEveryKStages: Int = OpWorkflowModel.PersistEveryKStages,
     fittedTransformers: Seq[OPStage] = Seq.empty
   )(implicit spark: SparkSession): FittedDAG = {
     val alreadyFitted: ListBuffer[OPStage] = ListBuffer(fittedTransformers: _*)
@@ -344,8 +330,7 @@ private[op] case object FitStagesUtil {
           train = currTrain,
           test = currTest,
           hasTest = hasTest,
-          transformData = true, // even transformers need to be fit because may need metadata from training
-          persistEveryKStages = persistEveryKStages
+          transformData = true // even transformers need to be fit because may need metadata from training
         )
         alreadyFitted ++= justFitted
         persistedRDDS = spark.sparkContext.getPersistentRDDs.map(_._1.toString()).mkString(", ")
@@ -364,7 +349,6 @@ private[op] case object FitStagesUtil {
    * @param hasTest             whether the test dataset is empty or not
    * @param stagesLayer         stages to fit
    * @param transformData       should the input data be transformed or only used for fitting
-   * @param persistEveryKStages persist data at this frequency during transformations
    * @return dataframes for train and test as well as the fitted stages
    */
   private def fitAndTransformLayer(
@@ -374,8 +358,7 @@ private[op] case object FitStagesUtil {
     train: Dataset[Row],
     test: Dataset[Row],
     hasTest: Boolean,
-    transformData: Boolean,
-    persistEveryKStages: Int
+    transformData: Boolean
   )(implicit spark: SparkSession, ec: ExecutionContext): FittedDAG = {
     val stagesLayer = layer._2
     val stages = stagesLayer.map(_._1)
@@ -395,13 +378,13 @@ private[op] case object FitStagesUtil {
 
     if (transformData) {
       val (newTrain, _) = CacheUtils.checkpoint(
-        applyTransformations(train, transformers, persistEveryKStages, nextLayersFeatures),
+        applyTransformations(train, transformers, nextLayersFeatures),
         s"train-${index}")
       cleanUp("train")
 
       val newTest = if (hasTest) {
         val (withOPTest, _) = CacheUtils.checkpoint(
-          applyTransformations(test, transformers, persistEveryKStages, nextLayersFeatures),
+          applyTransformations(test, transformers, nextLayersFeatures),
           s"test-${index}")
         cleanUp("test")
         withOPTest

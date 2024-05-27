@@ -263,10 +263,9 @@ private[op] trait OpWorkflowCore {
    * Returns a dataframe containing all the columns generated up to the feature input
    *
    * @param feature             input feature to compute up to
-   * @param persistEveryKStages persist data in transforms every k stages for performance improvement
    * @return Dataframe containing columns corresponding to all of the features generated before the feature given
    */
-  def computeDataUpTo(feature: OPFeature, persistEveryKStages: Int = OpWorkflowModel.PersistEveryKStages)
+  def computeDataUpTo(feature: OPFeature)
     (implicit spark: SparkSession): DataFrame
 
   /**
@@ -286,12 +285,11 @@ private[op] trait OpWorkflowCore {
    *
    * @param rawData             data to transform
    * @param dag                 computation graph
-   * @param persistEveryKStages breaks in computation to persist
    * @param spark               spark session
    * @return transformed dataframe
    */
   protected def applyTransformationsDAG(
-    rawData: DataFrame, dag: StagesDAG, persistEveryKStages: Int
+    rawData: DataFrame, dag: StagesDAG
   )(implicit spark: SparkSession): DataFrame = {
     if (dag.exists(_.exists(_._1.isInstanceOf[Estimator[_]]))) {
       throw new IllegalArgumentException("Cannot apply transformations to DAG that contains estimators")
@@ -308,7 +306,7 @@ private[op] trait OpWorkflowCore {
       val sparkStages = stagesLayer.collect {
         case (s: Transformer, _) if !s.isInstanceOf[OpTransformer] => s.asInstanceOf[Transformer]
       }
-      val sparkTransformed = FitStagesUtil.applySparkTransformations(dfTransformed, sparkStages, persistEveryKStages)
+      val sparkTransformed = FitStagesUtil.applySparkTransformations(dfTransformed, sparkStages)
       val (checkpointedTransformedDf, _) = CacheUtils.checkpoint(sparkTransformed, s"score-$index")
       for (i <- (index + 1 to dag.length - 1).reverse) {
           val ctx = s"score-${i}"

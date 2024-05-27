@@ -265,10 +265,10 @@ class OpWorkflow(val uid: String = UID[OpWorkflow]) extends OpWorkflowCore {
    * @param in DataFrame
    * @return transformed DataFrame
    */
-  private[op] def transform(in: DataFrame, persistEveryKStages: Int = OpWorkflowModel.PersistEveryKStages)
+  private[op] def transform(in: DataFrame)
     (implicit sc: SparkSession): DataFrame = {
-    val transformers = fitStages(in, stages, persistEveryKStages).map(_.asInstanceOf[Transformer])
-    FitStagesUtil.applySparkTransformations(in, transformers, persistEveryKStages)
+    val transformers = fitStages(in, stages).map(_.asInstanceOf[Transformer])
+    FitStagesUtil.applySparkTransformations(in, transformers)
   }
 
   /**
@@ -340,15 +340,14 @@ class OpWorkflow(val uid: String = UID[OpWorkflow]) extends OpWorkflowCore {
    * Fit all of the estimators in the pipeline and return a pipeline model of only transformers. Uses data loaded
    * as specified by the data reader to generate the initial data set.
    *
-   * @param persistEveryKStages persist data in transforms every k stages for performance improvement
    * @return a fitted pipeline model
    */
-  def train(persistEveryKStages: Int = OpWorkflowModel.PersistEveryKStages)
+  def train()
     (implicit spark: SparkSession): OpWorkflowModel = {
 
     val rawData = generateRawData()
     // Update features with fitted stages
-    val fittedStages = fitStages(data = rawData, stagesToFit = stages, persistEveryKStages)
+    val fittedStages = fitStages(data = rawData, stagesToFit = stages)
     val newResultFeatures = resultFeatures.map(_.copyWithNewStages(fittedStages))
 
     val model =
@@ -369,10 +368,9 @@ class OpWorkflow(val uid: String = UID[OpWorkflow]) extends OpWorkflowCore {
    *
    * @param data                dataframe to fit on
    * @param stagesToFit         stages that need to be converted to transformers
-   * @param persistEveryKStages persist data in transforms every k stages for performance improvement
    * @return fitted transformers
    */
-  protected def fitStages(data: DataFrame, stagesToFit: Array[OPStage], persistEveryKStages: Int)
+  protected def fitStages(data: DataFrame, stagesToFit: Array[OPStage])
     (implicit spark: SparkSession): Array[OPStage] = {
 
     // TODO may want to make workflow take an optional reserve fraction
@@ -395,8 +393,7 @@ class OpWorkflow(val uid: String = UID[OpWorkflow]) extends OpWorkflowCore {
           dag = dag,
           train = train,
           test = test,
-          hasTest = hasTest,
-          persistEveryKStages = persistEveryKStages
+          hasTest = hasTest
         ).transformers
       }
     } else {
@@ -411,8 +408,7 @@ class OpWorkflow(val uid: String = UID[OpWorkflow]) extends OpWorkflowCore {
             dag = before,
             train = train,
             test = test,
-            hasTest = hasTest,
-            persistEveryKStages = persistEveryKStages
+            hasTest = hasTest
           )
         }
 
@@ -442,7 +438,6 @@ class OpWorkflow(val uid: String = UID[OpWorkflow]) extends OpWorkflowCore {
               train = trainFixed,
               test = testFixed,
               hasTest = hasTest,
-              persistEveryKStages = persistEveryKStages,
               fittedTransformers = beforeTransformers
             ).transformers
           }
@@ -491,10 +486,9 @@ class OpWorkflow(val uid: String = UID[OpWorkflow]) extends OpWorkflowCore {
    * Returns a dataframe containing all the columns generated up to and including the feature input
    *
    * @param feature input feature to compute up to
-   * @param persistEveryKStages persist data in transforms every k stages for performance improvement
    * @return Dataframe containing columns corresponding to all of the features generated up to the feature given
    */
-  def computeDataUpTo(feature: OPFeature, persistEveryKStages: Int = OpWorkflowModel.PersistEveryKStages)
+  def computeDataUpTo(feature: OPFeature)
     (implicit spark: SparkSession): DataFrame = {
     if (findOriginStageId(feature).isEmpty) {
       log.warn("Could not find origin stage for feature in workflow!! Defaulting to generate raw features.")
@@ -502,10 +496,10 @@ class OpWorkflow(val uid: String = UID[OpWorkflow]) extends OpWorkflowCore {
     } else {
       val rawData = generateRawData()
       val stagesToFit = FitStagesUtil.computeDAG(Array(feature)).flatMap(_.map(_._1))
-      val fittedStages = fitStages(rawData, stagesToFit, persistEveryKStages)
+      val fittedStages = fitStages(rawData, stagesToFit)
       val updatedFeature = feature.copyWithNewStages(fittedStages)
       val dag = FitStagesUtil.computeDAG(Array(updatedFeature))
-      applyTransformationsDAG(rawData, dag, persistEveryKStages)
+      applyTransformationsDAG(rawData, dag)
     }
   }
 

@@ -178,8 +178,6 @@ private[op] case object FitStagesUtil {
     data: Dataset[Row],
     stages: Array[OpPipelineStage[_ <: FeatureType]],
     persistEveryKStages: Int,
-    persistContext: String,
-    cleanUp: () => Unit,
     nextLayersFeatures: Option[Array[String]] = None
   )(implicit spark: SparkSession): Dataset[Row] = {
     log.info(s"Applying transformations with persisting every ${persistEveryKStages} stage(s)")
@@ -203,10 +201,7 @@ private[op] case object FitStagesUtil {
     val opTransformed = applyOpTransformations(opTransformers, data, nlfs)
     val sparkTransformed = applySparkTransformations(opTransformed, sparkTransformers.map(_.asInstanceOf[Transformer]),
         persistEveryKStages, nextLayersFeatures)
-
-    val (checkpointedTransformedDf, rdds) = CacheUtils.checkpoint(sparkTransformed, persistContext)
-    cleanUp()
-    checkpointedTransformedDf
+    sparkTransformed
   }
 
 
@@ -390,36 +385,25 @@ private[op] case object FitStagesUtil {
     val transformers = noFit ++ fittedEstimators
     val index = layer._1
 
-    if (transformData) {
-      def cleanUpTrain = () => {
-        for (i <- (index + 1 to layersCount - 1).reverse) {
-          log.info(s"CacheUtils: clearing context train-${i}")
-          CacheUtils.clearCache(Some(s"train-${i}"))
-        }
-      }
-      val newTrainTransformed = applyTransformations(train, transformers,
-        persistEveryKStages, s"train-${index}", cleanUpTrain, nextLayersFeatures)
-      val newTrain = newTrainTransformed
+    def cleanUp(ctxPrefix: String) = {
       for (i <- (index + 1 to layersCount - 1).reverse) {
-        log.info(s"CacheUtils: clearing context train-${i}")
-        CacheUtils.clearCache(Some(s"train-${i}"))
+        val ctx = s"${ctxPrefix}-${i}"
+        log.info(s"CacheUtils: clearing context ${ctx}")
+        CacheUtils.clearCache(Some(ctx))
       }
+    }
+
+    if (transformData) {
+      val (newTrain, _) = CacheUtils.checkpoint(
+        applyTransformations(train, transformers, persistEveryKStages, nextLayersFeatures),
+        s"train-${index}")
+      cleanUp("train")
 
       val newTest = if (hasTest) {
-        def cleanUpTest = () => {
-          for (i <- (index + 1 to layersCount - 1).reverse) {
-            log.info(s"CacheUtils: clearing context test-${i}")
-            CacheUtils.clearCache(Some(s"test-${i}"))
-          }
-        }
-        val withOPTestTransformed =
-          applyTransformations(test, transformers, persistEveryKStages,
-            s"test-${index}", cleanUpTest, nextLayersFeatures)
-        val withOPTest = withOPTestTransformed
-        for (i <- (index + 1 to layersCount - 1).reverse) {
-          log.info(s"CacheUtils: clearing context test-${i}")
-          CacheUtils.clearCache(Some(s"test-${i}"))
-        }
+        val (withOPTest, _) = CacheUtils.checkpoint(
+          applyTransformations(test, transformers, persistEveryKStages, nextLayersFeatures),
+          s"test-${index}")
+        cleanUp("test")
         withOPTest
       } else test
       CacheUtils.clearCache(Some("raw"))

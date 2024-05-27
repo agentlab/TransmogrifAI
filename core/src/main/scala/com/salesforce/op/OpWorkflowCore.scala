@@ -46,6 +46,7 @@ import org.apache.spark.sql.{DataFrame, Dataset, SparkSession}
 import org.slf4j.LoggerFactory
 
 import scala.reflect.runtime.universe.WeakTypeTag
+import com.salesforce.op.utils.cache.CacheUtils
 
 /**
  * Parameters for pipelines and pipeline models
@@ -292,26 +293,30 @@ private[op] trait OpWorkflowCore {
   protected def applyTransformationsDAG(
     rawData: DataFrame, dag: StagesDAG, persistEveryKStages: Int
   )(implicit spark: SparkSession): DataFrame = {
-    // A holder for the last persisted rdd
-    var lastPersisted: Option[DataFrame] = None
     if (dag.exists(_.exists(_._1.isInstanceOf[Estimator[_]]))) {
       throw new IllegalArgumentException("Cannot apply transformations to DAG that contains estimators")
     }
 
     // Apply stages layer by layer
     dag.foldLeft(rawData) { case (df, stagesLayer) =>
+      val index = stagesLayer.head._2
       // Apply all OP stages
       val opStages = stagesLayer.collect { case (s: OpTransformer, _) => s }
       val dfTransformed: DataFrame = FitStagesUtil.applyOpTransformations(opStages, df)
-
-      lastPersisted.foreach(_.unpersist())
-      lastPersisted = Some(dfTransformed)
 
       // Apply all non OP stages (ex. Spark wrapping stages etc)
       val sparkStages = stagesLayer.collect {
         case (s: Transformer, _) if !s.isInstanceOf[OpTransformer] => s.asInstanceOf[Transformer]
       }
-      FitStagesUtil.applySparkTransformations(dfTransformed, sparkStages, persistEveryKStages)
+      val sparkTransformed = FitStagesUtil.applySparkTransformations(dfTransformed, sparkStages, persistEveryKStages)
+      val (checkpointedTransformedDf, _) = CacheUtils.checkpoint(sparkTransformed, s"score-$index")
+      for (i <- (index + 1 to dag.length - 1).reverse) {
+          val ctx = s"score-${i}"
+          log.info(s"CacheUtils: clearing context ${ctx}")
+          CacheUtils.clearCache(Some(ctx))
+        }
+      CacheUtils.clearCache(Some("raw"))
+      checkpointedTransformedDf
     }
   }
 

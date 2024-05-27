@@ -362,8 +362,6 @@ class OpWorkflowModel(val uid: String = UID[OpWorkflowModel], val trainingParams
         evaluator = evaluator,
         metricsPath = metricsPath
       )
-      // Unpersist raw data, since it's not needed anymore
-      rawData.unpersist()
       scores -> metrics
     }
   }

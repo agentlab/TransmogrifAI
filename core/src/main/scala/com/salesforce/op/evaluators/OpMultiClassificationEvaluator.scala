@@ -32,6 +32,7 @@ package com.salesforce.op.evaluators
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.salesforce.op.UID
+import com.salesforce.op.utils.cache.CacheUtils
 import com.twitter.algebird.Monoid._
 import com.twitter.algebird.Operators._
 import com.twitter.algebird.Tuple2Semigroup
@@ -45,6 +46,7 @@ import org.apache.spark.sql.functions.col
 import org.apache.spark.sql.types.DoubleType
 import org.apache.spark.sql.{Dataset, Row}
 import org.slf4j.LoggerFactory
+
 import scala.collection.Searching._
 
 
@@ -127,7 +129,7 @@ private[op] class OpMultiClassificationEvaluator
 
   override def evaluateAll(data: Dataset[_]): MultiClassificationMetrics = {
     val labelColName = getLabelCol
-    val dataUse = makeDataToUse(data, labelColName)
+    val dataUse = CacheUtils.cache(makeDataToUse(data, labelColName))
 
     val (predictionColName, rawPredictionColName, probabilityColName) = (getPredictionValueCol,
       getRawPredictionCol, getProbabilityCol)
@@ -182,7 +184,7 @@ private[op] class OpMultiClassificationEvaluator
         ConfusionMatrixMetrics = confusionMatrixByThreshold,
         MisClassificationMetrics = misClassifications
       )
-
+      CacheUtils.uncache(dataUse)
       log.info("Evaluated metrics: {}", metrics.toString)
       metrics
     }

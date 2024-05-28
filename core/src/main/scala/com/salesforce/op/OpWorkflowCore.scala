@@ -35,8 +35,9 @@ import com.salesforce.op.utils.stages.FitStagesUtil
 import com.salesforce.op.features.{FeatureDistributionType, OPFeature}
 import com.salesforce.op.features.types.FeatureType
 import com.salesforce.op.filters.{FeatureDistribution, RawFeatureFilterResults}
-import com.salesforce.op.readers.{CustomReader, Reader, ReaderKey}
+import com.salesforce.op.readers.{CustomReader, DataFrameFieldNames, Reader, ReaderKey}
 import com.salesforce.op.stages.{FeatureGeneratorStage, OPStage, OpTransformer}
+import com.salesforce.op.utils.cache.CacheUtils
 import com.salesforce.op.utils.spark.{JobGroupUtil, OpStep}
 import com.salesforce.op.utils.spark.RichDataset._
 import org.apache.spark.annotation.Experimental
@@ -46,7 +47,6 @@ import org.apache.spark.sql.{DataFrame, Dataset, SparkSession}
 import org.slf4j.LoggerFactory
 
 import scala.reflect.runtime.universe.WeakTypeTag
-import com.salesforce.op.utils.cache.CacheUtils
 
 /**
  * Parameters for pipelines and pipeline models
@@ -289,25 +289,31 @@ private[op] trait OpWorkflowCore {
    * @return transformed dataframe
    */
   protected def applyTransformationsDAG(
-    rawData: DataFrame, dag: StagesDAG
+    rawData: DataFrame,
+    dag: StagesDAG,
+    keepRawFeatures: Boolean = false,
+    keepIntermediateFeatures: Boolean = false
   )(implicit spark: SparkSession): DataFrame = {
     if (dag.exists(_.exists(_._1.isInstanceOf[Estimator[_]]))) {
       throw new IllegalArgumentException("Cannot apply transformations to DAG that contains estimators")
     }
 
     // Apply stages layer by layer
-    dag.foldLeft(rawData) { case (df, stagesLayer) =>
+    dag.zipWithIndex.foldLeft(rawData) { case (df, (stagesLayer, idx)) =>
       val index = stagesLayer.head._2
-      // Apply all OP stages
-      val opStages = stagesLayer.collect { case (s: OpTransformer, _) => s }
-      val dfTransformed: DataFrame = FitStagesUtil.applyOpTransformations(opStages, df)
+      val stages = stagesLayer.map(_._1)
 
-      // Apply all non OP stages (ex. Spark wrapping stages etc)
-      val sparkStages = stagesLayer.collect {
-        case (s: Transformer, _) if !s.isInstanceOf[OpTransformer] => s.asInstanceOf[Transformer]
-      }
-      val sparkTransformed = FitStagesUtil.applySparkTransformations(dfTransformed, sparkStages)
-      val (checkpointedTransformedDf, _) = CacheUtils.checkpoint(sparkTransformed, s"score-$index")
+        val nextFeatures = if (!keepRawFeatures && !keepIntermediateFeatures) {
+        val ftrs = for {
+          layer <- dag.drop(idx + 1)
+          layerStage <- layer.map(_._1)
+          feature <- layerStage.getInputFeatures()
+        } yield feature.name
+        if (ftrs.isEmpty) None else Some(ftrs :+ DataFrameFieldNames.KeyFieldName)
+      } else None
+
+      val (checkpointedTransformedDf, _) = CacheUtils.checkpoint(
+        FitStagesUtil.applyTransformations(df, stages, nextFeatures), s"score-$index")
       for (i <- (index + 1 to dag.length - 1).reverse) {
           val ctx = s"score-${i}"
           log.info(s"CacheUtils: clearing context ${ctx}")

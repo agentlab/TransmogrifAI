@@ -32,6 +32,7 @@ package com.salesforce.op.evaluators
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.salesforce.op.UID
+import com.salesforce.op.utils.cache.CacheUtils
 import com.salesforce.op.utils.spark.RichEvaluator._
 import com.salesforce.op.evaluators.BinaryClassEvalMetrics._
 import org.apache.spark.ml.evaluation.{BinaryClassificationEvaluator, MulticlassClassificationEvaluator}
@@ -66,7 +67,7 @@ private[op] class OpBinaryClassificationEvaluator
 
   override def evaluateAll(data: Dataset[_]): BinaryClassificationMetrics = {
     val labelColName = getLabelCol
-    val dataUse = makeDataToUse(data, labelColName)
+    val dataUse = CacheUtils.cache(makeDataToUse(data, labelColName))
 
     val (rawPredictionColName, predictionColName, probabilityColName) =
       (getRawPredictionCol, getPredictionValueCol, getProbabilityCol)
@@ -130,6 +131,7 @@ private[op] class OpBinaryClassificationEvaluator
         BinaryThresholdMetrics(thresholds, precisionByThreshold, recallByThreshold, falsePositiveRateByThreshold,
         tpByThreshold, fpByThreshold, tnByThreshold, fnByThreshold)
       )
+      CacheUtils.uncache(dataUse)
       log.info("Evaluated metrics: {}", metrics.toString)
       metrics
     }

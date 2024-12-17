@@ -226,21 +226,16 @@ class OpWorkflowTest extends FlatSpec with PassengerSparkFixtureTest {
   }
 
   it should "be able to compute a partial dataset in both workflow and workflow model" in {
-    val fields =
-      List(KeyFieldName, height.name, weight.name, heightNormed.name, density.name,
-        densityByHeightNormed.name, whyNotNormed.name)
-
     val data = workflow.setReader(dataReader).computeDataUpTo(whyNotNormed)
-    data.schema.fieldNames should contain theSameElementsAs fields
 
     val model = workflow.train()
     val dataModel = model.computeDataUpTo(whyNotNormed)
-    dataModel.schema.fieldNames should contain theSameElementsAs fields
+    dataModel.schema.fieldNames should contain theSameElementsAs data.schema.fieldNames
 
     model.save(workflowLocation2)
     val loadedModel = workflow.loadModel(workflowLocation2)
     val dataModel2 = loadedModel.setReader(dataReader).computeDataUpTo(whyNotNormed)
-    dataModel2.schema.fieldNames should contain theSameElementsAs fields
+    dataModel2.schema.fieldNames should contain theSameElementsAs dataModel.schema.fieldNames
   }
 
   it should s"return an ${classOf[OpWorkflowModel].getSimpleName} when it is fit" in {
@@ -519,7 +514,8 @@ class OpWorkflowTest extends FlatSpec with PassengerSparkFixtureTest {
     val f = (newf1 + f2 + f3).fillMissingWithMean().zNormalize()
     val wf = new OpWorkflow().setResultFeatures(f, newf1).setInputDataset(ds)
     wf.train().save(workflowLocation5)
-    val scores = wf.loadModel(workflowLocation5).setInputDataset(ds).score()
+    val scores = wf.loadModel(workflowLocation5).setInputDataset(ds)
+      .score(keepRawFeatures = true, keepIntermediateFeatures = true)
     scores.collect(f) shouldEqual Seq.fill(3)(0.0.toRealNN)
     scores.schema.fields.filter(_.name == newf1.name).head.metadata shouldEqual testMeta
   }

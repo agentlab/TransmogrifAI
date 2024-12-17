@@ -281,7 +281,7 @@ object DerivedFeatureFilterUtils {
   }
 
   /**
-   * Transformation used in derived feature filters. If `removeBadFeatures` true, then this is just
+   * Transformation used in derived feature filters. If `removeBadFeatures` false, then this is just
    * identity (does nothing); otherwise, returns OPVector with only columns in `indicesToKeep`
    *
    * @param indicesToKeep     column indices of derived features to keep

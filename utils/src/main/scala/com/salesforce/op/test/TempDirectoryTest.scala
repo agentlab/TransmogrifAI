@@ -24,12 +24,13 @@ import java.io.{File, IOException}
 import java.util.UUID
 
 import org.scalatest.{BeforeAndAfterAll, Suite}
+import org.scalatest.BeforeAndAfterEach
 
 /**
  * Trait that creates a temporary directory before all tests and deletes it after all.
  * Modified version of Spark 2.x test suite trait
  */
-trait TempDirectoryTest extends BeforeAndAfterAll { self: Suite =>
+trait TempDirectoryTest extends BeforeAndAfterAll with BeforeAndAfterEach { self: Suite =>
 
   private var _tempDir: File = _
 

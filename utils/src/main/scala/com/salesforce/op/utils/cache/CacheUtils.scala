@@ -13,18 +13,8 @@ object CacheUtils {
 
   val DEFAULT_CONTEXT_NAME = "default"
 
-  // private val persistedDatasets = mutable.Set.empty[Dataset[_]]
-  // private val persistedRDDs = mutable.Set.empty[RDD[_]]
   private val persistedDatasets = mutable.Map[String, mutable.Set[Dataset[_]]]()
   private val persistedRDDs = mutable.Map[String, mutable.Set[RDD[_]]]()
-
-  // def listCached(): Unit = {
-  //   log.info(s"Currenty peristed datasets: ${persistedDatasets.map(ds => {
-  //     val sl = ds.storageLevel
-  //     s"[${ds.hashCode}: ${sl.useMemory}, ${sl.useDisk}, ${sl.useOffHeap}]"
-  //   }).mkString(",")}")
-  //   log.info(s"Currenty peristed RDDs: ${persistedRDDs.map(_.id.toString()).mkString(",")}")
-  // }
 
   def cache[T: ClassTag](dataset: Dataset[T]): Dataset[T] =
     cache(dataset, DEFAULT_CONTEXT_NAME, StorageLevel.MEMORY_AND_DISK)
@@ -46,15 +36,6 @@ object CacheUtils {
       log.info(s"[${context}] Persisted dataset: ${dataset.hashCode()}")
       dataset
     }
-    // if (persistedDatasets.get(dataset)) {
-    //   log.warn(s"Dataset ${dataset.hashCode()} is already cached")
-    //   dataset
-    // } else {
-    //   dataset.persist()
-    //   persistedDatasets.add(dataset)
-    //   log.info(s"Persisted dataset: ${dataset.hashCode()}")
-    //   dataset
-    // }
   }
 
   def cache[T: ClassTag](rdd: RDD[T]): RDD[T] = cache(rdd, DEFAULT_CONTEXT_NAME)
@@ -72,14 +53,6 @@ object CacheUtils {
       log.info(s"[${context}] Persisted RDD: ${rdd.id}")
       rdd
     }
-    // if (persistedRDDs(rdd)) {
-    //   rdd
-    // } else {
-    //   rdd.persist()
-    //   persistedRDDs.add(rdd)
-    //   log.info(s"Persisted RDD: ${rdd.id}")
-    //   rdd
-    // }
   }
 
   def uncache(dataset: Dataset[_]): Unit = uncache(dataset, DEFAULT_CONTEXT_NAME)
@@ -93,13 +66,6 @@ object CacheUtils {
     } else {
       log.warn(s"[${context}] No persisted dataset ${dataset.hashCode()} found")
     }
-    // if (persistedDatasets(dataset)) {
-    //   dataset.unpersist()
-    //   log.info(s"Dataset ${dataset.hashCode()} removed from cache")
-    //   persistedDatasets.remove(dataset)
-    // } else {
-    //   log.warn(s"No persisted dataset ${dataset.hashCode()} found")
-    // }
   }
 
   def uncache(rdd: RDD[_]): Unit = uncache(rdd, DEFAULT_CONTEXT_NAME)
@@ -113,13 +79,6 @@ object CacheUtils {
     } else {
       log.warn(s"[${context}] No persisted RDD ${rdd.id} found")
     }
-    // if (persistedRDDs(rdd)) {
-    //   rdd.unpersist()
-    //   log.info(s"RDD ${rdd.id} removed from cache")
-    //   persistedRDDs.remove(rdd)
-    // } else {
-    //   log.warn(s"No persisted RDD ${rdd.id} found")
-    // }
   }
 
   def clearContext(ctx: String): Unit = {
@@ -139,19 +98,9 @@ object CacheUtils {
 
   def clearCache(context: Option[String] = None): Unit = {
     context match {
-      case None => (persistedDatasets.keySet ++ persistedRDDs.keySet).foreach(clearContext(_))
+      case None => (persistedDatasets.keySet ++ persistedRDDs.keySet).foreach(clearContext)
       case Some(ctx) => clearContext(ctx)
     }
-    // persistedDatasets.foreach(ds => {
-    //   ds.unpersist()
-    //   log.info(s"Dataset ${ds.hashCode()} removed from cache")
-    // })
-    // persistedDatasets.clear()
-    // persistedRDDs.foreach(rdd => {
-    //   rdd.unpersist()
-    //   log.info(s"RDD ${rdd.id} removed from cache")
-    // })
-    // persistedRDDs.clear()
   }
 
   def clearCacheKeepWithContext(
@@ -173,15 +122,6 @@ object CacheUtils {
       val rddsToUnpersist = ctx._2.filterNot(keepRDDs.contains(_))
       rddsToUnpersist.foreach(uncache(_, ctx._1))
     })
-
-    // val datasetsToUnpersist = persistedDatasets.filterNot(keep.contains(_))
-    // datasetsToUnpersist.foreach(uncache(_))
-
-    // persistedRDDs.foreach(rdd => {
-    //   rdd.unpersist()
-    //   log.info(s"RDD ${rdd.id} removed from cache")
-    // })
-    // persistedRDDs.clear()
   }
 
   def checkpoint[T: ClassTag](dataset: Dataset[T], context: String): (Dataset[T], Seq[RDD[_]]) = {

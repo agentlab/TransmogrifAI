@@ -32,6 +32,7 @@ package com.salesforce.op.evaluators
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.salesforce.op.UID
+import com.salesforce.op.utils.cache.CacheUtils
 import com.salesforce.op.utils.spark.RichEvaluator._
 import org.apache.spark.ml.evaluation.RegressionEvaluator
 import org.apache.spark.ml.param.{DoubleArrayParam, DoubleParam}
@@ -99,7 +100,7 @@ private[op] class OpRegressionEvaluator
   def getDefaultMetric: RegressionMetrics => Double = _.RootMeanSquaredError
 
   override def evaluateAll(data: Dataset[_]): RegressionMetrics = {
-    val dataUse = makeDataToUse(data, getLabelCol)
+    val dataUse = CacheUtils.cache(makeDataToUse(data, getLabelCol))
     val rmse = getRegEvaluatorMetric(RegressionEvalMetrics.RootMeanSquaredError, dataUse, default = 0.0)
     val mse = getRegEvaluatorMetric(RegressionEvalMetrics.MeanSquaredError, dataUse, default = 0.0)
     val r2 = getRegEvaluatorMetric(RegressionEvalMetrics.R2, dataUse, default = 0.0)
@@ -117,7 +118,7 @@ private[op] class OpRegressionEvaluator
         counts = histogram
       )
     )
-
+    CacheUtils.uncache(dataUse)
     log.info("Evaluated metrics: {}", metrics.toString)
     metrics
 

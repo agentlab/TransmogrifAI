@@ -35,8 +35,9 @@ import com.salesforce.op.utils.stages.FitStagesUtil
 import com.salesforce.op.features.{FeatureDistributionType, OPFeature}
 import com.salesforce.op.features.types.FeatureType
 import com.salesforce.op.filters.{FeatureDistribution, RawFeatureFilterResults}
-import com.salesforce.op.readers.{CustomReader, Reader, ReaderKey}
+import com.salesforce.op.readers.{CustomReader, DataFrameFieldNames, Reader, ReaderKey}
 import com.salesforce.op.stages.{FeatureGeneratorStage, OPStage, OpTransformer}
+import com.salesforce.op.utils.cache.CacheUtils
 import com.salesforce.op.utils.spark.{JobGroupUtil, OpStep}
 import com.salesforce.op.utils.spark.RichDataset._
 import org.apache.spark.annotation.Experimental
@@ -262,10 +263,9 @@ private[op] trait OpWorkflowCore {
    * Returns a dataframe containing all the columns generated up to the feature input
    *
    * @param feature             input feature to compute up to
-   * @param persistEveryKStages persist data in transforms every k stages for performance improvement
    * @return Dataframe containing columns corresponding to all of the features generated before the feature given
    */
-  def computeDataUpTo(feature: OPFeature, persistEveryKStages: Int = OpWorkflowModel.PersistEveryKStages)
+  def computeDataUpTo(feature: OPFeature)
     (implicit spark: SparkSession): DataFrame
 
   /**
@@ -285,33 +285,42 @@ private[op] trait OpWorkflowCore {
    *
    * @param rawData             data to transform
    * @param dag                 computation graph
-   * @param persistEveryKStages breaks in computation to persist
    * @param spark               spark session
    * @return transformed dataframe
    */
   protected def applyTransformationsDAG(
-    rawData: DataFrame, dag: StagesDAG, persistEveryKStages: Int
+    rawData: DataFrame,
+    dag: StagesDAG,
+    keepRawFeatures: Boolean = false,
+    keepIntermediateFeatures: Boolean = false
   )(implicit spark: SparkSession): DataFrame = {
-    // A holder for the last persisted rdd
-    var lastPersisted: Option[DataFrame] = None
     if (dag.exists(_.exists(_._1.isInstanceOf[Estimator[_]]))) {
       throw new IllegalArgumentException("Cannot apply transformations to DAG that contains estimators")
     }
 
     // Apply stages layer by layer
-    dag.foldLeft(rawData) { case (df, stagesLayer) =>
-      // Apply all OP stages
-      val opStages = stagesLayer.collect { case (s: OpTransformer, _) => s }
-      val dfTransformed: DataFrame = FitStagesUtil.applyOpTransformations(opStages, df)
+    dag.zipWithIndex.foldLeft(rawData) { case (df, (stagesLayer, idx)) =>
+      val index = stagesLayer.head._2
+      val stages = stagesLayer.map(_._1)
 
-      lastPersisted.foreach(_.unpersist())
-      lastPersisted = Some(dfTransformed)
+        val nextFeatures = if (!keepRawFeatures && !keepIntermediateFeatures) {
+        val ftrs = for {
+          layer <- dag.drop(idx + 1)
+          layerStage <- layer.map(_._1)
+          feature <- layerStage.getInputFeatures()
+        } yield feature.name
+        if (ftrs.isEmpty) None else Some(ftrs :+ DataFrameFieldNames.KeyFieldName)
+      } else None
 
-      // Apply all non OP stages (ex. Spark wrapping stages etc)
-      val sparkStages = stagesLayer.collect {
-        case (s: Transformer, _) if !s.isInstanceOf[OpTransformer] => s.asInstanceOf[Transformer]
-      }
-      FitStagesUtil.applySparkTransformations(dfTransformed, sparkStages, persistEveryKStages)
+      val (checkpointedTransformedDf, _) = CacheUtils.checkpoint(
+        FitStagesUtil.applyTransformations(df, stages, nextFeatures), s"score-$index")
+      for (i <- (index + 1 to dag.length - 1).reverse) {
+          val ctx = s"score-${i}"
+          log.info(s"CacheUtils: clearing context ${ctx}")
+          CacheUtils.clearCache(Some(ctx))
+        }
+      CacheUtils.clearCache(Some("raw"))
+      checkpointedTransformedDf
     }
   }
 
